@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { videoFileAtom, uploadResultAtom, timestampTextAtom } from "./atoms";
 import { useAtom } from "jotai";
 import { FileMetadataResponse } from "@google/generative-ai/files";
@@ -39,6 +39,7 @@ export function Gemini() {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   let stream: MediaStream;
+
   const startRecording = async () => {
     try {
       stream = await navigator.mediaDevices.getDisplayMedia({
@@ -116,10 +117,15 @@ export function Gemini() {
     }, 5000);
   };
 
-  const getTheNotes = async () => {
+  useEffect(() => {
     if (state === UploadState.Processed && !sendingPrompt) {
       setSendingPrompt(true);
+      postNotesRequest();
+    }
+  }, [state, sendingPrompt]);
 
+  const postNotesRequest = async () => {
+    try {
       const response = await post(
         "/api/prompt",
         JSON.stringify({
@@ -131,6 +137,9 @@ export function Gemini() {
       setSendingPrompt(false);
       const modelResponse = response.text;
       setTimestampText(modelResponse.trim());
+    } catch (err) {
+      console.error("Error getting notes", err);
+      setState(UploadState.Failure);
     }
   };
 
@@ -153,15 +162,6 @@ export function Gemini() {
         Stop Recording
       </button>
       <span>{state}</span>
-      <div className="flex mb-4">
-        <button
-          className="bg-gray-500 enabled:hover:bg-gray-800 disabled:opacity-25 font-bold py-2 px-4 rounded"
-          disabled={state !== UploadState.Processed || sendingPrompt}
-          onClick={getTheNotes}
-        >
-          Get the Notes
-        </button>
-      </div>
     </div>
   );
 }
