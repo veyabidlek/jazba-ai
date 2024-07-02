@@ -5,12 +5,9 @@ export function TimestampText() {
   const [timestampText, setTimestampText] = useAtom(timestampTextAtom);
   return (
     <textarea
-      className="w-full h-48 bg-neutral-800 p-2 focus:outline-none"
+      className="ml-[320px] w-[1200px] bg-gray-300 text-black h-48  p-2 focus:outline-none "
       placeholder="Notes will appear here"
-      onChange={(e) => {
-        const text = e.target.value;
-        setTimestampText(text);
-      }}
+      onChange={(e) => setTimestampText(e.target.value)}
       value={timestampText}
     ></textarea>
   );
