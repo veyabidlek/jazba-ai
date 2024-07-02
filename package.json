@@ -1,4 +1,20 @@
 {
+  "name": "screen-note-ai",
+  "displayName": "Gemini Video Scrubber",
+  "description": "Simple demo app for Gemini multimodal capabilities with video understanding.",
+  "repository": {
+    "url": "https://github.com/trippedout/gemini-video-scrubber"
+  },
+  "contributors": [
+    {
+      "name": "Anthony Tripaldi",
+      "url": "http://github.com/trippedout"
+    },
+    {
+      "name": "Grant Custer",
+      "url": "http://github.com/grantcuster"
+    }
+  ],
   "version": "0.1.0",
   "type": "module",
   "scripts": {
