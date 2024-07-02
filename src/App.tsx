@@ -1,9 +1,10 @@
-import { Note } from "./Note";
+import { Note } from "./generated-note";
 
 // import { Gemini } from "./Gemini";
 import Sidebar from "./Sidebar";
 import { Timer } from "./Timer";
-import LearnMore from "./learn-more";
+import LearnMore from "./how-it-works-btn";
+import { Loading } from "./loading";
 function App() {
   return (
     <div className="">
@@ -11,6 +12,7 @@ function App() {
         <Sidebar />
         <Timer />
         <LearnMore />
+        <Loading />
       </div>
       <Note />
     </div>

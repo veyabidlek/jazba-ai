@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useAtom } from "jotai";
 import { timestampTextAtom, isVisibleAtom } from "./atoms";
 

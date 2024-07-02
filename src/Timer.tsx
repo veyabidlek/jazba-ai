@@ -4,6 +4,7 @@ import {
   uploadResultAtom,
   timestampTextAtom,
   isVisibleAtom,
+  isLoadingAtom,
 } from "./atoms";
 import { useAtom } from "jotai";
 import { FileMetadataResponse } from "@google/generative-ai/files";
@@ -27,6 +28,8 @@ export function Timer() {
   const [uploadResult, setUploadResult] = useAtom(uploadResultAtom);
   const [, setTimestampText] = useAtom(timestampTextAtom);
   const [, setIsVisible] = useAtom(isVisibleAtom);
+  const [, SetIsLoading] = useAtom(isLoadingAtom);
+
   const enum UploadState {
     Waiting = "",
     Recording = "Recording...",
@@ -38,7 +41,7 @@ export function Timer() {
   const [state, setState] = useState<UploadState>(UploadState.Waiting);
 
   const CONCISE_PROMPT =
-    "ONLY return the detailed study notes based on the recording of the screen.";
+    "ONLY return the quiz based on the recording of the screen. Create notes in language of the content";
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -85,6 +88,7 @@ export function Timer() {
       }
       setState(UploadState.Uploading);
     }
+    SetIsLoading(true);
   };
 
   const uploadVideo = async (file: File) => {
@@ -138,6 +142,7 @@ export function Timer() {
         })
       );
       const modelResponse = response.text;
+      SetIsLoading(false);
       setIsVisible(true);
       setTimestampText(modelResponse.trim());
     } catch (err) {
