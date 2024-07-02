@@ -1,5 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { videoFileAtom, uploadResultAtom, timestampTextAtom } from "./atoms";
+import {
+  videoFileAtom,
+  uploadResultAtom,
+  timestampTextAtom,
+  isVisibleAtom,
+} from "./atoms";
 import { useAtom } from "jotai";
 import { FileMetadataResponse } from "@google/generative-ai/files";
 
@@ -21,7 +26,7 @@ export function Timer() {
   const [, setVideoFile] = useAtom(videoFileAtom);
   const [uploadResult, setUploadResult] = useAtom(uploadResultAtom);
   const [, setTimestampText] = useAtom(timestampTextAtom);
-
+  const [, setIsVisible] = useAtom(isVisibleAtom);
   const enum UploadState {
     Waiting = "",
     Recording = "Recording...",
@@ -133,6 +138,7 @@ export function Timer() {
         })
       );
       const modelResponse = response.text;
+      setIsVisible(true);
       setTimestampText(modelResponse.trim());
     } catch (err) {
       console.error("Error getting notes", err);
@@ -140,7 +146,7 @@ export function Timer() {
     }
   };
 
-  const [time, setTime] = useState(60); // 1 minute in seconds
+  const [time, setTime] = useState(1800); // 1 minute in seconds
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -182,10 +188,10 @@ export function Timer() {
   };
 
   return (
-    <div className="w-[1200px] bg-[url('https://www.krqe.com/wp-content/uploads/sites/12/2022/12/AdobeStock_81556974.jpeg?w=2560&h=1440&crop=1')] flex flex-col ml-[300px] items-center justify-center h-screen bg-gray-100 bg-no-repeat	bg-cover">
-      <div className="bg-white p-10 rounded-xl shadow-md text-center">
-        <h1 className="text-2xl text-black font-bold mb-4">Timer</h1>
-        <div className="text-6xl text-black font-mono mb-4">
+    <div className="w-[1200px] h-full bg-[url('https://statemag.state.gov/wp-content/uploads/2019/06/POM-Kazakhstan-3.jpg')] flex flex-col ml-[300px] items-center justify-center h-screen bg-gray-100 bg-no-repeat	bg-cover">
+      <div className=" bg-[rgba(239,68,68,.8)] p-10 rounded-xl shadow-lg text-center">
+        <h1 className="text-2xl text-white font-bold mb-4">Timer</h1>
+        <div className="text-6xl text-white font-mono mb-4">
           {formatTime(time)}
         </div>
         <div className="space-x-4">
@@ -199,9 +205,9 @@ export function Timer() {
           ) : (
             <button
               onClick={startFunction}
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-200"
+              className="bg-[rgba(255,255,255)] text-red-500 px-4 py-2 rounded hover:bg-red-700 hover:text-white transition duration-200 font-bold"
             >
-              Start
+              Let's go!
             </button>
           )}
         </div>
