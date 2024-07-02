@@ -17,7 +17,7 @@ const post = async (url: string, body: string | FormData) => {
   return await response.json();
 };
 
-export function Timer() {
+export function Gemini() {
   const [, setVideoFile] = useAtom(videoFileAtom);
   const [uploadResult, setUploadResult] = useAtom(uploadResultAtom);
   const [, setTimestampText] = useAtom(timestampTextAtom);
@@ -34,6 +34,7 @@ export function Timer() {
 
   const CONCISE_PROMPT =
     "ONLY return the detailed study notes based on the recording of the screen.";
+  const [sendingPrompt, setSendingPrompt] = useState(false);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -117,10 +118,11 @@ export function Timer() {
   };
 
   useEffect(() => {
-    if (state === UploadState.Processed) {
+    if (state === UploadState.Processed && !sendingPrompt) {
+      setSendingPrompt(true);
       postNotesRequest();
     }
-  }, [state]);
+  }, [state, sendingPrompt]);
 
   const postNotesRequest = async () => {
     try {
@@ -132,6 +134,7 @@ export function Timer() {
           model: "gemini-1.5-flash-latest",
         })
       );
+      setSendingPrompt(false);
       const modelResponse = response.text;
       setTimestampText(modelResponse.trim());
     } catch (err) {
@@ -140,72 +143,24 @@ export function Timer() {
     }
   };
 
-  const [time, setTime] = useState(60); // 1 minute in seconds
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    let timer: any;
-    if (isActive && time > 0) {
-      timer = setInterval(() => {
-        setTime((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
-      }, 1000);
-    } else if (!isActive && time !== 0) {
-      clearInterval(timer);
-    }
-
-    return () => clearInterval(timer);
-  }, [isActive, time]);
-
-  const formatTime = (time: any) => {
-    const minutes = String(Math.floor(time / 60)).padStart(2, "0");
-    const seconds = String(time % 60).padStart(2, "0");
-    return `${minutes}:${seconds}`;
-  };
-
-  const handleStartPause = () => {
-    setIsActive(!isActive);
-  };
-
-  const startFunction = () => {
-    handleStartPause();
-    startRecording();
-  };
-
-  const handleReset = () => {
-    setIsActive(false);
-    setTime(60);
-  };
-
-  const stopFunction = () => {
-    handleReset();
-    stopRecording();
-  };
-
   return (
-    <div className="w-[1200px] bg-[url('https://www.krqe.com/wp-content/uploads/sites/12/2022/12/AdobeStock_81556974.jpeg?w=2560&h=1440&crop=1')] flex flex-col ml-[300px] items-center justify-center h-screen bg-gray-100 bg-no-repeat	bg-cover">
-      <div className="bg-white p-10 rounded-xl shadow-md text-center">
-        <h1 className="text-2xl text-black font-bold mb-4">Timer</h1>
-        <div className="text-6xl text-black font-mono mb-4">
-          {formatTime(time)}
-        </div>
-        <div className="space-x-4">
-          {isActive ? (
-            <button
-              onClick={stopFunction}
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 transition duration-200"
-            >
-              Stop
-            </button>
-          ) : (
-            <button
-              onClick={startFunction}
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-200"
-            >
-              Start
-            </button>
-          )}
-        </div>
-      </div>
+    <div className="mt-4">
+      <button
+        disabled={
+          state === UploadState.Recording || state === UploadState.Uploading
+        }
+        className="bg-gray-500 enabled:hover:bg-gray-800 disabled:opacity-25 mr-4 font-bold py-2 px-4 rounded mb-4"
+        onClick={startRecording}
+      >
+        Start Recording
+      </button>
+      <button
+        disabled={state !== UploadState.Recording}
+        className="bg-gray-500 enabled:hover:bg-gray-800 disabled:opacity-25 mr-4 font-bold py-2 px-4 rounded mb-4"
+        onClick={stopRecording}
+      >
+        Stop Recording
+      </button>
       <span>{state}</span>
     </div>
   );
