@@ -18,8 +18,8 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "start": "NODE_ENV=production node --env-file=.env server/index.js",
-    "dev": "node --env-file=.env server/index.js",
+    "start": "NODE_ENV=production node --env-file=.env server/index.ts",
+    "dev": "node --env-file=.env server/index.ts",
     "preview": "vite preview",
     "build": "vite build",
     "deploy": "vite build && gcloud app deploy app.yaml --version demo"
