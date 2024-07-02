@@ -6,14 +6,12 @@ export function TimestampText() {
   return (
     <textarea
       className="w-full h-48 bg-neutral-800 p-2 focus:outline-none"
-      placeholder="Or paste your timestamps here from anywhere"
+      placeholder="Notes will appear here"
       onChange={(e) => {
         const text = e.target.value;
         setTimestampText(text);
       }}
       value={timestampText}
-    >
-    </textarea>
+    ></textarea>
   );
 }
-

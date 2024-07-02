@@ -33,15 +33,15 @@ export function Gemini() {
   const [state, setState] = useState<UploadState>(UploadState.Waiting);
 
   const CONCISE_PROMPT =
-    "ONLY return the study based on the recording of the screen.";
+    "ONLY return the detailed study notes based on the recording of the screen.";
   const [sendingPrompt, setSendingPrompt] = useState(false);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
-
+  let stream: MediaStream;
   const startRecording = async () => {
     try {
-      const stream = await navigator.mediaDevices.getDisplayMedia({
+      stream = await navigator.mediaDevices.getDisplayMedia({
         video: true,
         audio: false,
       });
@@ -75,6 +75,9 @@ export function Gemini() {
       mediaRecorderRef.current.state !== "inactive"
     ) {
       mediaRecorderRef.current.stop();
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
+      }
       setState(UploadState.Uploading);
     }
   };
@@ -122,7 +125,7 @@ export function Gemini() {
         JSON.stringify({
           uploadResult,
           prompt: CONCISE_PROMPT,
-          model: "gemini-1.5-pro-latest",
+          model: "gemini-1.5-flash-latest",
         })
       );
       setSendingPrompt(false);
