@@ -80,15 +80,17 @@ const Sidebar = () => {
     <>
       <nav className="fixed z-40 top-0 left-0 w-full h-full border-r bg-white space-y-8 overflow-auto sm:w-80 shadow-md">
         <div className="sticky top-0 space-y-8 bg-white">
-          <h1 className="h-20 flex items-center px-7 text-[1.5rem] border-b md:px-8 text-gray-500 font-bold">
-            Screen Note AI
+          <h1 className="h-20 flex items-center px-7 text-[1.5rem] border-b md:px-8 text-red-500 font-bold">
+            Screen Note AI 🖋️
           </h1>
           <div className="px-4 md:px-8">
             <SearchBox placeholder="Search..." />
           </div>
         </div>
         <div className="text-[0.9rem] space-y-6">
-          <h1 className="text-[1rem] pl-10 font-bold text-red-500">My Notes</h1>
+          <h1 className="text-[1rem] pl-10 font-bold text-gray-600">
+            My Notes
+          </h1>
           <SectionsList items={lessons} />
         </div>
       </nav>

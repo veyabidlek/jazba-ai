@@ -1,16 +1,18 @@
-import { TimestampText } from "./Note";
+import { Note } from "./Note";
 
 // import { Gemini } from "./Gemini";
 import Sidebar from "./Sidebar";
 import { Timer } from "./Timer";
+import LearnMore from "./learn-more";
 function App() {
   return (
-    <div className="grid grid-cols-2">
-      <div className="w-full">
+    <div className="">
+      <div className="">
         <Sidebar />
         <Timer />
-        <TimestampText />
+        <LearnMore />
       </div>
+      <Note />
     </div>
   );
 }
