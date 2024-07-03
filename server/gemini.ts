@@ -1,9 +1,14 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { GoogleAIFileManager } from "@google/generative-ai/files";
 
-// eslint-disable-next-line no-undef
 const KEY = process.env["GEMINI_API_KEY"];
+
+if (!KEY) {
+  throw new Error("GEMINI_API_KEY environment variable is not set");
+}
+
 const fileManager = new GoogleAIFileManager(KEY);
+
 const genAI = new GoogleGenerativeAI(KEY);
 
 export const uploadVideo = async (file) => {
