@@ -6,7 +6,6 @@ import { checkProgress, promptVideo, uploadVideo } from "./gemini.js";
 const app = express();
 app.use(express.json());
 
-// need /tmp for appengine and gemini api to access
 const upload = multer({ dest: "/tmp/" });
 app.post("/api/upload", upload.single("video"), async (req, res) => {
   try {
@@ -43,11 +42,12 @@ app.post("/api/prompt", async (req, res) => {
     );
     res.json(videoResponse);
   } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     res.json({ error }, { status: 400 });
   }
 });
 
-// eslint-disable-next-line no-undef
 const port = 3001;
 
 ViteExpress.listen(app, port, () => console.log("Server is listening..."));
