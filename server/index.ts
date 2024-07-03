@@ -48,6 +48,6 @@ app.post("/api/prompt", async (req, res) => {
 });
 
 // eslint-disable-next-line no-undef
-const port = process.env.NODE_ENV === "production" ? 8080 : 3000;
+const port = 3001;
 
 ViteExpress.listen(app, port, () => console.log("Server is listening..."));

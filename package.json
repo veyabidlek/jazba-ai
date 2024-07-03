@@ -1,25 +1,12 @@
 {
   "name": "screen-note-ai",
-  "displayName": "Gemini Video Scrubber",
-  "description": "Simple demo app for Gemini multimodal capabilities with video understanding.",
-  "repository": {
-    "url": "https://github.com/trippedout/gemini-video-scrubber"
-  },
-  "contributors": [
-    {
-      "name": "Anthony Tripaldi",
-      "url": "http://github.com/trippedout"
-    },
-    {
-      "name": "Grant Custer",
-      "url": "http://github.com/grantcuster"
-    }
-  ],
-  "version": "0.1.0",
+  "displayName": "",
+  "description": "",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "start": "NODE_ENV=production node --env-file=.env server/index.ts",
-    "dev": "node --env-file=.env server/index.ts",
+    "dev": "tsx --env-file=.env server/index.ts",
     "preview": "vite preview",
     "build": "vite build",
     "deploy": "vite build && gcloud app deploy app.yaml --version demo"
@@ -44,6 +31,7 @@
     "@tailwindcss/typography": "^0.5.10",
     "@types/express": "^4.17.21",
     "@types/multer": "^1.4.11",
+    "@types/node": "^20.14.9",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
@@ -55,7 +43,9 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
-    "typescript": "^5.2.2",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3",
     "vite": "^5.0.8"
   }
 }
