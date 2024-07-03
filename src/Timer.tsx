@@ -41,7 +41,7 @@ export function Timer() {
   const [state, setState] = useState<UploadState>(UploadState.Waiting);
 
   const CONCISE_PROMPT =
-    "ONLY return the quiz based on the recording of the screen. Create notes in language of the content";
+    "ONLY return the 5-questions multiple-choice quiz based on the recording of the screen. Create notes in language of the content. For example, if book in russian, make quiz in russian.";
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -184,7 +184,7 @@ export function Timer() {
 
   const handleReset = () => {
     setIsActive(false);
-    setTime(60);
+    setTime(1800);
   };
 
   const stopFunction = () => {
@@ -193,7 +193,7 @@ export function Timer() {
   };
 
   return (
-    <div className="w-[1200px] h-full bg-[url('https://statemag.state.gov/wp-content/uploads/2019/06/POM-Kazakhstan-3.jpg')] flex flex-col ml-[300px] items-center justify-center h-screen bg-gray-100 bg-no-repeat	bg-cover">
+    <div className="p-[400px] h-full bg-[url('https://statemag.state.gov/wp-content/uploads/2019/06/POM-Kazakhstan-3.jpg')] flex flex-col ml-[300px] items-center justify-center h-screen bg-gray-100 bg-no-repeat	bg-cover">
       <div className=" bg-[rgba(239,68,68,.8)] p-10 rounded-xl shadow-lg text-center">
         <h1 className="text-2xl text-white font-bold mb-4">Timer</h1>
         <div className="text-6xl text-white font-mono mb-4">

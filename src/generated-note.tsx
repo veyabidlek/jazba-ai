@@ -13,9 +13,9 @@ export function Note() {
     <>
       <button
         onClick={toggleVisibility}
-        className="mt-4 ml-4 px-4 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition duration-300 ease-in-out"
+        className="absolute bottom-[-21px] z-40 left-0 px-[93px] py-2 bg-red-500 text-white shadow-md hover:bg-red-600 transition duration-300 ease-in-out"
       >
-        Show Note
+        Show Recent Note
       </button>
 
       {isVisible && (

@@ -8,12 +8,10 @@ import { Loading } from "./loading";
 function App() {
   return (
     <div className="">
-      <div className="">
-        <Sidebar />
-        <Timer />
-        <LearnMore />
-        <Loading />
-      </div>
+      <Sidebar />
+      <Timer />
+      <LearnMore />
+      <Loading />
       <Note />
     </div>
   );
