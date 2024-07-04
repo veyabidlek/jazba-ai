@@ -40,19 +40,32 @@ export function Timer() {
   }
   const [state, setState] = useState<UploadState>(UploadState.Waiting);
 
-  const DEFAULT_PROMPT =
-    "ONLY return first the notes and the 5-questions multiple-choice quiz based on the recording of the screen. Create notes in language of the content. ";
+  const DEFAULT_PROMPT = `ONLY return the notes based on the recording of the screen. Return the result as plain JSON, with no additional text or formatting. The JSON should follow this structure:
+  {
+       "title": "Title of the Recording",
+        "content": "Detailed notes or summary based on the screen recording. Include key points, observations, and any relevant information that was displayed or discussed during the recording."
+  }`;
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
+
   const startRecording = async () => {
     try {
       streamRef.current = await navigator.mediaDevices.getDisplayMedia({
-        video: true,
-        audio: false,
+        video: {
+          width: { ideal: 854 },
+          height: { ideal: 480 },
+        },
+        audio: true,
       });
-      mediaRecorderRef.current = new MediaRecorder(streamRef.current);
+
+      const options = {
+        mimeType: "video/webm; codecs=vp8",
+        videoBitsPerSecond: 1500000, // bitrate = 1.5 Mbps
+      };
+
+      mediaRecorderRef.current = new MediaRecorder(streamRef.current, options);
       chunksRef.current = [];
 
       mediaRecorderRef.current.ondataavailable = (event) => {
