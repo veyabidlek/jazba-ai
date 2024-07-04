@@ -3,13 +3,13 @@ import ViteExpress from "vite-express";
 import multer from "multer";
 import { checkProgress, promptVideo, uploadVideo } from "./services/gemini.js";
 import globalRouter from "./global-router.js";
-import connectDB from "./db.js";
+// import connectDB from "./db.js";
 import { logger } from "./logger.ts";
 const app = express();
 app.use(logger);
 app.use(express.json());
 app.use("/api/", globalRouter);
-connectDB();
+// connectDB();
 const upload = multer({ dest: "/tmp/" });
 app.post("/api/upload", upload.single("video"), async (req, res) => {
   try {
