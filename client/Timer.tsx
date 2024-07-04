@@ -40,8 +40,8 @@ export function Timer() {
   }
   const [state, setState] = useState<UploadState>(UploadState.Waiting);
 
-  const CONCISE_PROMPT =
-    "ONLY return the 5-questions multiple-choice quiz based on the recording of the screen. Create notes in language of the content. For example, if book in russian, make quiz in russian.";
+  const DEFAULT_PROMPT =
+    "ONLY return first the notes and the 5-questions multiple-choice quiz based on the recording of the screen. Create notes in language of the content. ";
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -137,7 +137,7 @@ export function Timer() {
         "/api/prompt",
         JSON.stringify({
           uploadResult,
-          prompt: CONCISE_PROMPT,
+          prompt: DEFAULT_PROMPT,
           model: "gemini-1.5-flash-latest",
         })
       );
@@ -155,6 +155,7 @@ export function Timer() {
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let timer: any;
     if (isActive && time > 0) {
       timer = setInterval(() => {
@@ -167,7 +168,7 @@ export function Timer() {
     return () => clearInterval(timer);
   }, [isActive, time]);
 
-  const formatTime = (time: any) => {
+  const formatTime = (time: number) => {
     const minutes = String(Math.floor(time / 60)).padStart(2, "0");
     const seconds = String(time % 60).padStart(2, "0");
     return `${minutes}:${seconds}`;
