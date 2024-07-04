@@ -36,15 +36,11 @@ export function Timer() {
     Uploading = "Uploading...",
     Processing = "Processing...",
     Processed = "Processed!",
-    Failure = "Upload failed, please try again.",
+    Failure = "Upload failed.",
   }
   const [state, setState] = useState<UploadState>(UploadState.Waiting);
 
-  const DEFAULT_PROMPT = `ONLY return the notes based on the recording of the screen. Return the result as plain JSON, with no additional text or formatting. The JSON should follow this structure:
-  {
-       "title": "Title of the Recording",
-        "content": "Detailed notes or summary based on the screen recording. Include key points, observations, and any relevant information that was displayed or discussed during the recording."
-  }`;
+  const DEFAULT_PROMPT = `ONLY return the notes and a 3-question multiple choice quiz based on the recording of the screen. `;
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
