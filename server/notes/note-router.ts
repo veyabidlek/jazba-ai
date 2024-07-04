@@ -9,8 +9,8 @@ const noteRouter = Router();
 const noteService = new NoteService();
 const noteController = new NoteController(noteService);
 
-noteRouter.get("/events/", noteController.getNotes);
-noteRouter.post("/events/", noteController.createNote);
-noteRouter.get("/events/:id", noteController.getNoteById);
+noteRouter.get("/notes/", noteController.getNotes);
+noteRouter.post("/notes/", noteController.createNote);
+noteRouter.get("/notes/:id", noteController.getNoteById);
 
 export default noteRouter;

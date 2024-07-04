@@ -45,15 +45,14 @@ export function Timer() {
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
-  let stream: MediaStream;
-
+  const streamRef = useRef<MediaStream | null>(null);
   const startRecording = async () => {
     try {
-      stream = await navigator.mediaDevices.getDisplayMedia({
+      streamRef.current = await navigator.mediaDevices.getDisplayMedia({
         video: true,
         audio: false,
       });
-      mediaRecorderRef.current = new MediaRecorder(stream);
+      mediaRecorderRef.current = new MediaRecorder(streamRef.current);
       chunksRef.current = [];
 
       mediaRecorderRef.current.ondataavailable = (event) => {
@@ -83,12 +82,15 @@ export function Timer() {
       mediaRecorderRef.current.state !== "inactive"
     ) {
       mediaRecorderRef.current.stop();
-      if (stream) {
-        stream.getTracks().forEach((track) => track.stop());
-      }
       setState(UploadState.Uploading);
     }
     SetIsLoading(true);
+
+    // Stop all tracks of the stream
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null; // Clear the ref
+    }
   };
 
   const uploadVideo = async (file: File) => {
