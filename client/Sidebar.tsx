@@ -21,11 +21,9 @@ const NavLink = ({ ...props }) => {
 };
 
 // Title component
-const Title = ({ children }) => (
-  <h3 className="pb-3 px-4 font-medium text-gray-800 md:px-8">{children}</h3>
-);
 
 // Sections List
+
 const SectionsList = ({ items }) => (
   <div className="text-gray-600 px-4 md:px-8">
     <ul>
