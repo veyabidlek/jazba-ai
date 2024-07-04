@@ -2,7 +2,8 @@ import express from "express";
 import ViteExpress from "vite-express";
 import multer from "multer";
 import { checkProgress, promptVideo, uploadVideo } from "./gemini.js";
-
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
 app.use(express.json());
 
@@ -48,6 +49,9 @@ app.post("/api/prompt", async (req, res) => {
   }
 });
 
-const port = 3000;
+const port: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+if (isNaN(port)) {
+  throw new Error("Invalid port number");
+}
 
 ViteExpress.listen(app, port, () => console.log("Server is listening..."));
