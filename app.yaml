@@ -1,8 +1,4 @@
 runtime: nodejs20
-service: default
-handlers:
-  - url: /
-    static_files: build/index.html
-    upload: build/index.html
-  - url: /
-    static_dir: build
+service: gvs
+
+default_expiration: "0s"
