@@ -48,6 +48,6 @@ app.post("/api/prompt", async (req, res) => {
   }
 });
 
-const port = 3001;
+const port = 3000;
 
 ViteExpress.listen(app, port, () => console.log("Server is listening..."));
