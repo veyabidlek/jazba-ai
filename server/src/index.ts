@@ -7,7 +7,11 @@ import { checkProgress, promptVideo, uploadVideo } from "./services/gemini";
 // import { logger } from "./logger.ts";
 const app = express();
 // app.use(logger);
-app.use(cors());
+const urleke = process.env.FRONTEND_URL;
+if (!urleke) {
+  throw new Error("Frontend url kaida");
+}
+app.use(cors({ origin: `${process.env.FRONTEND_URL}` }));
 app.use(express.json());
 // app.use("/api/", globalRouter);
 // connectDB();
