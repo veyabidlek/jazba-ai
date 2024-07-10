@@ -227,7 +227,7 @@ export default function MainContainer() {
           onClick={startFunction}
           className="bg-green-500 text-white px-24 py-4 rounded-md text-lg hover:bg-green-600"
         >
-          ▶️ Бастау
+          ▶ Бастау
         </button>
       ) : (
         <div>

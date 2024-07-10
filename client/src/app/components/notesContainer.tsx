@@ -20,7 +20,7 @@ const Note: React.FC<NoteProps> = ({ title, content }) => (
 export default function NotesContainer() {
   const notes = [
     {
-      title: "Calculus Midterm",
+      title: "Log in to save your notes",
       content:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris varius eget lorem et efficitur.",
     },
