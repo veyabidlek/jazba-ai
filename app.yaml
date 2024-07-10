@@ -1,4 +1,0 @@
-runtime: nodejs20
-service: gvs
-
-default_expiration: "0s"
