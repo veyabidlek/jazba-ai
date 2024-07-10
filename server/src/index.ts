@@ -2,11 +2,11 @@ import express from "express";
 import cors from "cors";
 import multer from "multer";
 import { checkProgress, promptVideo, uploadVideo } from "./services/gemini";
-// import globalRouter from "./global-router.js";
-// import connectDB from "./db.js";
-// import { logger } from "./logger.ts";
+import globalRouter from "./global-router";
+import connectDB from "./db";
+import { logger } from "./logger";
 const app = express();
-// app.use(logger);
+app.use(logger);
 const urleke = process.env.FRONTEND_URL;
 if (!urleke) {
   throw new Error("Frontend url kaida");
@@ -14,8 +14,8 @@ if (!urleke) {
 console.log(urleke);
 app.use(cors({ origin: `${process.env.FRONTEND_URL}` }));
 app.use(express.json());
-// app.use("/api/", globalRouter);
-// connectDB();
+app.use("/api/", globalRouter);
+connectDB();
 const upload = multer({ dest: "/tmp/" });
 app.post("/api/upload", upload.single("video"), async (req, res) => {
   try {
