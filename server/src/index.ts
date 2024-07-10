@@ -11,6 +11,7 @@ const urleke = process.env.FRONTEND_URL;
 if (!urleke) {
   throw new Error("Frontend url kaida");
 }
+console.log(urleke);
 app.use(cors({ origin: `${process.env.FRONTEND_URL}` }));
 app.use(express.json());
 // app.use("/api/", globalRouter);

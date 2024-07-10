@@ -27,7 +27,7 @@ const urleke = process.env.BACKEND_URL;
 if (!urleke) {
   throw new Error("Backend does not exist.");
 }
-
+console.log(urleke);
 export default function MainContainer() {
   const [, setVideoFile] = useAtom(videoFileAtom);
   const [uploadResult, setUploadResult] = useAtom(uploadResultAtom);
