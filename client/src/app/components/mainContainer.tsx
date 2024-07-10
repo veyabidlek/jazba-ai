@@ -176,9 +176,11 @@ export default function MainContainer() {
         setTime((prevTime) => prevTime + 1);
       }, 1000);
     } else if (!isActive && time !== 0) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
       clearInterval(timer);
     } else if (time >= 1800) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
       clearInterval(timer);
       stopFunction();
