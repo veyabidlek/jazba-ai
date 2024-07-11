@@ -168,26 +168,38 @@ export default function MainContainer() {
 
   const [time, setTime] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const startTimeRef = useRef<number | null>(null);
+  const requestIdRef = useRef<number | null>(null);
+
+  const updateTimer = () => {
+    if (startTimeRef.current === null) return;
+
+    const elapsedTime = Math.floor((Date.now() - startTimeRef.current) / 1000);
+    setTime(elapsedTime);
+
+    if (elapsedTime >= 1800) {
+      stopFunction();
+    } else {
+      requestIdRef.current = requestAnimationFrame(updateTimer);
+    }
+  };
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (isActive && time < 1800) {
-      timer = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
-      }, 1000);
-    } else if (!isActive && time !== 0) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      clearInterval(timer);
-    } else if (time >= 1800) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      clearInterval(timer);
-      stopFunction();
+    if (isActive) {
+      startTimeRef.current = Date.now() - time * 1000;
+      requestIdRef.current = requestAnimationFrame(updateTimer);
+    } else {
+      if (requestIdRef.current) {
+        cancelAnimationFrame(requestIdRef.current);
+      }
     }
 
-    return () => clearInterval(timer);
-  }, [isActive, time]);
+    return () => {
+      if (requestIdRef.current) {
+        cancelAnimationFrame(requestIdRef.current);
+      }
+    };
+  }, [isActive]);
 
   const formatTime = (time: number) => {
     const minutes = String(Math.floor(time / 60)).padStart(2, "0");
@@ -207,6 +219,10 @@ export default function MainContainer() {
   const handleReset = () => {
     setIsActive(false);
     setTime(0);
+    startTimeRef.current = null;
+    if (requestIdRef.current) {
+      cancelAnimationFrame(requestIdRef.current);
+    }
   };
 
   const stopFunction = () => {

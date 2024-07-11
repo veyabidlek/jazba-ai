@@ -15,7 +15,7 @@ console.log(urleke);
 app.use(cors({ origin: `${process.env.FRONTEND_URL}` }));
 app.use(express.json());
 app.use("/api/", globalRouter);
-connectDB();
+// connectDB();
 const upload = multer({ dest: "/tmp/" });
 app.post("/api/upload", upload.single("video"), async (req, res) => {
   try {
