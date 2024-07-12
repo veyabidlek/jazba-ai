@@ -34,6 +34,8 @@ export default function MainContainer() {
   const [, setTimestampText] = useAtom(timestampTextAtom);
   const [, setIsVisible] = useAtom(isVisibleAtom);
   const [, SetIsLoading] = useAtom(isLoadingAtom);
+  const [accumulatedNotes, setAccumulatedNotes] = useState<string>("");
+  const chunkIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const enum UploadState {
     Waiting = "",
@@ -84,6 +86,7 @@ export default function MainContainer() {
 
       mediaRecorderRef.current.start();
       setState(UploadState.Recording);
+      startChunkProcessing();
     } catch (err) {
       console.error("Error starting screen recording", err);
       setState(UploadState.Failure);
@@ -99,10 +102,79 @@ export default function MainContainer() {
       setState(UploadState.Uploading);
     }
     SetIsLoading(true);
+    stopChunkProcessing();
 
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((track) => track.stop());
       streamRef.current = null;
+    }
+    processAccumulatedNotes();
+  };
+
+  const processAccumulatedNotes = async () => {
+    try {
+      const summaryResponse = await post(
+        `${urleke}/api/prompt`,
+        JSON.stringify({
+          prompt: `Summarize the following notes:\n\n${accumulatedNotes}`,
+          model: "gemini-1.5-flash-latest",
+        })
+      );
+      const summary = summaryResponse.text.trim();
+      SetIsLoading(false);
+      setIsVisible(true);
+      setTimestampText(summary);
+    } catch (err) {
+      console.error("Error summarizing notes", err);
+      setState(UploadState.Failure);
+    }
+  };
+
+  const sendChunkAndGetNotes = async (chunk: Blob) => {
+    try {
+      const formData = new FormData();
+      formData.set(
+        "video",
+        new File([chunk], "chunk.webm", { type: "video/webm" })
+      );
+      const resp = await post(`${urleke}/api/upload`, formData);
+      const uploadResult = resp.data;
+
+      const notesResponse = await post(
+        `${urleke}/api/prompt`,
+        JSON.stringify({
+          uploadResult,
+          prompt: DEFAULT_PROMPT,
+          model: "gemini-1.5-flash-latest",
+        })
+      );
+
+      return notesResponse.text.trim();
+    } catch (err) {
+      console.error("Error processing chunk", err);
+      return "";
+    }
+  };
+
+  const startChunkProcessing = () => {
+    chunkIntervalRef.current = setInterval(async () => {
+      if (
+        mediaRecorderRef.current &&
+        mediaRecorderRef.current.state === "recording"
+      ) {
+        mediaRecorderRef.current.requestData();
+        const latestChunk = chunksRef.current[chunksRef.current.length - 1];
+        if (latestChunk) {
+          const notes = await sendChunkAndGetNotes(latestChunk);
+          setAccumulatedNotes((prev) => prev + "\n\n" + notes);
+        }
+      }
+    }, 60000); // Process every minute
+  };
+
+  const stopChunkProcessing = () => {
+    if (chunkIntervalRef.current) {
+      clearInterval(chunkIntervalRef.current);
     }
   };
 

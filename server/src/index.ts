@@ -1,7 +1,12 @@
 import express from "express";
 import cors from "cors";
 import multer from "multer";
-import { checkProgress, promptVideo, uploadVideo } from "./services/gemini";
+import {
+  checkProgress,
+  promptVideo,
+  uploadVideo,
+  summarizeNotes,
+} from "./services/gemini";
 import globalRouter from "./global-router";
 import connectDB from "./db";
 import { logger } from "./logger";
@@ -21,8 +26,17 @@ app.post("/api/upload", upload.single("video"), async (req, res) => {
   try {
     const file = req.file;
     const resp = await uploadVideo(file);
-    console.log(resp);
     res.json({ data: resp });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+app.post("/api/summarize", async (req, res) => {
+  try {
+    const { prompt } = req.body;
+    const summary = await summarizeNotes(prompt);
+    res.json({ summary });
   } catch (error) {
     res.status(500).json({ error });
   }

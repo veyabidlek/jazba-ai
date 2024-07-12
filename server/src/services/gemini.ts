@@ -63,3 +63,15 @@ export const promptVideo = async (uploadResult, prompt, model) => {
     return { error };
   }
 };
+
+export const summarizeNotes = async (prompt: string) => {
+  try {
+    const result = await genAI
+      .getGenerativeModel({ model: "gemini-1.5-flash-latest" })
+      .generateContent([{ text: prompt }]);
+    return result.response.text();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
