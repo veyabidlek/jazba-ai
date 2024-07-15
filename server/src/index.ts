@@ -1,4 +1,5 @@
 import express from "express";
+import session from "express-session";
 import cors from "cors";
 import multer from "multer";
 import {
@@ -11,6 +12,7 @@ import globalRouter from "./global-router";
 import connectDB from "./db";
 import { logger } from "./logger";
 const app = express();
+
 app.use(logger);
 const urleke = process.env.FRONTEND_URL;
 if (!urleke) {
@@ -26,17 +28,8 @@ app.post("/api/upload", upload.single("video"), async (req, res) => {
   try {
     const file = req.file;
     const resp = await uploadVideo(file);
+    console.log(resp);
     res.json({ data: resp });
-  } catch (error) {
-    res.status(500).json({ error });
-  }
-});
-
-app.post("/api/summarize", async (req, res) => {
-  try {
-    const { prompt } = req.body;
-    const summary = await summarizeNotes(prompt);
-    res.json({ summary });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -58,17 +51,21 @@ app.post("/api/progress", async (req, res) => {
 app.post("/api/prompt", async (req, res) => {
   try {
     const reqData = req.body;
-    console.log("/api/prompt", reqData);
-    const videoResponse = await promptVideo(
-      reqData.uploadResult,
-      reqData.prompt,
-      reqData.model
-    );
-    res.json(videoResponse);
-  } catch (error) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    res.json({ error }, { status: 400 });
+    console.log("/api/prompt", JSON.stringify(reqData));
+    let response;
+    if (reqData.uploadResult) {
+      response = await promptVideo(
+        reqData.uploadResult,
+        reqData.prompt,
+        reqData.model
+      );
+    } else {
+      response = await summarizeNotes(reqData.prompt, reqData.model);
+    }
+    res.json(response);
+  } catch (error: any) {
+    console.error("Error in /api/prompt:", error);
+    res.status(400).json({ error: error.message });
   }
 });
 
