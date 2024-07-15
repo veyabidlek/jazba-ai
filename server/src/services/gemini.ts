@@ -1,8 +1,8 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import { GoogleAIFileManager } from "@google/generative-ai/files";
 import "dotenv/config";
+
 const KEY = process.env["GEMINI_API_KEY"];
 
 if (!KEY) {
@@ -10,7 +10,6 @@ if (!KEY) {
 }
 
 const fileManager = new GoogleAIFileManager(KEY);
-
 const genAI = new GoogleGenerativeAI(KEY);
 
 export const uploadVideo = async (file) => {
@@ -19,7 +18,7 @@ export const uploadVideo = async (file) => {
       displayName: file.originalname,
       mimeType: file.mimetype,
     });
-    console.log(`uploadComplete: ${uploadResult.file}`);
+    console.log(`uploadComplete: ${JSON.stringify(uploadResult.file)}`);
     return uploadResult.file;
   } catch (error) {
     console.error(error);
@@ -48,7 +47,7 @@ export const promptVideo = async (uploadResult, prompt, model) => {
         },
       },
     ];
-    console.log(`promptVideo with ${model}`, req);
+    console.log(`promptVideo with ${model}`, JSON.stringify(req));
     const result = await genAI
       .getGenerativeModel({ model })
       .generateContent(req);
@@ -58,8 +57,25 @@ export const promptVideo = async (uploadResult, prompt, model) => {
       candidates: result.response.candidates,
       feedback: result.response.promptFeedback,
     };
-  } catch (error) {
-    console.error(error);
-    return { error };
+  } catch (error: any) {
+    console.error("Error in promptVideo:", error);
+    return { error: error.message };
+  }
+};
+
+export const summarizeNotes = async (prompt, model) => {
+  try {
+    const result = await genAI
+      .getGenerativeModel({ model })
+      .generateContent(prompt);
+    console.log(`summarizeNotes response`, result.response.text());
+    return {
+      text: result.response.text(),
+      candidates: result.response.candidates,
+      feedback: result.response.promptFeedback,
+    };
+  } catch (error: any) {
+    console.error("Error in summarizeNotes:", error);
+    return { error: error.message };
   }
 };

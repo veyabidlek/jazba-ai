@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import {
   videoFileAtom,
   uploadResultAtom,
-  timestampTextAtom,
+  NoteAtom,
   isVisibleAtom,
   isLoadingAtom,
 } from "../atoms";
@@ -23,15 +23,17 @@ const post = async (url: string, body: string | FormData) => {
   const response = await fetch(url, opts);
   return await response.json();
 };
+
 const urleke = process.env.BACKEND_URL;
 if (!urleke) {
   throw new Error("Backend does not exist.");
 }
 console.log(urleke);
+
 export default function MainContainer() {
   const [, setVideoFile] = useAtom(videoFileAtom);
-  const [uploadResult, setUploadResult] = useAtom(uploadResultAtom);
-  const [, setTimestampText] = useAtom(timestampTextAtom);
+  const [, setUploadResult] = useAtom(uploadResultAtom);
+  const [, setNote] = useAtom(NoteAtom);
   const [, setIsVisible] = useAtom(isVisibleAtom);
   const [, SetIsLoading] = useAtom(isLoadingAtom);
 
@@ -43,14 +45,16 @@ export default function MainContainer() {
     Processed = "Processed!",
     Failure = "Upload failed.",
   }
-  const [state, setState] = useState<UploadState>(UploadState.Waiting);
+  const [, setState] = useState<UploadState>(UploadState.Waiting);
 
-  const DEFAULT_PROMPT = `ONLY return the notes and a 3-question multiple choice quiz based on the recording of the screen.`;
+  const DEFAULT_PROMPT = `ONLY return the notes based on the recording of the screen.`;
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
-
+  const segmentIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const notesArrayRef = useRef<string[]>([]);
+  const chunkInterval = 60000; //1 minute
   const startRecording = async () => {
     try {
       streamRef.current = await navigator.mediaDevices.getDisplayMedia({
@@ -77,13 +81,21 @@ export default function MainContainer() {
 
       mediaRecorderRef.current.onstop = async () => {
         const blob = new Blob(chunksRef.current, { type: "video/webm" });
-        const file = new File([blob], "recording.webm", { type: "video/webm" });
+        const file = new File([blob], `recording-${Date.now()}.webm`, {
+          type: "video/webm",
+        });
         setVideoFile(file);
         await uploadVideo(file);
+        chunksRef.current = [];
       };
 
       mediaRecorderRef.current.start();
       setState(UploadState.Recording);
+
+      segmentIntervalRef.current = setInterval(() => {
+        mediaRecorderRef.current?.stop();
+        mediaRecorderRef.current?.start();
+      }, chunkInterval);
     } catch (err) {
       console.error("Error starting screen recording", err);
       setState(UploadState.Failure);
@@ -98,12 +110,18 @@ export default function MainContainer() {
       mediaRecorderRef.current.stop();
       setState(UploadState.Uploading);
     }
+    if (segmentIntervalRef.current) {
+      clearInterval(segmentIntervalRef.current);
+      segmentIntervalRef.current = null;
+    }
     SetIsLoading(true);
 
     if (streamRef.current) {
       streamRef.current.getTracks().forEach((track) => track.stop());
       streamRef.current = null;
     }
+
+    processAllNotes();
   };
 
   const uploadVideo = async (file: File) => {
@@ -114,7 +132,8 @@ export default function MainContainer() {
       console.log("uploadResult:", resp.data);
       setUploadResult(resp.data);
       setState(UploadState.Processing);
-      checkProcessing(resp.data);
+      await checkProcessing(resp.data);
+      await postNotesRequest(resp.data); // Generate notes for this segment
     } catch (err) {
       console.error("Error Uploading Video", err);
       setState(UploadState.Failure);
@@ -122,31 +141,30 @@ export default function MainContainer() {
   };
 
   const checkProcessing = async (result: FileMetadataResponse) => {
-    setTimeout(async () => {
-      const progressResult = await post(
-        `${urleke}/api/progress`,
-        JSON.stringify({ result })
-      );
-      const state = progressResult.progress.state;
-      console.log("progress:", state);
-      if (state === "ACTIVE") {
-        setState(UploadState.Processed);
-      } else if (state === "FAILED") {
-        setState(UploadState.Failure);
-      } else {
-        setState(UploadState.Processing);
-        checkProcessing(result);
-      }
-    }, 5000);
+    return new Promise<void>((resolve) => {
+      setTimeout(async () => {
+        const progressResult = await post(
+          `${urleke}/api/progress`,
+          JSON.stringify({ result })
+        );
+        const state = progressResult.progress.state;
+        console.log("progress:", state);
+        if (state === "ACTIVE") {
+          setState(UploadState.Processed);
+          resolve();
+        } else if (state === "FAILED") {
+          setState(UploadState.Failure);
+          resolve();
+        } else {
+          setState(UploadState.Processing);
+          await checkProcessing(result);
+          resolve();
+        }
+      }, 5000);
+    });
   };
 
-  useEffect(() => {
-    if (state === UploadState.Processed) {
-      postNotesRequest();
-    }
-  }, [state]);
-
-  const postNotesRequest = async () => {
+  const postNotesRequest = async (uploadResult: FileMetadataResponse) => {
     try {
       const response = await post(
         `${urleke}/api/prompt`,
@@ -156,49 +174,71 @@ export default function MainContainer() {
           model: "gemini-1.5-flash-latest",
         })
       );
+      if (response.error) {
+        console.error("Error getting notes:", response.error);
+        return;
+      }
       const modelResponse = response.text;
-      SetIsLoading(false);
-      setIsVisible(true);
-      setTimestampText(modelResponse.trim());
+      notesArrayRef.current.push(modelResponse.trim());
+      console.log("Notes generated:", modelResponse.trim());
     } catch (err) {
       console.error("Error getting notes", err);
       setState(UploadState.Failure);
     }
   };
 
+  const processAllNotes = async () => {
+    const combinedNotes = notesArrayRef.current.join("\n\n");
+    const summaryPrompt = `Summarize the following notes:\n\n${combinedNotes}`;
+
+    try {
+      const response = await post(
+        `${urleke}/api/prompt`,
+        JSON.stringify({
+          prompt: summaryPrompt,
+          model: "gemini-1.5-flash-latest",
+        })
+      );
+      if (response.error) {
+        console.error("Error summarizing notes:", response.error);
+        return;
+      }
+      const modelResponse = response.text;
+      SetIsLoading(false);
+      setIsVisible(true);
+      setNote(modelResponse.trim());
+      console.log("Final summary:", modelResponse.trim());
+    } catch (err) {
+      console.error("Error summarizing notes", err);
+      setState(UploadState.Failure);
+    }
+  };
+
   const [time, setTime] = useState(0);
   const [isActive, setIsActive] = useState(false);
-  const startTimeRef = useRef<number | null>(null);
-  const requestIdRef = useRef<number | null>(null);
+  const startDateTimeRef = useRef<Date | null>(null);
 
-  const updateTimer = () => {
-    if (startTimeRef.current === null) return;
-
-    const elapsedTime = Math.floor((Date.now() - startTimeRef.current) / 1000);
-    setTime(elapsedTime);
-
-    if (elapsedTime >= 1800) {
-      stopFunction();
-    } else {
-      requestIdRef.current = requestAnimationFrame(updateTimer);
+  const tick = () => {
+    if (startDateTimeRef.current) {
+      const datediffInms =
+        new Date().getTime() - startDateTimeRef.current.getTime();
+      setTime(Math.round(datediffInms / 1000));
     }
+  };
+
+  const countup = () => {
+    setTimeout(function () {
+      if (!isActive) return; // stop the loop
+      tick();
+      countup(); // this is the "loop"
+    }, 1000);
   };
 
   useEffect(() => {
     if (isActive) {
-      startTimeRef.current = Date.now() - time * 1000;
-      requestIdRef.current = requestAnimationFrame(updateTimer);
-    } else {
-      if (requestIdRef.current) {
-        cancelAnimationFrame(requestIdRef.current);
-      }
+      startDateTimeRef.current = new Date();
+      countup();
     }
-
-    return () => {
-      if (requestIdRef.current) {
-        cancelAnimationFrame(requestIdRef.current);
-      }
-    };
   }, [isActive]);
 
   const formatTime = (time: number) => {
@@ -219,10 +259,6 @@ export default function MainContainer() {
   const handleReset = () => {
     setIsActive(false);
     setTime(0);
-    startTimeRef.current = null;
-    if (requestIdRef.current) {
-      cancelAnimationFrame(requestIdRef.current);
-    }
   };
 
   const stopFunction = () => {
@@ -231,8 +267,8 @@ export default function MainContainer() {
   };
 
   return (
-    <div className="bg-[#D34836]  rounded-2xl flex flex-col items-center justify-center  pt-8 pb-16 px-32 w-[700px]">
-      <h1 className="text-white  whitespace-nowrap text-5xl font-bold mb-6 text-center ">
+    <div className="bg-[#D34836] rounded-2xl flex flex-col items-center justify-center pt-8 pb-16 px-32 w-[700px]">
+      <h1 className="text-white whitespace-nowrap text-5xl font-bold mb-6 text-center">
         Экраныңды түсіріп
         <br />
         Әдемі жазбалар ал

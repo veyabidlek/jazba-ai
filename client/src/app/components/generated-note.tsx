@@ -1,9 +1,9 @@
 "use client";
 import { useAtom } from "jotai";
-import { timestampTextAtom, isVisibleAtom } from "../atoms";
+import { NoteAtom, isVisibleAtom } from "../atoms";
 
 export function Note() {
-  const [timestampText, setTimestampText] = useAtom(timestampTextAtom);
+  const [timestampText, setTimestampText] = useAtom(NoteAtom);
   const [isVisible, setIsVisible] = useAtom(isVisibleAtom);
 
   const toggleVisibility = () => {
