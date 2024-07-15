@@ -120,8 +120,11 @@ export default function MainContainer() {
       streamRef.current.getTracks().forEach((track) => track.stop());
       streamRef.current = null;
     }
-
-    processAllNotes();
+    setTimeout(() => {
+      {
+        processAllNotes();
+      }
+    }, 20000);
   };
 
   const uploadVideo = async (file: File) => {
