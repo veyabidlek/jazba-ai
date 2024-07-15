@@ -1,5 +1,4 @@
 import express from "express";
-import session from "express-session";
 import cors from "cors";
 import multer from "multer";
 import {
@@ -9,7 +8,7 @@ import {
   summarizeNotes,
 } from "./services/gemini";
 import globalRouter from "./global-router";
-import connectDB from "./db";
+// import connectDB from "./db";
 import { logger } from "./logger";
 const app = express();
 
