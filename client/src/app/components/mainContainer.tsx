@@ -9,7 +9,6 @@ import {
 } from "../atoms";
 import { useAtom } from "jotai";
 import { FileMetadataResponse } from "@google/generative-ai/files";
-import { parse } from "path";
 
 const post = async (url: string, body: string | FormData) => {
   const opts: RequestInit = {
