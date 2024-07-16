@@ -47,6 +47,18 @@ app.post("/api/progress", async (req, res) => {
   }
 });
 
+app.post("/api/summarize", async (req, res) => {
+  try {
+    const reqData = req.body;
+    console.log("/api/prompt", JSON.stringify(reqData));
+    const response = await summarizeNotes(reqData.prompt, reqData.model);
+    res.json(response);
+  } catch (error: any) {
+    console.error("Error in /api/summarize:", error);
+    res.status(400).json({ error: error.message });
+  }
+});
+
 app.post("/api/prompt", async (req, res) => {
   try {
     const reqData = req.body;
@@ -58,8 +70,6 @@ app.post("/api/prompt", async (req, res) => {
         reqData.prompt,
         reqData.model
       );
-    } else {
-      response = await summarizeNotes(reqData.prompt, reqData.model);
     }
     res.json(response);
   } catch (error: any) {

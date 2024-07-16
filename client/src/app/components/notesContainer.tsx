@@ -1,19 +1,21 @@
+import Link from "next/link";
+
 interface NoteProps {
   title: string;
   content: string;
 }
 
 const Note: React.FC<NoteProps> = ({ title, content }) => (
-  <div className="bg-[#F6DAD7] rounded-lg overflow-hidden mb-4  flex items-center w-[450px]">
-    <div className="pl-2 pr-8">
-      <h3 className="font-bold text-md tracking-wider">{title}</h3>
-      <p className="text-sm tracking-wider	">{content}</p>
+  <div className="bg-[#F6DAD7] rounded-lg overflow-hidden mb-4 flex items-center w-full">
+    <div className="p-4 flex-grow">
+      <h3 className="font-bold text-sm lg:text-md tracking-wider">{title}</h3>
+      <p className="text-xs lg:text-sm tracking-wider">{content}</p>
     </div>
     <img
-      className="w-28 h-28 bg-gray-600 rounded-lg  object-cover "
+      className="w-20 h-20 lg:w-28 lg:h-28 bg-gray-600 rounded-lg object-cover"
       src="https://images.unsplash.com/photo-1455390582262-044cdead277a?fm=jpg&w=3000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d3JpdGluZ3xlbnwwfHwwfHx8MA%3D%3D"
       alt=""
-    ></img>
+    />
   </div>
 );
 
@@ -42,9 +44,9 @@ export default function NotesContainer() {
   ];
 
   return (
-    <div className="bg-[#D34836] px-6 pt-4 pb-4 rounded-2xl flex flex-col h-full justify-between w-[500px]">
+    <div className="bg-[#D34836] p-6 rounded-2xl flex flex-col h-full justify-between w-full lg:w-[500px]">
       <h1 className="text-center text-white text-xl font-bold mb-4">
-        Жақындағы жазбалар
+        Recent notes
       </h1>
       <div className="space-y-3">
         {notes.map((note, index) => (
@@ -52,9 +54,12 @@ export default function NotesContainer() {
         ))}
       </div>
 
-      <button className="bg-[#244855] px-24 py-4 rounded-md text-white text-center text-lg font-bold mt-8 w-full hover:bg-[#1D3A44] ">
-        Барлық жазбаларды көру
-      </button>
+      <Link
+        href="/notes"
+        className="bg-[#244855] px-24 py-4 rounded-md text-white text-center text-lg font-bold mt-8 w-full hover:bg-[#1D3A44] "
+      >
+        See all notes
+      </Link>
     </div>
   );
 }
