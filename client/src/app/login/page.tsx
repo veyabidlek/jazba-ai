@@ -1,21 +1,40 @@
 /**
  * v0 by Vercel.
- * @see https://v0.dev/t/on1msPDnM5E
+ * @see https://v0.dev/t/lxTbwgVL7pi
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
+import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export default function Login() {
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-[#244855] px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-md rounded-lg bg-white p-12 shadow-lg">
+      <div className="mx-auto max-w-md rounded-lg bg-white p-16 shadow-lg">
         <div className="space-y-4 text-center">
-          <h1 className="text-3xl font-bold text-[#D34836]">Login</h1>
+          <div className="flex justify-between items-center">
+            <Link
+              href="/"
+              className="p-2 rounded-full text-white hover:bg-muted p-2 rounded-md bg-[#D34836]"
+              prefetch={false}
+            >
+              <ArrowLeftIcon className="h-5 w-5" />
+              <span className="sr-only">Go back</span>
+            </Link>
+            <h1 className="text-3xl font-bold text-[#D34836] ml-[-36px]">
+              Login
+            </h1>
+            <div />
+          </div>
           <p className="text-muted-foreground">
-            Enter your email and password to login.
+            Enter your email and password to login.{" "}
+          </p>
+          <p className="inline">
+            Don't have an account?{" "}
+            <Link prefetch={false} href="/register" className="underline">
+              Sign up
+            </Link>
           </p>
         </div>
         <form className="mt-6 space-y-4">
@@ -31,13 +50,6 @@ export default function Login() {
           <div className="relative space-y-2">
             <div className="flex items-center">
               <Label htmlFor="password">Password</Label>
-              <Link
-                href="#"
-                className="ml-auto inline-block text-sm text-[#D34836] underline"
-                prefetch={false}
-              >
-                Forgot your password?
-              </Link>
             </div>
             <Input
               id="password"
@@ -77,19 +89,29 @@ export default function Login() {
             <ChromeIcon className="mr-2 h-4 w-4" />
             Continue with Google
           </Button>
-          <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
-            <Link
-              href="/register"
-              className="text-[#D34836] underline"
-              prefetch={false}
-            >
-              Sign up
-            </Link>
-          </div>
         </form>
       </div>
     </div>
+  );
+}
+
+function ArrowLeftIcon(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m12 19-7-7 7-7" />
+      <path d="M19 12H5" />
+    </svg>
   );
 }
 
