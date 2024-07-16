@@ -24,3 +24,18 @@ body {
     transform: rotate(360deg);
   }
 }
+
+@keyframes write {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.pen-animation path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: write 4s linear infinite;
+}

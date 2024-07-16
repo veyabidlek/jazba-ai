@@ -124,7 +124,7 @@ export default function MainContainer() {
       {
         processAllNotes();
       }
-    }, 20000);
+    }, 30000);
   };
 
   const uploadVideo = async (file: File) => {
@@ -215,7 +215,7 @@ export default function MainContainer() {
 
     try {
       const response = await post(
-        `${urleke}/api/prompt`,
+        `${urleke}/api/summarize`,
         JSON.stringify({
           prompt: summaryPrompt,
           model: "gemini-1.5-flash-latest",
@@ -233,7 +233,7 @@ export default function MainContainer() {
       console.log(parsedObject);
       SetIsLoading(false);
       setIsVisible(true);
-      setNote(modelResponse);
+      setNote(modelResponse.trim());
       console.log("Final summary:", modelResponse);
     } catch (err) {
       console.error("Error summarizing notes", err);
@@ -294,11 +294,11 @@ export default function MainContainer() {
   };
 
   return (
-    <div className="bg-[#D34836] rounded-2xl flex flex-col items-center justify-center pt-8 pb-16 px-32 w-[700px]">
-      <h1 className="text-white whitespace-nowrap text-5xl font-bold mb-6 text-center">
-        Экраныңды түсіріп
+    <div className="bg-[#D34836] rounded-2xl flex flex-col items-center justify-center p-8 w-full lg:w-[700px]">
+      <h1 className="text-white text-3xl lg:text-5xl font-bold mb-6 text-center">
+        Record your screen
         <br />
-        Әдемі жазбалар ал
+        Get instant notes
       </h1>
 
       {!isActive ? (
@@ -306,7 +306,7 @@ export default function MainContainer() {
           onClick={startFunction}
           className="bg-green-500 text-white px-24 py-4 rounded-md text-lg hover:bg-green-600"
         >
-          ▶ Бастау
+          ▶ Let's go
         </button>
       ) : (
         <div>
@@ -323,7 +323,7 @@ export default function MainContainer() {
             onClick={stopFunction}
             className="bg-red-500 text-white px-24 py-4 rounded-md text-lg hover:bg-red-600"
           >
-            ⏹ Бітіру
+            ⏹ Stop
           </button>
         </div>
       )}
