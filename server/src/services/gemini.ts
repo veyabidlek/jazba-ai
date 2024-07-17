@@ -68,6 +68,7 @@ export const summarizeNotes = async (prompt, model) => {
     const result = await genAI
       .getGenerativeModel({ model })
       .generateContent(prompt);
+
     console.log(`summarizeNotes response`, result.response.text());
     return {
       text: result.response.text(),
