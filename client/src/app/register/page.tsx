@@ -1,14 +1,17 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/Uigr21GHuaG
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
+"use client";
+import { useState } from "react";
 import Link from "next/link";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 
 export default function Register() {
+  const [input, setInput] = useState({
+    name: "",
+    surname: "",
+    email: "",
+    password: "",
+  });
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-[#244855] px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-lg">

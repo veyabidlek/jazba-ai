@@ -9,7 +9,7 @@ import {
 } from "../atoms";
 import { useAtom } from "jotai";
 import { FileMetadataResponse } from "@google/generative-ai/files";
-
+import axios from "axios";
 const post = async (url: string, body: string | FormData) => {
   const opts: RequestInit = {
     method: "POST",
@@ -190,17 +190,10 @@ export default function MainContainer() {
     }
   };
 
-  // const postGeneratedNote = async (note: JSON) => {
-  //   try {
-  //     const response = await post(
-  //       `${urleke}/api/notes`,
-  //       JSON.stringify({ note })
-  //     );
-  //     console.log("NOTE TO MONGO DONE");
-  //   } catch (err) {
-  //     console.error("Note not posted to server");
-  //   }
-  // };
+  const postNote = async (data: JSON) => {
+    await axios.post(`${urleke}/api/notes`, data);
+    console.log("note posted");
+  };
 
   const processAllNotes = async () => {
     const combinedNotes = notesArrayRef.current.join("\n\n");
@@ -232,6 +225,7 @@ export default function MainContainer() {
       const parsedObject = JSON.parse(modelResponse);
       parsedObject.date = new Date();
       console.log(parsedObject);
+      postNote(parsedObject);
       SetIsLoading(false);
       setIsVisible(true);
       setNote(modelResponse.trim());

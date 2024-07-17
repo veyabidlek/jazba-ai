@@ -7,7 +7,7 @@ interface NoteProps {
 
 const Note: React.FC<NoteProps> = ({ title, content }) => (
   <div className="bg-[#F6DAD7] rounded-lg overflow-hidden mb-4 flex items-center w-full">
-    <div className="p-4 flex-grow">
+    <div className="p-4">
       <h3 className="font-bold text-sm lg:text-md tracking-wider">{title}</h3>
       <p className="text-xs lg:text-sm tracking-wider">{content}</p>
     </div>
@@ -27,28 +27,29 @@ export default function NotesContainer() {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris varius eget lorem et efficitur.",
     },
     {
-      title: "Calculus Midterm",
+      title: "Log in to save your notes",
+      content:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris varius eget lorem et efficitur.",
+    },
+
+    {
+      title: "Log in to save your notes",
       content:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris varius eget lorem et efficitur.",
     },
     {
-      title: "Calculus Midterm",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris varius eget lorem et efficitur.",
-    },
-    {
-      title: "Calculus Midterm",
+      title: "Log in to save your notes",
       content:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris varius eget lorem et efficitur.",
     },
   ];
 
   return (
-    <div className="bg-[#D34836] p-6 rounded-2xl flex flex-col h-full justify-between w-full lg:w-[500px]">
+    <div className="bg-[#D34836] p-6 rounded-2xl flex flex-col h-[700px] w-full lg:w-[500px]">
       <h1 className="text-center text-white text-xl font-bold mb-4">
         Recent notes
       </h1>
-      <div className="space-y-3">
+      <div className="space-y-3 flex-grow">
         {notes.map((note, index) => (
           <Note key={index} title={note.title} content={note.content} />
         ))}
