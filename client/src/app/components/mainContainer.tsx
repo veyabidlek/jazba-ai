@@ -212,8 +212,6 @@ export default function MainContainer() {
         `${urleke}/api/summarize`,
         JSON.stringify({
           prompt: summaryPrompt,
-          model: "gemini-1.5-pro-latest",
-          generationConfig: { responseMimeType: "application/json" },
         })
       );
       if (response.error) {
