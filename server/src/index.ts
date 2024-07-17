@@ -8,7 +8,7 @@ import {
   summarizeNotes,
 } from "./services/gemini";
 import globalRouter from "./global-router";
-// import connectDB from "./db";
+import connectDB from "./db";
 import { logger } from "./logger";
 const app = express();
 
@@ -17,11 +17,11 @@ const urleke = process.env.FRONTEND_URL;
 if (!urleke) {
   throw new Error("Frontend url kaida");
 }
-console.log(urleke);
+console.log("frontend:", urleke);
 app.use(cors({ origin: `${process.env.FRONTEND_URL}` }));
 app.use(express.json());
 app.use("/api/", globalRouter);
-// connectDB();
+connectDB();
 const upload = multer({ dest: "/tmp/" });
 app.post("/api/upload", upload.single("video"), async (req, res) => {
   try {
