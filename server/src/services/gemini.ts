@@ -1,4 +1,8 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import {
+  GoogleGenerativeAI,
+  HarmBlockThreshold,
+  HarmCategory,
+} from "@google/generative-ai";
 //@ts-ignore
 import { GoogleAIFileManager } from "@google/generative-ai/files";
 import "dotenv/config";
@@ -63,10 +67,31 @@ export const promptVideo = async (uploadResult, prompt, model) => {
   }
 };
 
-export const summarizeNotes = async (prompt, model) => {
+export const summarizeNotes = async (prompt) => {
   try {
     const result = await genAI
-      .getGenerativeModel({ model })
+      .getGenerativeModel({
+        model: "gemini-1.5-pro",
+        safetySettings: [
+          {
+            category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+            threshold: HarmBlockThreshold.BLOCK_NONE,
+          },
+          {
+            category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+            threshold: HarmBlockThreshold.BLOCK_NONE,
+          },
+          {
+            category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+            threshold: HarmBlockThreshold.BLOCK_NONE,
+          },
+          {
+            category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+            threshold: HarmBlockThreshold.BLOCK_NONE,
+          },
+        ],
+        generationConfig: { responseMimeType: "application/json" },
+      })
       .generateContent(prompt);
 
     console.log(`summarizeNotes response`, result.response.text());
