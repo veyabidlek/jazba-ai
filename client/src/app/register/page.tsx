@@ -6,12 +6,6 @@ import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 
 export default function Register() {
-  const [input, setInput] = useState({
-    name: "",
-    surname: "",
-    email: "",
-    password: "",
-  });
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-[#244855] px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-lg">
