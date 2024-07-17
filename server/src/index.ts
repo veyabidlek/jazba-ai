@@ -51,7 +51,7 @@ app.post("/api/summarize", async (req, res) => {
   try {
     const reqData = req.body;
     console.log("/api/prompt", JSON.stringify(reqData));
-    const response = await summarizeNotes(reqData.prompt, reqData.model);
+    const response = await summarizeNotes(reqData.prompt);
     res.json(response);
   } catch (error: any) {
     console.error("Error in /api/summarize:", error);
