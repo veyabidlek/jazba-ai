@@ -1,10 +1,10 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import axios from "axios";
+
 interface Note {
   id: number;
   title: string;
@@ -13,17 +13,24 @@ interface Note {
 }
 
 const urleke = process.env.BACKEND_URL;
-const getNotes = async () => {
+
+const getNotes = async (): Promise<Note[]> => {
   try {
     const response = await axios.get(`${urleke}/api/notes`);
-    return response.data;
+    const notes = response.data.map((note: any) => ({
+      ...note,
+      date: new Date(note.date),
+    }));
+    return notes;
   } catch (err) {
     console.error("Notes ala almai kadym bez obid");
     return [];
   }
 };
+
 export default function Notes() {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState<Note[]>([]);
+
   useEffect(() => {
     const fetchNotes = async () => {
       const data = await getNotes();
@@ -100,7 +107,7 @@ export default function Notes() {
                   {selectedNote.content}
                 </div>
                 <div className="text-xs text-muted-foreground absolute bottom-4 w-full">
-                  {selectedNote.date}
+                  {selectedNote.date.toLocaleDateString()}
                 </div>
               </div>
             </div>
@@ -123,7 +130,7 @@ export default function Notes() {
                     {note.content}
                   </div>
                   <div className="text-xs text-muted-foreground absolute bottom-4 w-full">
-                    {note.date}
+                    {note.date.toLocaleDateString()}
                   </div>
                 </div>
               </div>
@@ -151,25 +158,6 @@ function ArrowLeftIcon(props: any) {
     >
       <path d="m12 19-7-7 7-7" />
       <path d="M19 12H5" />
-    </svg>
-  );
-}
-
-function MountainIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
     </svg>
   );
 }
