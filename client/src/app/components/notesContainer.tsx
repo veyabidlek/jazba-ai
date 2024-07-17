@@ -48,7 +48,7 @@ export default function NotesContainer() {
   useEffect(() => {
     const fetchNotes = async () => {
       const data = await getNotes();
-      setNotes(data.slice(0, 4)); // Limit to 4 notes
+      setNotes(data.slice(Math.max(data.length - 4, 0))); // Limit to 4 notes
     };
     fetchNotes();
   }, []);
