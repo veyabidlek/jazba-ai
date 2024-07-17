@@ -103,7 +103,7 @@ export default function Notes() {
                     <span className="text-md">Take Quiz</span>
                   </Button>
                 </div>
-                <div className="prose text-[#244855] flex-1 max-h-[calc(100%-4rem)] overflow-auto whitespace-pre-wrap">
+                <div className="prose text-[#244855] flex-1 max-h-[calc(100%-4rem)] overflow-auto whitespace-pre-wrap truncate">
                   {selectedNote.content}
                 </div>
                 <div className="text-xs text-muted-foreground absolute bottom-4 w-full">
@@ -123,14 +123,19 @@ export default function Notes() {
                 onClick={() => handleNoteClick(note)}
               >
                 <div className="space-y-2 h-full flex flex-col">
-                  <h2 className="text-lg font-bold text-[#244855]">
+                  <h2 className="text-lg font-bold text-[#244855] mb-2">
                     {note.title}
                   </h2>
-                  <div className="prose text-[#244855] flex-1 max-h-[calc(100%-4rem)] overflow-hidden text-ellipsis whitespace-pre-wrap">
-                    {note.content}
+                  <div className="prose text-[#244855] flex-1 relative overflow-hidden">
+                    <p className="line-clamp-8 text-sm">{note.content}</p>
+                    <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-[#F5F5F5] to-transparent"></div>
                   </div>
-                  <div className="text-xs text-muted-foreground absolute bottom-4 w-full">
-                    {note.date.toLocaleDateString()}
+                  <div className="text-xs  text-muted-foreground mt-auto">
+                    {new Intl.DateTimeFormat("en-GB", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    }).format(note.date)}
                   </div>
                 </div>
               </div>
