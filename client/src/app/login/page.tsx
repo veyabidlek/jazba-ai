@@ -5,15 +5,19 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
 import "dotenv/config";
 import axios from "axios";
+
 const urleke = process.env.BACKEND_URL;
+
 export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const handleSubmit = async (e: Event) => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await axios.post(`${urleke}/api/login`, {
@@ -21,18 +25,27 @@ export default function Login() {
         password,
       });
       localStorage.setItem("token", response.data.accessToken);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("not logged in");
+      }
+      const user = jwtDecode(token);
       if (!response) {
         alert("Wrong email or password");
       }
-      alert("User logged in successfully!");
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      alert(`Welcome ${user.username}`);
       router.push("/");
     } catch (err) {
-      console.error("Error loggin in the user: ", err);
+      console.error("Error logging in the user: ", err);
     }
   };
+
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-[#244855] px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-md rounded-lg bg-white p-16 shadow-lg">
