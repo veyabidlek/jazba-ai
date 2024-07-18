@@ -40,10 +40,22 @@ export const checkProgress = async (uploadResult) => {
   }
 };
 
-export const promptVideo = async (uploadResult, prompt, model) => {
+export const promptVideo = async (uploadResult) => {
   try {
     const req = [
-      { text: prompt },
+      {
+        text: `Analyze the following screen recording and provide concise, study-worthy notes: 
+        - Focus on key information visible for at least 20 seconds
+        - Ignore brief glimpses or rapidly changing content
+        - Capture main ideas, definitions, and important details
+        - Use bullet points for clarity
+        - Include relevant formulas, equations, or code snippets if present
+        - Note any diagrams or visual aids, describing their key elements
+        - Highlight any emphasized points or repeated information
+        - If the content is part of a larger topic, provide context
+        - Limit the response to 3-5 bullet points unless the content is particularly dense
+      Remember, these notes should be useful for review and study purposes. Prioritize quality and relevance over quantity.`,
+      },
       {
         fileData: {
           mimeType: uploadResult.mimeType,
@@ -51,9 +63,29 @@ export const promptVideo = async (uploadResult, prompt, model) => {
         },
       },
     ];
-    console.log(`promptVideo with ${model}`, JSON.stringify(req));
+    console.log(`promptVideo with`, JSON.stringify(req));
     const result = await genAI
-      .getGenerativeModel({ model })
+      .getGenerativeModel({
+        model: "gemini-1.5-flash",
+        safetySettings: [
+          {
+            category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+            threshold: HarmBlockThreshold.BLOCK_NONE,
+          },
+          {
+            category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+            threshold: HarmBlockThreshold.BLOCK_NONE,
+          },
+          {
+            category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+            threshold: HarmBlockThreshold.BLOCK_NONE,
+          },
+          {
+            category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+            threshold: HarmBlockThreshold.BLOCK_NONE,
+          },
+        ],
+      })
       .generateContent(req);
     console.log(`promptVideo response`, result.response.text());
     return {

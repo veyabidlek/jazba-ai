@@ -18,7 +18,9 @@ const getNotes = async (): Promise<Note[]> => {
   try {
     const response = await axios.get(`${urleke}/api/notes`);
     const notes = response.data.map((note: any) => ({
-      ...note,
+      id: note._id,
+      title: note.title,
+      content: note.content,
       date: new Date(note.date),
     }));
     return notes;
@@ -119,7 +121,7 @@ export default function Notes() {
             {notes.map((note) => (
               <div
                 key={note.id}
-                className="group relative rounded-lg bg-[#F5F5F5] p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer w-full aspect-square"
+                className="group relative rounded-lg bg-[#F5F5F5] p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer w-full aspect-square "
                 onClick={() => handleNoteClick(note)}
               >
                 <div className="space-y-2 h-full flex flex-col">
