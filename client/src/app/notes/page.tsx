@@ -16,11 +16,21 @@ const urleke = process.env.BACKEND_URL;
 
 const getNotes = async (): Promise<Note[]> => {
   try {
-    const response = await axios.get(`${urleke}/api/notes`);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No token found");
+    }
+
+    const response = await axios.get(`${urleke}/api/notes`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const notes = response.data.map((note: any) => ({
       id: note._id,
       title: note.title,
       content: note.content,
+      user: note.user,
       date: new Date(note.date),
     }));
     notes.reverse();
@@ -55,32 +65,35 @@ export default function Notes() {
   return (
     <div className="flex min-h-[100dvh] px-12 flex-col bg-[#244855]">
       <header className="bg-background shadow">
-        <div className="container mx-auto flex items-center justify-between px-12 py-4">
-          <div className="flex items-center gap-4">
-            <h1 className="text-2xl font-bold text-white">
-              <Link href="/">
-                Capture <span className="text-[#D34836]">AI</span>
-              </Link>
-            </h1>
-          </div>
-          <div className="flex-1 ">
-            <div className="relative w-full justify-center max-w-md mx-auto">
-              <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search notes..."
-                className="w-full rounded-md bg-muted pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D34836]"
-              />
+        <div className="container mx-auto px-4 py-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-center justify-between">
+            <div className="flex items-center gap-4 mb-4 sm:mb-0">
+              <h1 className="text-xl sm:text-2xl font-bold text-white">
+                <Link href="/">
+                  Capture <span className="text-[#D34836]">AI</span>
+                </Link>
+              </h1>
             </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/"
-              className="rounded-md px-6 py-2 bg-[#D34836] text-md text-white hover:bg-[#c03730]"
-            >
-              <PlusIcon className="h-6 w-6 inline mr-2" />
-              <span className="text-md">Create new note</span>
-            </Link>
+            <div className="w-full sm:w-auto sm:flex-1 mb-4 sm:mb-0 sm:mx-4">
+              <div className="relative w-full max-w-md mx-auto">
+                <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search notes..."
+                  className="w-full rounded-md bg-muted pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D34836]"
+                />
+              </div>
+            </div>
+            <div className="flex items-center">
+              <Link
+                href="/"
+                className="rounded-md px-4 sm:px-6 py-2 bg-[#D34836] text-sm sm:text-md text-white hover:bg-[#c03730] whitespace-nowrap"
+              >
+                <PlusIcon className="h-5 w-5 sm:h-6 sm:w-6 inline mr-2" />
+                <span className="hidden sm:inline">Create new note</span>
+                <span className="sm:hidden">New</span>
+              </Link>
+            </div>
           </div>
         </div>
       </header>
@@ -90,16 +103,26 @@ export default function Notes() {
             <div className="rounded-lg bg-[#F5F5F5] p-4 shadow-lg">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-full bg-[#D34836] text-white hover:bg-[#c03730]"
-                    onClick={handleBackClick}
-                    aria-label="Back"
-                  >
-                    <ArrowLeftIcon className="h-4 w-4" />
-                  </Button>
-                  <h2 className="text-2xl font-bold text-[#244855]">
+                  <div className="flex gap-4">
+                    {" "}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="rounded-md bg-[#D34836] text-white hover:bg-[#c03730]"
+                      onClick={handleBackClick}
+                      aria-label="Back"
+                    >
+                      <ArrowLeftIcon className="h-4 w-4" />
+                    </Button>
+                    <p className="mt-2 text-gray-500 text-md ">
+                      {new Intl.DateTimeFormat("en-GB", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      }).format(selectedNote.date)}
+                    </p>
+                  </div>
+                  <h2 className="text-2xl  font-bold text-[#244855]">
                     {selectedNote.title}
                   </h2>
                   <Button className="rounded-md bg-[#D34836] text-white font-bold hover:bg-[#c03730]">
@@ -109,7 +132,7 @@ export default function Notes() {
                 <div className="prose text-[#244855] flex-1 max-h-[calc(100%-4rem)] overflow-auto whitespace-pre-wrap truncate">
                   {selectedNote.content}
                 </div>
-                <div className="text-xs text-muted-foreground absolute bottom-4 w-full">
+                <div className="text-xs text-muted-foreground absolute  w-full">
                   {selectedNote.date.toLocaleDateString()}
                 </div>
               </div>

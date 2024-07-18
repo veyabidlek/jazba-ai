@@ -28,6 +28,7 @@ export async function generateText(data) {
       { role: "user", content: data },
     ],
     model: "gpt-4o",
+    temperature: 0.5,
     response_format: { type: "json_object" },
   });
   return completion.choices[0].message.content;

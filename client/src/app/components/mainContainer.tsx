@@ -10,6 +10,7 @@ import {
 import { useAtom } from "jotai";
 import { FileMetadataResponse } from "@google/generative-ai/files";
 import axios from "axios";
+
 const post = async (url: string, body: string | FormData) => {
   const opts: RequestInit = {
     method: "POST",
@@ -56,8 +57,8 @@ export default function MainContainer() {
     try {
       streamRef.current = await navigator.mediaDevices.getDisplayMedia({
         video: {
-          width: { ideal: 854 },
-          height: { ideal: 480 },
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
         },
         audio: true,
       });
@@ -186,8 +187,21 @@ export default function MainContainer() {
   };
 
   const postNote = async (data: JSON) => {
-    await axios.post(`${urleke}/api/notes`, data);
-    console.log("note posted");
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No token found");
+      }
+
+      await axios.post(`${urleke}/api/notes`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (err) {
+      console.error("Failed to post note, please try again later.");
+      return null;
+    }
   };
 
   const processAllNotes = async () => {
@@ -207,13 +221,14 @@ export default function MainContainer() {
 
       const parsedObject = JSON.parse(response);
       parsedObject.date = new Date();
-      console.log(parsedObject);
-      console.log(parsedObject);
-      postNote(parsedObject);
+      const token = localStorage.getItem("token");
+      if (token) {
+        postNote(parsedObject);
+      }
+
       SetIsLoading(false);
       setIsVisible(true);
-      setNote(response);
-      // console.log("Final summary:", modelResponse);
+      setNote(parsedObject.content);
     } catch (err) {
       console.error("Error summarizing notes", err);
       setState(UploadState.Failure);

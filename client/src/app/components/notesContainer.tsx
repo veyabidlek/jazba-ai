@@ -11,7 +11,6 @@ interface NoteProps {
 const Note: React.FC<NoteProps> = ({ title, content }) => (
   <div className="bg-[#F6DAD7] rounded-lg overflow-hidden mb-4 w-full h-[120px]">
     {" "}
-    {/* Fixed height */}
     <div className="p-4 h-full">
       <h3 className="font-bold text-sm lg:text-md tracking-wider ">{title}</h3>
       <p className="text-xs lg:text-sm tracking-wider ">{content}</p>
@@ -31,11 +30,21 @@ const urleke = process.env.BACKEND_URL;
 export default function NotesContainer() {
   const getNotes = async (): Promise<Note[]> => {
     try {
-      const response = await axios.get(`${urleke}/api/notes`);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No token found");
+      }
+
+      const response = await axios.get(`${urleke}/api/notes`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const notes = response.data.map((note: any) => ({
         id: note._id,
         title: note.title,
         content: note.content,
+        user: note.user,
         date: new Date(note.date),
       }));
       return notes;
