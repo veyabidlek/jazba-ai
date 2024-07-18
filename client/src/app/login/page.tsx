@@ -1,14 +1,38 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/lxTbwgVL7pi
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
+"use client";
 import Link from "next/link";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import "dotenv/config";
+import axios from "axios";
+const urleke = process.env.BACKEND_URL;
 export default function Login() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const handleSubmit = async (e: Event) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${urleke}/api/login`, {
+        email,
+        password,
+      });
+      localStorage.setItem("token", response.data.accessToken);
+      if (!response) {
+        alert("Wrong email or password");
+      }
+      alert("User logged in successfully!");
+      router.push("/");
+    } catch (err) {
+      console.error("Error loggin in the user: ", err);
+    }
+  };
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-[#244855] px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-md rounded-lg bg-white p-16 shadow-lg">
@@ -37,10 +61,12 @@ export default function Login() {
             </Link>
           </p>
         </div>
-        <form className="mt-6 space-y-4">
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
             <Label htmlFor="email">Email</Label>
             <Input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               id="email"
               type="email"
               placeholder="Enter your email"
@@ -52,12 +78,16 @@ export default function Login() {
               <Label htmlFor="password">Password</Label>
             </div>
             <Input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               id="password"
-              type="password"
               placeholder="Enter your password"
               required
             />
             <Button
+              type="button"
+              onClick={togglePasswordVisibility}
               variant="ghost"
               size="icon"
               className="absolute bottom-1 right-1 h-7 w-7"
