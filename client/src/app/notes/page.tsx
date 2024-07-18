@@ -23,6 +23,7 @@ const getNotes = async (): Promise<Note[]> => {
       content: note.content,
       date: new Date(note.date),
     }));
+    notes.reverse();
     return notes;
   } catch (err) {
     console.error("Notes ala almai kadym bez obid");

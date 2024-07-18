@@ -3,8 +3,57 @@ import Link from "next/link";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
-
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import "dotenv/config";
+import axios from "axios";
+const urleke = process.env.BACKEND_URL;
+const post = async (url: string, body: string | FormData) => {
+  const opts: RequestInit = {
+    method: "POST",
+    body,
+  };
+  if (typeof body === "string") {
+    opts.headers = {
+      "Content-Type": "application/json",
+    };
+  }
+  const response = await fetch(url, opts);
+  return await response.json();
+};
 export default function Register() {
+  const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
+
+  const handleSubmit = async (e: Event) => {
+    e.preventDefault();
+    if (!isPasswordSame(password, password2)) {
+      alert("Passwords are not same");
+      return;
+    }
+    try {
+      const response = await axios.post(`${urleke}/api/register`, {
+        email,
+        username,
+        password,
+      });
+      alert("Successfull registration");
+      router.push("/login");
+    } catch (err) {
+      console.error("Error sumbitting registration: ", err);
+    }
+  };
+
+  const isPasswordSame = (password1: string, password2: string): boolean => {
+    if (password1 === password2) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-[#244855] px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-lg">
@@ -30,20 +79,24 @@ export default function Register() {
             </Link>
           </p>
         </div>
-        <form className="mt-6 space-y-4">
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" placeholder="Enter your name" required />
-            </div>
-            <div>
-              <Label htmlFor="surname">Surname</Label>
-              <Input id="surname" placeholder="Enter your surname" required />
+              <Label htmlFor="name">Username</Label>
+              <Input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                id="usernname"
+                placeholder="Enter your username"
+                required
+              />
             </div>
           </div>
           <div>
             <Label htmlFor="email">Email</Label>
             <Input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               id="email"
               type="email"
               placeholder="Enter your email"
@@ -55,23 +108,18 @@ export default function Register() {
               <Label htmlFor="password">Password</Label>
             </div>
             <Input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               id="password"
-              type="password"
               placeholder="Enter your password"
               required
             />
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute bottom-1 right-1 h-7 w-7"
-            >
-              <EyeIcon className="h-4 w-4" />
-              <span className="sr-only">Toggle password visibility</span>
-            </Button>
           </div>
           <div>
             <Label htmlFor="confirm-password">Confirm Password</Label>
             <Input
+              value={password2}
+              onChange={(e) => setPassword2(e.target.value)}
               id="confirm-password"
               type="password"
               placeholder="Confirm your password"
@@ -146,26 +194,6 @@ function ChromeIcon(props: any) {
       <line x1="21.17" x2="12" y1="8" y2="8" />
       <line x1="3.95" x2="8.54" y1="6.06" y2="14" />
       <line x1="10.88" x2="15.46" y1="21.94" y2="14" />
-    </svg>
-  );
-}
-
-function EyeIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-      <circle cx="12" cy="12" r="3" />
     </svg>
   );
 }
