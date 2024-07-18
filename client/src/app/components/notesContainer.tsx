@@ -33,7 +33,9 @@ export default function NotesContainer() {
     try {
       const response = await axios.get(`${urleke}/api/notes`);
       const notes = response.data.map((note: any) => ({
-        ...note,
+        id: note._id,
+        title: note.title,
+        content: note.content,
         date: new Date(note.date),
       }));
       return notes;

@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import multer from "multer";
+import { generateText } from "./services/openai";
 import {
   checkProgress,
   promptVideo,
@@ -11,7 +12,6 @@ import globalRouter from "./global-router";
 import connectDB from "./db";
 import { logger } from "./logger";
 const app = express();
-
 app.use(logger);
 const urleke = process.env.FRONTEND_URL;
 if (!urleke) {
@@ -49,9 +49,9 @@ app.post("/api/progress", async (req, res) => {
 
 app.post("/api/summarize", async (req, res) => {
   try {
-    const reqData = req.body;
-    console.log("/api/prompt", JSON.stringify(reqData));
-    const response = await summarizeNotes(reqData.prompt);
+    const data = req.body.data;
+    console.log("/api/sumarize", JSON.stringify(data));
+    const response = await generateText(data);
     res.json(response);
   } catch (error: any) {
     console.error("Error in /api/summarize:", error);
@@ -65,11 +65,7 @@ app.post("/api/prompt", async (req, res) => {
     console.log("/api/prompt", JSON.stringify(reqData));
     let response;
     if (reqData.uploadResult) {
-      response = await promptVideo(
-        reqData.uploadResult,
-        reqData.prompt,
-        reqData.model
-      );
+      response = await promptVideo(reqData.uploadResult);
     }
     res.json(response);
   } catch (error: any) {
