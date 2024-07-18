@@ -11,7 +11,10 @@ class NoteController {
 
   createNote = async (req: Request, res: Response): Promise<void> => {
     try {
-      const createNoteDto: CreateNoteDto = req.body;
+      const createNoteDto: CreateNoteDto = {
+        ...req.body,
+        userId: (req as any).user.id,
+      };
       const note = await this.noteService.createNote(createNoteDto);
       res.status(201).json(note);
     } catch (error: any) {
@@ -21,7 +24,8 @@ class NoteController {
 
   getNotes = async (req: Request, res: Response): Promise<void> => {
     try {
-      const notes = await this.noteService.getNotes();
+      const userId = (req as any).user.id;
+      const notes = await this.noteService.getNotes(userId);
       res.status(200).json(notes);
     } catch (error: any) {
       res.status(500).send({ error: error.message });
@@ -31,7 +35,8 @@ class NoteController {
   getNoteById = async (req: Request, res: Response): Promise<void> => {
     try {
       const { id } = req.params;
-      const note = await this.noteService.getNoteById(id);
+      const userId = (req as any).user_id;
+      const note = await this.noteService.getNoteById(id, userId);
       if (!note) {
         res.status(404).json({ message: "Event not found" });
         return;

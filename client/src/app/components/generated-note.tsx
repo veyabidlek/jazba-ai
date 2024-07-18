@@ -3,11 +3,12 @@ import { useAtom } from "jotai";
 import { NoteAtom, isVisibleAtom } from "../atoms";
 
 export function Note() {
-  const [timestampText, setTimestampText] = useAtom(NoteAtom);
+  const [noteText, setNoteText] = useAtom(NoteAtom);
   const [isVisible, setIsVisible] = useAtom(isVisibleAtom);
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
+    window.location.reload();
   };
 
   return (
@@ -35,10 +36,10 @@ export function Note() {
               </svg>
             </button>
             <textarea
-              className="w-full h-full bg-gray-100 text-black p-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="prose w-full h-full bg-gray-100 text-black p-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Notes will appear here"
-              onChange={(e) => setTimestampText(e.target.value)}
-              value={timestampText}
+              onChange={(e) => setNoteText(e.target.value)}
+              value={noteText}
             ></textarea>
           </div>
         </div>

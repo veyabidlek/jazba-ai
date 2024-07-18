@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 export default function Navbar() {
   const [user, setUser] = useState("");
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -24,10 +25,14 @@ export default function Navbar() {
         localStorage.removeItem("token");
       }
     }
-  });
+  }, []); // Add empty dependency array to run effect only once
+
   const logOut = () => {
-    setUser("");
-    localStorage.removeItem("token");
+    if (confirm("Are you sure you want to log out?")) {
+      setUser("");
+      localStorage.removeItem("token");
+      window.location.reload();
+    }
   };
 
   return (
