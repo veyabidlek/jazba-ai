@@ -18,7 +18,7 @@ if (!urleke) {
   throw new Error("Frontend url kaida");
 }
 console.log("frontend:", urleke);
-app.use(cors({ origin: `${process.env.FRONTEND_URL}` }));
+app.use(cors({ origin: `${urleke}` }));
 app.use(express.json());
 app.use("/api/", globalRouter);
 connectDB();
