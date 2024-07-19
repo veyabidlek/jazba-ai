@@ -1,15 +1,27 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 "use client";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface Note {
   id: number;
   title: string;
   content: string;
   date: Date;
+}
+
+interface QuizData {
+  questions: {
+    id: number;
+    question: string;
+    choices: string[];
+    answer: string;
+    explanation: string;
+  }[];
 }
 
 const urleke = process.env.BACKEND_URL;
@@ -42,9 +54,11 @@ const getNotes = async (): Promise<Note[]> => {
 };
 
 export default function Notes() {
+  const router = useRouter();
   const [notes, setNotes] = useState<Note[]>([]);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [isQuizGenerating, setIsQuizGenerating] = useState(false);
+  const [, setQuizData] = useState<QuizData | null>(null);
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -70,7 +84,14 @@ export default function Notes() {
         noteData: noteData,
         numQuestions: numQuestions,
       });
-      console.log(response);
+      const quizData = response.data;
+      setQuizData(quizData);
+      localStorage.setItem("quizData", JSON.stringify(quizData)); // Store quiz data in localStorage
+
+      const noteTitleSlug = selectedNote!.title
+        .toLowerCase()
+        .replace(/ /g, "-");
+      router.push(`/notes/${noteTitleSlug}`);
     } catch (err) {
       console.error("Could not generate notes");
     }
@@ -89,21 +110,14 @@ export default function Notes() {
           <div className="flex flex-col sm:flex-row items-center justify-between">
             <div className="flex items-center gap-4 mb-4 sm:mb-0">
               <h1 className="text-xl sm:text-2xl font-bold text-white">
-                <Link
-                  href="/"
-                  className={` ${
-                    isQuizGenerating
-                      ? "pointer-events-none cursor-not-allowed"
-                      : ""
-                  } `}
-                >
+                <Link href="/">
                   Capture <span className="text-[#D34836]">AI</span>
                 </Link>
               </h1>
             </div>
             <div className="w-full sm:w-auto sm:flex-1 mb-4 sm:mb-0 sm:mx-4">
               <div className="relative w-full max-w-md mx-auto">
-                <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <SearchIcon className="absolute left-3 top-1/2  -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
                   type="search"
                   placeholder="Search notes..."
@@ -137,7 +151,6 @@ export default function Notes() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex gap-4">
-                    {" "}
                     <Button
                       variant="ghost"
                       size="icon"
@@ -148,7 +161,7 @@ export default function Notes() {
                     >
                       <ArrowLeftIcon className="h-4 w-4" />
                     </Button>
-                    <p className="mt-2 text-gray-500 text-md ">
+                    <p className="mt-2 text-gray-500 text-md">
                       {new Intl.DateTimeFormat("en-GB", {
                         day: "numeric",
                         month: "long",
@@ -156,7 +169,7 @@ export default function Notes() {
                       }).format(selectedNote.date)}
                     </p>
                   </div>
-                  <h2 className="text-2xl  font-bold text-[#244855]">
+                  <h2 className="text-2xl font-bold text-[#244855]">
                     {selectedNote.title}
                   </h2>
                   <Button
@@ -191,7 +204,7 @@ export default function Notes() {
                     <p className="line-clamp-8 text-sm">{note.content}</p>
                     <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-[#F5F5F5] to-transparent"></div>
                   </div>
-                  <div className="text-xs  text-muted-foreground mt-auto">
+                  <div className="text-xs text-muted-foreground mt-auto">
                     {new Intl.DateTimeFormat("en-GB", {
                       day: "numeric",
                       month: "long",
@@ -233,17 +246,17 @@ function PlusIcon(props: any) {
     <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      viewBox="0 0 24 24"
       strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      stroke="currentColor"
+      aria-hidden="true"
     >
-      <path d="M5 12h14" />
-      <path d="M12 5v14" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 4.5v15m7.5-7.5h-15"
+      />
     </svg>
   );
 }
