@@ -132,9 +132,6 @@ export default function Notes() {
                 <div className="prose text-[#244855] flex-1 max-h-[calc(100%-4rem)] overflow-auto whitespace-pre-wrap truncate">
                   {selectedNote.content}
                 </div>
-                <div className="text-xs text-muted-foreground absolute  w-full">
-                  {selectedNote.date.toLocaleDateString()}
-                </div>
               </div>
             </div>
           </div>
