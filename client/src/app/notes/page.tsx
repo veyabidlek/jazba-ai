@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Note {
   id: number;
@@ -180,9 +182,12 @@ export default function Notes() {
                     <span className="text-md">Take Quiz</span>
                   </Button>
                 </div>
-                <div className="prose text-[#244855] flex-1 max-h-[calc(100%-4rem)] overflow-auto whitespace-pre-wrap truncate">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  className="prose text-[#244855] flex-1 max-h-[calc(100%-4rem)] overflow-auto whitespace-pre-wrap truncate"
+                >
                   {selectedNote.content}
-                </div>
+                </ReactMarkdown>
               </div>
             </div>
           </div>
@@ -201,7 +206,12 @@ export default function Notes() {
                     {note.title}
                   </h2>
                   <div className="prose text-[#244855] flex-1 relative overflow-hidden">
-                    <p className="line-clamp-8 text-sm">{note.content}</p>
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      className="line-clamp-8 text-sm"
+                    >
+                      {note.content}
+                    </ReactMarkdown>
                     <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-[#F5F5F5] to-transparent"></div>
                   </div>
                   <div className="text-xs text-muted-foreground mt-auto">
