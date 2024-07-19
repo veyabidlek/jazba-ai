@@ -43,6 +43,8 @@ const getNotes = async (): Promise<Note[]> => {
 
 export default function Notes() {
   const [notes, setNotes] = useState<Note[]>([]);
+  const [selectedNote, setSelectedNote] = useState<Note | null>(null);
+  const [isQuizGenerating, setIsQuizGenerating] = useState(false);
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -52,14 +54,32 @@ export default function Notes() {
     fetchNotes();
   }, []);
 
-  const [selectedNote, setSelectedNote] = useState<Note | null>(null);
-
   const handleNoteClick = (note: Note) => {
-    setSelectedNote(note);
+    if (!isQuizGenerating) {
+      setSelectedNote(note);
+    }
   };
 
   const handleBackClick = () => {
     setSelectedNote(null);
+  };
+
+  const generateQuiz = async (noteData: string, numQuestions: number) => {
+    try {
+      const response = await axios.post(`${urleke}/api/generatequiz`, {
+        noteData: noteData,
+        numQuestions: numQuestions,
+      });
+      console.log(response);
+    } catch (err) {
+      console.error("Could not generate notes");
+    }
+  };
+
+  const handleGenerateQuizClick = async () => {
+    setIsQuizGenerating(true);
+    await generateQuiz(selectedNote!.content, 5);
+    setIsQuizGenerating(false);
   };
 
   return (
@@ -69,7 +89,14 @@ export default function Notes() {
           <div className="flex flex-col sm:flex-row items-center justify-between">
             <div className="flex items-center gap-4 mb-4 sm:mb-0">
               <h1 className="text-xl sm:text-2xl font-bold text-white">
-                <Link href="/">
+                <Link
+                  href="/"
+                  className={` ${
+                    isQuizGenerating
+                      ? "pointer-events-none cursor-not-allowed"
+                      : ""
+                  } `}
+                >
                   Capture <span className="text-[#D34836]">AI</span>
                 </Link>
               </h1>
@@ -81,13 +108,19 @@ export default function Notes() {
                   type="search"
                   placeholder="Search notes..."
                   className="w-full rounded-md bg-muted pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#D34836]"
+                  disabled={isQuizGenerating}
                 />
               </div>
             </div>
             <div className="flex items-center">
               <Link
                 href="/"
-                className="rounded-md px-4 sm:px-6 py-2 bg-[#D34836] text-sm sm:text-md text-white hover:bg-[#c03730] whitespace-nowrap"
+                className={`rounded-md px-4 sm:px-6 py-2 text-sm sm:text-md text-white hover:bg-[#c03730] whitespace-nowrap ${
+                  isQuizGenerating
+                    ? "bg-gray-400 pointer-events-none cursor-not-allowed"
+                    : "bg-[#D34836]"
+                } `}
+                aria-disabled={isQuizGenerating}
               >
                 <PlusIcon className="h-5 w-5 sm:h-6 sm:w-6 inline mr-2" />
                 <span className="hidden sm:inline">Create new note</span>
@@ -111,6 +144,7 @@ export default function Notes() {
                       className="rounded-md bg-[#D34836] text-white hover:bg-[#c03730]"
                       onClick={handleBackClick}
                       aria-label="Back"
+                      disabled={isQuizGenerating}
                     >
                       <ArrowLeftIcon className="h-4 w-4" />
                     </Button>
@@ -125,7 +159,11 @@ export default function Notes() {
                   <h2 className="text-2xl  font-bold text-[#244855]">
                     {selectedNote.title}
                   </h2>
-                  <Button className="rounded-md bg-[#D34836] text-white font-bold hover:bg-[#c03730]">
+                  <Button
+                    onClick={handleGenerateQuizClick}
+                    className="rounded-md bg-[#D34836] text-white font-bold hover:bg-[#c03730]"
+                    disabled={isQuizGenerating}
+                  >
                     <span className="text-md">Take Quiz</span>
                   </Button>
                 </div>
@@ -142,7 +180,7 @@ export default function Notes() {
             {notes.map((note) => (
               <div
                 key={note.id}
-                className="group relative rounded-lg bg-[#F5F5F5] p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer w-full aspect-square "
+                className="group relative rounded-lg bg-[#F5F5F5] p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer w-full aspect-square"
                 onClick={() => handleNoteClick(note)}
               >
                 <div className="space-y-2 h-full flex flex-col">

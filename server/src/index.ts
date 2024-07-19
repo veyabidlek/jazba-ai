@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import multer from "multer";
-import { generateText } from "./services/openai";
+import { generateQuiz, generateText } from "./services/openai";
 import {
   checkProgress,
   promptVideo,
@@ -52,6 +52,17 @@ app.post("/api/summarize", async (req, res) => {
     const data = req.body.data;
     console.log("/api/sumarize", JSON.stringify(data));
     const response = await generateText(data);
+    res.json(response);
+  } catch (error: any) {
+    console.error("Error in /api/summarize:", error);
+    res.status(400).json({ error: error.message });
+  }
+});
+
+app.post("/api/generatequiz", async (req, res) => {
+  try {
+    const reqData = req.body;
+    const response = await generateQuiz(reqData.noteData, reqData.numQuestions);
     res.json(response);
   } catch (error: any) {
     console.error("Error in /api/summarize:", error);

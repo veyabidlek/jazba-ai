@@ -39,10 +39,10 @@ export default function NotesContainer() {
   const getNotes = async (): Promise<Note[]> => {
     try {
       const token = localStorage.getItem("token");
-      setIsLoggedIn(!!token);
       if (!token) {
         throw new Error("No token found");
       }
+      setIsLoggedIn(!!token);
 
       const response = await axios.get(`${urleke}/api/notes`, {
         headers: {
