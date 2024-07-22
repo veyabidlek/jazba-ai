@@ -52,7 +52,9 @@ export default function MainContainer() {
   const streamRef = useRef<MediaStream | null>(null);
   const segmentIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const notesArrayRef = useRef<string[]>([]);
+  const pendingRequestsRef = useRef<number>(0);
   const chunkInterval = 60000; //1 minute
+
   const startRecording = async () => {
     try {
       streamRef.current = await navigator.mediaDevices.getDisplayMedia({
@@ -83,6 +85,7 @@ export default function MainContainer() {
           type: "video/webm",
         });
         setVideoFile(file);
+        pendingRequestsRef.current += 1;
         await uploadVideo(file);
         chunksRef.current = [];
       };
@@ -119,10 +122,8 @@ export default function MainContainer() {
       streamRef.current = null;
     }
     setTimeout(() => {
-      {
-        processAllNotes();
-      }
-    }, 30000);
+      waitForAllNotes().then(() => processAllNotes());
+    }, 1000);
   };
 
   const uploadVideo = async (file: File) => {
@@ -138,6 +139,8 @@ export default function MainContainer() {
     } catch (err) {
       console.error("Error Uploading Video", err);
       setState(UploadState.Failure);
+    } finally {
+      pendingRequestsRef.current -= 1;
     }
   };
 
@@ -205,6 +208,7 @@ export default function MainContainer() {
   };
 
   const processAllNotes = async () => {
+    console.log("processAllNotes is executed...");
     const combinedNotes = notesArrayRef.current.join("\n\n");
 
     try {
@@ -218,7 +222,6 @@ export default function MainContainer() {
         console.error("Error summarizing notes:", response.error);
         return;
       }
-
       const parsedObject = JSON.parse(response);
       parsedObject.date = new Date();
       const token = localStorage.getItem("token");
@@ -233,6 +236,19 @@ export default function MainContainer() {
       console.error("Error summarizing notes", err);
       setState(UploadState.Failure);
     }
+  };
+
+  const waitForAllNotes = () => {
+    return new Promise<void>((resolve) => {
+      const checkPendingRequests = () => {
+        if (pendingRequestsRef.current === 0) {
+          resolve();
+        } else {
+          setTimeout(checkPendingRequests, 1000); // Check every second
+        }
+      };
+      checkPendingRequests();
+    });
   };
 
   const [time, setTime] = useState(0);
