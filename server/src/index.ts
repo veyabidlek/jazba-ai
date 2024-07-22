@@ -47,6 +47,18 @@ app.post("/api/progress", async (req, res) => {
   }
 });
 
+app.post("/api/summarizeGemini", async (req, res) => {
+  try {
+    const data = req.body.data;
+    console.log("/api/sumarizeGemini", JSON.stringify(data));
+    const response = await summarizeNotes(data);
+    res.json(response);
+  } catch (error: any) {
+    console.error("Error in /api/summarize:", error);
+    res.status(400).json({ error: error.message });
+  }
+});
+
 app.post("/api/summarize", async (req, res) => {
   try {
     const data = req.body.data;
