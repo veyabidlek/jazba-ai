@@ -27,7 +27,7 @@ export async function generateText(noteData) {
       },
       { role: "user", content: noteData },
     ],
-    model: "gpt-4o",
+    model: "gpt-4o-mini",
     temperature: 0.5,
     response_format: { type: "json_object" },
   });
@@ -80,7 +80,7 @@ export async function generateQuiz(noteData, numQuestions) {
       },
       { role: "user", content: noteData },
     ],
-    model: "gpt-4o",
+    model: "gpt-4o-mini",
     temperature: 0.5,
     response_format: { type: "json_object" },
   });
