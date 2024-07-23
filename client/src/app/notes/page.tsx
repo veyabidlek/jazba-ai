@@ -106,7 +106,7 @@ export default function Notes() {
   };
 
   return (
-    <div className="flex min-h-[100dvh] px-12 flex-col bg-[#244855]">
+    <div className="flex min-h-[100dvh] px-12 flex-col custom-bg">
       <header className="bg-background shadow">
         <div className="container mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between">

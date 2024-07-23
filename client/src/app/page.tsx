@@ -1,21 +1,23 @@
-import MainContainer from "./components/mainContainer";
-import NotesContainer from "./components/notesContainer";
-import { Loading } from "./components/loading";
-import { Note } from "./components/generated-note";
-import Navbar from "./components/navBar";
+import Head from "next/head";
+import NavBar from "./components/NavBar";
+import Hero from "./components/Hero";
+import RecentNotes from "./components/RecentNotes";
+import FloatingButtons from "./components/FloatingButtons";
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className="bg-[#244855] min-h-screen">
-      <Navbar />
-      <div className="container mx-auto px-8 py-8">
-        <div className="flex flex-col lg:flex-row justify-center items-center lg:items-stretch gap-8">
-          <MainContainer />
-          <NotesContainer />
-        </div>
+    <div>
+      <div className="min-h-screen relative flex flex-col items-center justify-center custom-bg px-4 sm:px-8 md:px-16 pb-16">
+        <Head>
+          <title>jazba AI</title>
+        </Head>
+        <NavBar />
+        <Hero />
+        <RecentNotes />
       </div>
-      <Loading />
-      <Note />
+      <FloatingButtons />
     </div>
   );
-}
+};
+
+export default Home;

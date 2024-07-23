@@ -3,8 +3,13 @@
 @tailwind utilities;
 
 body {
-  background-color: #244855;
-  font-family: "Inter";
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+.text-stroke {
+  font-family: sans-serif;
+  color: white;
+  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000,
+    -1px 1px 0 #000;
 }
 
 .loader {
@@ -38,4 +43,28 @@ body {
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
   animation: write 4s linear infinite;
+}
+
+.custom-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("https://images.unsplash.com/photo-1472289065668-ce650ac443d2?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+  filter: brightness(85%);
+  z-index: -1;
+}
+
+.custom-bg > * {
+  position: relative;
+  z-index: 1;
 }
