@@ -43,19 +43,19 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-[#244855] px-4 py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-[100dvh] flex-col items-center justify-center custom-bg px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-lg">
         <div className="space-y-4 text-center">
           <div className="flex justify-between items-center ">
             <Link
               href="/"
-              className="p-2 rounded-full text-white hover:bg-muted p-2 rounded-md bg-[#D34836]"
+              className="p-2 rounded-full text-white hover:bg-muted p-2 rounded-md bg-black"
               prefetch={false}
             >
               <ArrowLeftIcon className="h-5 w-5 " />
               <span className="sr-only">Go back</span>
             </Link>
-            <h1 className="text-3xl font-bold text-[#D34836] ml-[-32px]">
+            <h1 className="text-3xl font-bold text-black ml-[-32px]">
               Sign Up
             </h1>
             <div />
@@ -116,7 +116,7 @@ export default function Register() {
           </div>
           <Button
             type="submit"
-            className="w-full bg-[#D34836] text-white hover:bg-[#c03730] focus:ring-[#D34836]"
+            className="w-full bg-black text-white hover:bg-white hover:text-black  hover:border hover:border-black focus:ring-blue-500"
           >
             Sign Up
           </Button>
@@ -132,7 +132,7 @@ export default function Register() {
           </div>
           <Button
             variant="outline"
-            className="w-full border-[#D34836] text-[#D34836] hover:bg-[#D34836] hover:text-white focus:ring-[#D34836]"
+            className="w-full border-black text-black hover:bg-black hover:text-white focus:ring-blue-500"
           >
             <ChromeIcon className="mr-2 h-4 w-4" />
             Continue with Google
