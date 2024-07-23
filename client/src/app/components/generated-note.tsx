@@ -18,7 +18,7 @@ export function Note() {
           <div className="bg-white shadow-lg rounded-lg ml-[150px] p-6 w-[700px] h-[600px]">
             <button
               onClick={toggleVisibility}
-              className="absolute top-4 right-4 bg-red-500 text-white rounded-full p-2 shadow-md hover:bg-red-600 transition duration-300 ease-in-out focus:outline-none"
+              className="absolute top-4 right-4 bg-yellow-500 text-white rounded-full p-2 shadow-md hover:bg-yellow-600 transition duration-300 ease-in-out focus:outline-none"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import NavBar from "@/app/components/NavBar";
 
 interface QuizQuestion {
   id: number;
@@ -85,7 +86,7 @@ export default function QuizPage({}: { params: { slug: string } }) {
 
   if (!quizData || !quizData.questions || quizData.questions.length === 0) {
     return (
-      <div className="flex min-h-[100dvh] items-center justify-center bg-[#244855]">
+      <div className="flex min-h-[100dvh] items-center justify-center bg-yellow-500">
         <div className="text-white text-2xl">
           No quiz data available. Please go back and generate a quiz.
         </div>
@@ -96,35 +97,19 @@ export default function QuizPage({}: { params: { slug: string } }) {
   const currentQuestion = quizData.questions[currentQuestionIndex];
 
   return (
-    <div className="flex min-h-[100dvh] px-12 flex-col bg-[#244855]">
-      <header className="bg-background shadow">
-        <div className="container mx-auto px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <h1 className="text-xl sm:text-2xl font-bold text-white">
-              <Link href="/">
-                Capture <span className="text-[#D34836]">AI</span>
-              </Link>
-            </h1>
-            <Link
-              href="/notes"
-              className="rounded-md px-4 sm:px-6 py-2 text-sm sm:text-md text-white bg-[#D34836] hover:bg-[#c03730]"
-            >
-              Back to Notes
-            </Link>
-          </div>
-        </div>
-      </header>
+    <div className="flex min-h-[100dvh] px-12 flex-col custom-bg">
+      <NavBar />
 
       <main className="flex-1 px-6 py-6 sm:px-6 lg:px-8">
         <div className="container mx-auto">
           <div className="rounded-lg bg-[#F5F5F5] p-4 shadow-lg">
             {!quizCompleted ? (
               <div className="space-y-4">
-                <h2 className="text-2xl font-bold text-[#244855] mb-4">
+                <h2 className="text-2xl font-bold text-black mb-4">
                   Question {currentQuestionIndex + 1} of{" "}
                   {quizData.questions.length}
                 </h2>
-                <p className="text-lg text-[#244855] mb-4">
+                <p className="text-lg text-black mb-4">
                   {currentQuestion.question}
                 </p>
                 <div className="space-y-2">
@@ -138,9 +123,9 @@ export default function QuizPage({}: { params: { slug: string } }) {
                             ? selectedAnswer === currentQuestion.answer
                               ? "bg-green-500 hover:bg-green-600"
                               : "bg-red-500 hover:bg-red-600"
-                            : "bg-blue-500 hover:bg-blue-600"
+                            : "bg-yellow-500 hover:bg-yellow-600"
                           : "bg-gray-200 hover:bg-gray-300"
-                      } text-[#244855]`}
+                      } text-black`}
                       disabled={isAnswerSubmitted}
                     >
                       {choice}
@@ -162,7 +147,7 @@ export default function QuizPage({}: { params: { slug: string } }) {
                   {!isAnswerSubmitted ? (
                     <Button
                       onClick={handleSubmitAnswer}
-                      className="bg-[#D34836] text-white hover:bg-[#c03730]"
+                      className="bg-black text-white hover:bg-white hover:text-black hover:border hover:border-black"
                       disabled={selectedAnswer === null}
                     >
                       Submit Answer
@@ -170,7 +155,7 @@ export default function QuizPage({}: { params: { slug: string } }) {
                   ) : (
                     <Button
                       onClick={handleNextQuestion}
-                      className="bg-[#D34836] text-white hover:bg-[#c03730]"
+                      className="bg-black text-white "
                     >
                       {currentQuestionIndex < quizData.questions.length - 1
                         ? "Next Question"
@@ -181,16 +166,14 @@ export default function QuizPage({}: { params: { slug: string } }) {
               </div>
             ) : (
               <div className="text-center">
-                <h2 className="text-2xl font-bold text-[#244855] mb-4">
+                <h2 className="text-2xl font-bold text-black mb-4">
                   Quiz Completed!
                 </h2>
-                <p className="text-lg text-[#244855] mb-4">
+                <p className="text-lg text-black mb-4">
                   Your score: {score} out of {quizData.questions.length}
                 </p>
                 <Link href="/notes">
-                  <Button className="bg-[#D34836] text-white hover:bg-[#c03730]">
-                    Back to Notes
-                  </Button>
+                  <Button className="bg-black text-white">Back to Notes</Button>
                 </Link>
               </div>
             )}
