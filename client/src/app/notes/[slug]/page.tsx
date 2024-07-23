@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import NavBar from "@/app/components/NavBar";
+import NavBar from "../../components/NavBar";
 
 interface QuizQuestion {
   id: number;

@@ -49,13 +49,13 @@ const NavBar = () => {
             href="/login"
             className="mr-2 px-6 py-3 border border-white font-bold text-white rounded-lg hover:bg-white hover:text-black transition-all duration-300 hover:border-black"
           >
-            Login
+            Kiru
           </Link>
           <Link
             href="/register"
             className="px-6 py-3 bg-white text-black font-bold rounded-lg border-black border-[1px] hover:bg-black hover:text-white transition-all duration-300"
           >
-            Signup
+            Tirkelu
           </Link>
         </div>
       ) : (
@@ -65,7 +65,7 @@ const NavBar = () => {
             onClick={logOut}
             className="text-white hover:bg-black px-3 py-2 rounded-md text-md font-medium transition duration-300"
           >
-            Log out
+            Shygu
           </button>
         </div>
       )}
