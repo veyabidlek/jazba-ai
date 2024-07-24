@@ -2,10 +2,11 @@
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function NavBar() {
   const [user, setUser] = useState("");
-
+  const router = useRouter();
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -32,7 +33,7 @@ export function NavBar() {
     if (confirm("Are you sure you want to log out?")) {
       setUser("");
       localStorage.removeItem("token");
-      window.location.reload();
+      router.push("/");
     }
   };
   return (
