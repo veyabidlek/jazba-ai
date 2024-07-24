@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 "use client";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/vcomponents/ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
