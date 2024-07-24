@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { NavBar } from "./components/navBar";
-import { Hero } from "./components/Hero";
+import { Hero } from "./components/hero";
 import { RecentNotes } from "./components/recentNotes";
 import { FloatingButtons } from "./components/floatingButtons";
 import { Loading } from "./components/loading";
