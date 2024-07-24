@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/vcomponents/ui/button";
 import { NavBar } from "../../components/navBar";
 
 interface QuizQuestion {

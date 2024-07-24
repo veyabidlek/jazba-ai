@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
-import { Label } from "../../components/ui/label";
-import { Input } from "../../components/ui/input";
-import { Button } from "../../components/ui/button";
+import { Label } from "../../vcomponents/ui/label";
+import { Input } from "../../vcomponents/ui/input";
+import { Button } from "../../vcomponents/ui/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import "dotenv/config";
