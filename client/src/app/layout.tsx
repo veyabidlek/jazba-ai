@@ -6,9 +6,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Capture AI",
-  description:
-    "record your screen, do whatever you want, and get the notes based on what you did",
+  title: "Jazba AI",
+  description: "qarağan närselerıñ boiynşy qolaily jazbalar al",
 };
 
 export default function RootLayout({
