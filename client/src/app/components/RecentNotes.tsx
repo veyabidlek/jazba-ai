@@ -2,7 +2,7 @@
 import Link from "next/link";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import NoteCard from "./NoteCard";
+import NoteCard from "./noteCard";
 
 interface NoteProps {
   title: string;

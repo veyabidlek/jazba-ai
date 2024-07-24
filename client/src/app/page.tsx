@@ -1,8 +1,8 @@
 import Head from "next/head";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/navBar";
 import Hero from "./components/Hero";
-import RecentNotes from "./components/RecentNotes";
-import FloatingButtons from "./components/FloatingButtons";
+import RecentNotes from "./components/recentNotes";
+import FloatingButtons from "./components/floatingButtons";
 import { Loading } from "./components/loading";
 import { Note } from "./components/generated-note";
 const Home = () => {
