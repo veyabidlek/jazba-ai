@@ -108,12 +108,12 @@ export default function Notes() {
     <div className="flex min-h-[100dvh] px-12 flex-col custom-bg">
       <NavBar />
       {selectedNote ? (
-        <div className="flex-1 px-6 py-6 sm:px-6 lg:px-8">
+        <div className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
           <div className="container mx-auto">
             <div className="rounded-lg bg-[#F5F5F5] p-4 shadow-lg">
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex gap-4 mb-4 sm:mb-0">
                     <Button
                       variant="ghost"
                       size="icon"
@@ -122,7 +122,7 @@ export default function Notes() {
                       aria-label="Back"
                       disabled={isQuizGenerating}
                     >
-                      <ArrowLeftIcon className="h-4 w-4" />
+                      <ArrowLeftIcon className="ml-3 h-4 w-4" />
                     </Button>
                     <p className="mt-2 text-gray-500 text-md">
                       {new Intl.DateTimeFormat("en-GB", {
@@ -132,12 +132,12 @@ export default function Notes() {
                       }).format(selectedNote.date)}
                     </p>
                   </div>
-                  <h2 className="text-2xl font-bold text-[#244855]">
+                  <h2 className="text-2xl font-bold text-[#244855] text-center sm:text-left">
                     {selectedNote.title}
                   </h2>
                   <Button
                     onClick={handleGenerateQuizClick}
-                    className="rounded-md bg-black text-white font-bold hover:bg-white hover:text-black hover:border hover:border-black"
+                    className="mt-4 sm:mt-0 rounded-md bg-black text-white font-bold hover:bg-white hover:text-black hover:border hover:border-black"
                     disabled={isQuizGenerating}
                   >
                     <span className="text-md">Take Quiz</span>

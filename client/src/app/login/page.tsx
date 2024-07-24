@@ -125,7 +125,7 @@ export default function Login() {
           </div>
           <Button
             variant="outline"
-            className="w-full border-black text-black hover:bg-black hover:text-white focus:ring-blue-500"
+            className="flex w-full text-center items-center border-black text-black hover:bg-black hover:text-white focus:ring-blue-500"
           >
             <ChromeIcon className="mr-2 h-4 w-4" />
             Continue with Google
