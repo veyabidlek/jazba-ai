@@ -29,7 +29,7 @@ if (!urleke) {
   throw new Error("Backend does not exist.");
 }
 import { VscRecord } from "rocketicons/vsc";
-export default function Hero(){
+export default function Hero() {
   const [, setVideoFile] = useAtom(videoFileAtom);
   const [, setUploadResult] = useAtom(uploadResultAtom);
   const [, setNote] = useAtom(NoteAtom);
@@ -335,7 +335,7 @@ export default function Hero(){
           </div>
           <button
             onClick={stopFunction}
-            className="bg-red-500 text-white px-24 py-4 rounded-md text-lg hover:bg-red-600"
+            className="bg-red-500 text-white px-24 py-4 rounded-xl text-lg hover:bg-red-600"
           >
             ⏹ Toqtau
           </button>
@@ -343,6 +343,4 @@ export default function Hero(){
       )}
     </div>
   );
-};
-
-
+}
