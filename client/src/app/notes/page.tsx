@@ -6,7 +6,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import NavBar from "../components/navBar";
+import { NavBar } from "../components/navBar";
 
 interface Note {
   id: number;

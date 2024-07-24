@@ -29,7 +29,7 @@ if (!urleke) {
   throw new Error("Backend does not exist.");
 }
 import { VscRecord } from "rocketicons/vsc";
-export default function Hero() {
+export function Hero() {
   const [, setVideoFile] = useAtom(videoFileAtom);
   const [, setUploadResult] = useAtom(uploadResultAtom);
   const [, setNote] = useAtom(NoteAtom);

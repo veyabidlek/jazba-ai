@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-export default function NavBar() {
+export function NavBar() {
   const [user, setUser] = useState("");
 
   useEffect(() => {

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import NoteCard from "./noteCard";
+import { NoteCard } from "./noteCard";
 
 interface NoteProps {
   title: string;
@@ -12,7 +12,7 @@ interface NoteProps {
 
 const urleke = process.env.BACKEND_URL;
 
-const RecentNotes: React.FC = () => {
+export function RecentNotes() {
   const [notes, setNotes] = useState<NoteProps[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -99,6 +99,4 @@ const RecentNotes: React.FC = () => {
       )}
     </div>
   );
-};
-
-export default RecentNotes;
+}
