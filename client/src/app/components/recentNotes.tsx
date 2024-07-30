@@ -6,7 +6,7 @@ import { NoteCard } from "./noteCard";
 
 interface NoteProps {
   title: string;
-  content: string;
+  content: Array<JSON>;
   date: string;
 }
 
@@ -75,8 +75,8 @@ export function RecentNotes() {
               <NoteCard
                 key={index}
                 title={note.title}
-                date={note.date}
                 content={note.content}
+                date={note.date}
               />
             ))}
           </div>

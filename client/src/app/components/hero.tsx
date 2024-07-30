@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from "react";
 import {
   videoFileAtom,
   uploadResultAtom,
-  NoteAtom,
   isVisibleAtom,
   isLoadingAtom,
 } from "../atoms";
@@ -32,7 +31,6 @@ import { VscRecord } from "rocketicons/vsc";
 export function Hero() {
   const [, setVideoFile] = useAtom(videoFileAtom);
   const [, setUploadResult] = useAtom(uploadResultAtom);
-  const [, setNote] = useAtom(NoteAtom);
   const [, setIsVisible] = useAtom(isVisibleAtom);
   const [, SetIsLoading] = useAtom(isLoadingAtom);
 
@@ -188,7 +186,7 @@ export function Hero() {
     }
   };
 
-  const postNote = async (data: JSON) => {
+  const postNote = async (data: Array<JSON>) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -211,26 +209,23 @@ export function Hero() {
     const combinedNotes = notesArrayRef.current.join("\n\n");
 
     try {
-      const response = await post(
+      const newNote = await post(
         `${urleke}/api/summarize`,
         JSON.stringify({
           data: combinedNotes,
         })
       );
-      if (response.error) {
-        console.error("Error summarizing notes:", response.error);
+      if (newNote.error) {
+        console.error("Error summarizing notes:", newNote.error);
         return;
       }
-      const parsedObject = JSON.parse(response);
-      parsedObject.date = new Date();
       const token = localStorage.getItem("token");
       if (token) {
-        postNote(parsedObject);
+        postNote(newNote);
       }
 
       SetIsLoading(false);
       setIsVisible(true);
-      setNote(parsedObject.content);
     } catch (err) {
       console.error("Error summarizing notes", err);
       setState(UploadState.Failure);
