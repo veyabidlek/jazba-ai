@@ -4,7 +4,7 @@ import { Hero } from "./components/hero";
 import { RecentNotes } from "./components/recentNotes";
 import { FloatingButtons } from "./components/floatingButtons";
 import { Loading } from "./components/loading";
-import { Note } from "./components/generated-note";
+
 const Home = () => {
   return (
     <div>
@@ -19,7 +19,6 @@ const Home = () => {
       </div>
       <FloatingButtons />
       <Loading />
-      <Note />
     </div>
   );
 };

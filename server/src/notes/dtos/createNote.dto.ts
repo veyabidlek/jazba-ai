@@ -1,6 +1,6 @@
 export interface CreateNoteDto {
   title: string;
-  content: string;
+  content: Array<JSON>;
   date: Date;
   userId: string;
 }

@@ -10,6 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@blocknote/mantine": "^0.15.3",
+    "@blocknote/react": "^0.15.3",
     "@editorjs/editorjs": "^2.30.2",
     "@google/generative-ai": "^0.11.3",
     "@heroicons/react": "^1.0.6",

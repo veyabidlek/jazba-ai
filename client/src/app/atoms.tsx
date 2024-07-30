@@ -4,6 +4,5 @@ import { atom } from "jotai";
 export const videoFileAtom = atom<File | null>(null);
 export const uploadResultAtom = atom<FileMetadataResponse | null>(null);
 export const promptAtom = atom<string>("");
-export const NoteAtom = atom("");
 export const isVisibleAtom = atom(false);
 export const isLoadingAtom = atom(false);

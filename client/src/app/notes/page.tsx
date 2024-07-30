@@ -4,14 +4,16 @@ import { useEffect, useState } from "react";
 import { Button } from "@/vcomponents/ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+
 import { NavBar } from "../components/navBar";
+import dynamic from "next/dynamic";
+
+const Editor = dynamic(() => import("../components/editor"), { ssr: false });
 
 interface Note {
   id: number;
   title: string;
-  content: string;
+  content: Array<JSON>;
   date: Date;
 }
 
@@ -100,7 +102,8 @@ export default function Notes() {
 
   const handleGenerateQuizClick = async () => {
     setIsQuizGenerating(true);
-    await generateQuiz(selectedNote!.content, 5);
+    const string = JSON.stringify(selectedNote?.content);
+    await generateQuiz(string, 5);
     setIsQuizGenerating(false);
   };
 
@@ -110,7 +113,7 @@ export default function Notes() {
       {selectedNote ? (
         <div className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
           <div className="container mx-auto">
-            <div className="rounded-lg bg-[#F5F5F5] p-4 shadow-lg">
+            <div className="rounded-lg bg-[white] p-4 shadow-lg">
               <div className="space-y-2">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                   <div className="flex gap-4 mb-4 sm:mb-0">
@@ -143,12 +146,7 @@ export default function Notes() {
                     <span className="text-md">Take Quiz</span>
                   </Button>
                 </div>
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  className="prose text-[#244855] flex-1 max-h-[calc(100%-4rem)] overflow-auto whitespace-pre-wrap truncate"
-                >
-                  {selectedNote.content}
-                </ReactMarkdown>
+                <Editor content={selectedNote.content} />
               </div>
             </div>
           </div>
@@ -167,12 +165,9 @@ export default function Notes() {
                     {note.title}
                   </h2>
                   <div className="prose text-[#244855] flex-1 relative overflow-hidden">
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
-                      className="line-clamp-8 text-sm"
-                    >
-                      {note.content}
-                    </ReactMarkdown>
+                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                    {/* @ts-ignore */}
+                    {note.content[1].content[0].text}
                     <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-[#F5F5F5] to-transparent"></div>
                   </div>
                   <div className="text-xs text-muted-foreground mt-auto">
