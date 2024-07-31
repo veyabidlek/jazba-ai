@@ -81,7 +81,6 @@ function convertMongoDBToBlockNote(mongoContent: any): BlockNoteContent[] {
 //@ts-ignore
 export default function Editor({ content }) {
   const transformedContent = convertMongoDBToBlockNote(content);
-  console.log(transformedContent);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
   const editor = useCreateBlockNote({ initialContent: transformedContent });

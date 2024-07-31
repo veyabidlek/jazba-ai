@@ -59,41 +59,41 @@ export default function Login() {
               <ArrowLeftIcon className="h-5 w-5" />
               <span className="sr-only">Go back</span>
             </Link>
-            <h1 className="text-3xl font-bold text-black ml-[-36px]">Login</h1>
+            <h1 className="text-3xl font-bold text-black ml-[-36px]">Логин</h1>
             <div />
           </div>
           <p className="text-muted-foreground">
-            Enter your email and password to login.{" "}
+            Кіру үшін пошта мен құпия сөзді еңгізіңіз.{" "}
           </p>
           <p className="inline">
-            Don't have an account?{" "}
+            Аккаунт жоқ па?{" "}
             <Link prefetch={false} href="/register" className="underline">
-              Sign up
+              Тіркелу
             </Link>
           </p>
         </div>
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">Пошта</Label>
             <Input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Поштаны еңгізіңіз"
               required
             />
           </div>
           <div className="relative space-y-2">
             <div className="flex items-center">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Құпия сөз</Label>
             </div>
             <Input
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               id="password"
-              placeholder="Enter your password"
+              placeholder="Құпия сөзді еңгізіңіз"
               required
             />
             <Button
@@ -111,9 +111,9 @@ export default function Login() {
             type="submit"
             className="w-full bg-black text-white hover:bg-white hover:text-black hover:border-black hover:border transition-all duration-300 focus:ring-blue-500"
           >
-            Login
+            Логин
           </Button>
-          <div className="relative">
+          {/* <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t border-muted" />
             </div>
@@ -122,14 +122,14 @@ export default function Login() {
                 Or continue with
               </span>
             </div>
-          </div>
-          <Button
+          </div> */}
+          {/* <Button
             variant="outline"
             className="flex w-full text-center items-center border-black text-black hover:bg-black hover:text-white focus:ring-blue-500"
           >
             <ChromeIcon className="mr-2 h-4 w-4" />
             Continue with Google
-          </Button>
+          </Button> */}
         </form>
       </div>
     </div>

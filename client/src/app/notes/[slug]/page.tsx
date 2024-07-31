@@ -106,8 +106,7 @@ export default function QuizPage({}: { params: { slug: string } }) {
             {!quizCompleted ? (
               <div className="space-y-4">
                 <h2 className="text-2xl font-bold text-black mb-4">
-                  Question {currentQuestionIndex + 1} of{" "}
-                  {quizData.questions.length}
+                  Сұрақ {currentQuestionIndex + 1}/{quizData.questions.length}
                 </h2>
                 <p className="text-lg text-black mb-4">
                   {currentQuestion.question}
@@ -136,9 +135,8 @@ export default function QuizPage({}: { params: { slug: string } }) {
                   <div className="mt-4">
                     <p className="text-lg font-semibold">
                       {selectedAnswer === currentQuestion.answer
-                        ? "Correct!"
-                        : "Incorrect. The correct answer is: " +
-                          currentQuestion.answer}
+                        ? "Дұрыс!"
+                        : "Қате. Дұрыс жауап: " + currentQuestion.answer}
                     </p>
                     <p className="mt-2">{currentQuestion.explanation}</p>
                   </div>
@@ -150,7 +148,7 @@ export default function QuizPage({}: { params: { slug: string } }) {
                       className="bg-black text-white hover:bg-white hover:text-black hover:border hover:border-black"
                       disabled={selectedAnswer === null}
                     >
-                      Submit Answer
+                      Жауап беру
                     </Button>
                   ) : (
                     <Button
@@ -158,8 +156,8 @@ export default function QuizPage({}: { params: { slug: string } }) {
                       className="bg-black text-white "
                     >
                       {currentQuestionIndex < quizData.questions.length - 1
-                        ? "Next Question"
-                        : "Finish Quiz"}
+                        ? "Келесі сұрақ"
+                        : "Тестті аяқтау"}
                     </Button>
                   )}
                 </div>
@@ -167,13 +165,15 @@ export default function QuizPage({}: { params: { slug: string } }) {
             ) : (
               <div className="text-center">
                 <h2 className="text-2xl font-bold text-black mb-4">
-                  Quiz Completed!
+                  Тест бітті!
                 </h2>
                 <p className="text-lg text-black mb-4">
-                  Your score: {score} out of {quizData.questions.length}
+                  Сіздің баллыңыз: {score} / {quizData.questions.length}
                 </p>
                 <Link href="/notes">
-                  <Button className="bg-black text-white">Back to Notes</Button>
+                  <Button className="bg-black text-white">
+                    Жазбаларға оралу
+                  </Button>
                 </Link>
               </div>
             )}

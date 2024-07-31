@@ -44,17 +44,23 @@ export const promptVideo = async (uploadResult) => {
   try {
     const req = [
       {
-        text: `Analyze the following screen recording and provide concise, study-worthy notes: 
-        - Focus on key information visible for at least 20 seconds
-        - Ignore brief glimpses or rapidly changing content
-        - Capture main ideas, definitions, and important details
-        - Use bullet points for clarity
-        - Include relevant formulas, equations, or code snippets if present
-        - Note any diagrams or visual aids, describing their key elements
-        - Highlight any emphasized points or repeated information
-        - If the content is part of a larger topic, provide context
-        - Limit the response to 3-5 bullet points unless the content is particularly dense
-      Remember, these notes should be useful for review and study purposes. Prioritize quality and relevance over quantity.`,
+        text: `Analyze this 1-minute screen recording segment and provide concise study notes:
+          - Use only the language present in the recording (e.g., Русский for Русского контента, English for English content, Қазақша егер конент қазақша болса)
+          - Focus on key information visible for 10+ seconds
+          - Ignore brief glimpses or rapidly changing content
+          - Capture main ideas, definitions, and critical details
+          - Use 3-5 concise bullet points (more only if content is extremely dense)
+          - Include formulas, equations, or code snippets if present
+          - Briefly describe key elements of any diagrams or visual aids
+          - Highlight emphasized or repeated information
+          - Provide minimal context if part of a larger topic
+          - Prioritize relevance and study value over quantity
+
+          Output format:
+          - [Bullet point 1]
+          - [Bullet point 2]
+          - [Bullet point 3]
+          (Additional points if necessary)`,
       },
       {
         fileData: {

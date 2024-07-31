@@ -1,0 +1,52 @@
+{
+  "navBar": {
+    "leave": "Shygu",
+    "signIn": "Kiru",
+    "signUp": "Tirkelu"
+  },
+  "hero": {
+    "cta1": "Ekranyñdy tüsırıp",
+    "cta2": "Keremet jazbalar al",
+    "start": "Bastau",
+    "stop": "Toqtau",
+    "recordingPhrase": ""
+  },
+  "recentNotes": {
+    "recentNotes": "Soñğy jazbalar",
+    "allNotes": "Barlyq jazbalar"
+  },
+  "login": {
+    "login": "Login",
+    "prompt1": "Enter your email and password to login",
+    "prompt2": "Don't have an account?",
+    "signUp": "Sign up",
+    "email": "Email",
+    "password": "Password",
+    "continueWith": "OR CONTINUE WITH",
+    "google": "Continue with Google"
+  },
+  "signup": {
+    "signup": "Sign Up",
+    "prompt": "Already have an account?",
+    "signin": "Sign in",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "continueWith": "OR CONTINUE WITH",
+    "google": "Continue with Google"
+  },
+  "note": {
+    "takeQuiz": "Take Quiz"
+  },
+  "quiz": {
+    "question": "Question",
+    "submitAnswer": "Submit Answer",
+    "incorrect": "Incorrect",
+    "correct": "Correct!",
+    "correctAnswer": "The correct answer is: ",
+    "quizCompleted": "Quiz Completed!",
+    "yourScore": "Your score: ",
+    "backToNotes": "Back to Notes"
+  }
+}
