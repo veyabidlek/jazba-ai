@@ -1,19 +1,20 @@
 {
   "navBar": {
-    "leave": "Shygu",
-    "signIn": "Kiru",
-    "signUp": "Tirkelu"
+    "leave": "Log out",
+    "signIn": "Sign in",
+    "signUp": "Sign up"
   },
   "hero": {
-    "cta1": "Ekranyñdy tüsırıp",
-    "cta2": "Keremet jazbalar al",
-    "start": "Bastau",
-    "stop": "Toqtau",
-    "recordingPhrase": ""
+    "cta1": "Get beautiful notes",
+    "cta2": "in seconds",
+    "start": "Let's go",
+    "stop": "Stop",
+    "recordingPhrase": "Recording..."
   },
   "recentNotes": {
-    "recentNotes": "Soñğy jazbalar",
-    "allNotes": "Barlyq jazbalar"
+    "recentNotes": "Recent notes",
+    "allNotes": "See all notes",
+    "prompt": "Login to view and save notes"
   },
   "login": {
     "login": "Login",
@@ -42,9 +43,9 @@
   "quiz": {
     "question": "Question",
     "submitAnswer": "Submit Answer",
-    "incorrect": "Incorrect",
+    "incorrect": "Incorrect. The correct answer: ",
     "correct": "Correct!",
-    "correctAnswer": "The correct answer is: ",
+    "nextQuestion": "Next question",
     "quizCompleted": "Quiz Completed!",
     "yourScore": "Your score: ",
     "backToNotes": "Back to Notes"

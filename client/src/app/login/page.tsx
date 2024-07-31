@@ -8,10 +8,14 @@ import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import "dotenv/config";
 import axios from "axios";
+import { useLanguage } from "../contexts/languageContext";
+import { getContent } from "../utils/languageUtils";
 
 const urleke = process.env.BACKEND_URL;
 
 export default function Login() {
+  const { language } = useLanguage();
+  const content = getContent(language);
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,41 +63,41 @@ export default function Login() {
               <ArrowLeftIcon className="h-5 w-5" />
               <span className="sr-only">Go back</span>
             </Link>
-            <h1 className="text-3xl font-bold text-black ml-[-36px]">Логин</h1>
+            <h1 className="text-3xl font-bold text-black ml-[-36px]">
+              {content.login.login}
+            </h1>
             <div />
           </div>
-          <p className="text-muted-foreground">
-            Кіру үшін пошта мен құпия сөзді еңгізіңіз.{" "}
-          </p>
+          <p className="text-muted-foreground">{content.login.prompt1} </p>
           <p className="inline">
-            Аккаунт жоқ па?{" "}
+            {content.login.prompt2}{" "}
             <Link prefetch={false} href="/register" className="underline">
-              Тіркелу
+              {content.login.signUp}
             </Link>
           </p>
         </div>
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
-            <Label htmlFor="email">Пошта</Label>
+            <Label htmlFor="email">{content.login.email}</Label>
             <Input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               id="email"
               type="email"
-              placeholder="Поштаны еңгізіңіз"
+              placeholder={content.login.email}
               required
             />
           </div>
           <div className="relative space-y-2">
             <div className="flex items-center">
-              <Label htmlFor="password">Құпия сөз</Label>
+              <Label htmlFor="password">{content.login.password}</Label>
             </div>
             <Input
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               id="password"
-              placeholder="Құпия сөзді еңгізіңіз"
+              placeholder={content.login.password}
               required
             />
             <Button
@@ -111,7 +115,7 @@ export default function Login() {
             type="submit"
             className="w-full bg-black text-white hover:bg-white hover:text-black hover:border-black hover:border transition-all duration-300 focus:ring-blue-500"
           >
-            Логин
+            {content.login.login}
           </Button>
           {/* <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -119,7 +123,7 @@ export default function Login() {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
+                    {content.signin.continueWith}
               </span>
             </div>
           </div> */}
@@ -128,7 +132,7 @@ export default function Login() {
             className="flex w-full text-center items-center border-black text-black hover:bg-black hover:text-white focus:ring-blue-500"
           >
             <ChromeIcon className="mr-2 h-4 w-4" />
-            Continue with Google
+           {content.signin.google}
           </Button> */}
         </form>
       </div>
