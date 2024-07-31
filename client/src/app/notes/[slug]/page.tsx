@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/vcomponents/ui/button";
 import { NavBar } from "../../components/navBar";
+import { getContent } from "@/app/utils/languageUtils";
+import { useLanguage } from "@/app/contexts/languageContext";
 
 interface QuizQuestion {
   id: number;
@@ -18,6 +20,8 @@ interface QuizData {
 }
 
 export default function QuizPage({}: { params: { slug: string } }) {
+  const { language } = useLanguage();
+  const content = getContent(language);
   const [quizData, setQuizData] = useState<QuizData | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -106,7 +110,8 @@ export default function QuizPage({}: { params: { slug: string } }) {
             {!quizCompleted ? (
               <div className="space-y-4">
                 <h2 className="text-2xl font-bold text-black mb-4">
-                  Сұрақ {currentQuestionIndex + 1}/{quizData.questions.length}
+                  {content.quiz.question} {currentQuestionIndex + 1}/
+                  {quizData.questions.length}
                 </h2>
                 <p className="text-lg text-black mb-4">
                   {currentQuestion.question}
@@ -135,8 +140,8 @@ export default function QuizPage({}: { params: { slug: string } }) {
                   <div className="mt-4">
                     <p className="text-lg font-semibold">
                       {selectedAnswer === currentQuestion.answer
-                        ? "Дұрыс!"
-                        : "Қате. Дұрыс жауап: " + currentQuestion.answer}
+                        ? `${content.quiz.correct}`
+                        : `${content.quiz.incorrect}` + currentQuestion.answer}
                     </p>
                     <p className="mt-2">{currentQuestion.explanation}</p>
                   </div>
@@ -148,7 +153,7 @@ export default function QuizPage({}: { params: { slug: string } }) {
                       className="bg-black text-white hover:bg-white hover:text-black hover:border hover:border-black"
                       disabled={selectedAnswer === null}
                     >
-                      Жауап беру
+                      {content.quiz.submitAnswer}
                     </Button>
                   ) : (
                     <Button
@@ -156,7 +161,7 @@ export default function QuizPage({}: { params: { slug: string } }) {
                       className="bg-black text-white "
                     >
                       {currentQuestionIndex < quizData.questions.length - 1
-                        ? "Келесі сұрақ"
+                        ? `${content.quiz.nextQuestion}`
                         : "Тестті аяқтау"}
                     </Button>
                   )}
@@ -165,14 +170,14 @@ export default function QuizPage({}: { params: { slug: string } }) {
             ) : (
               <div className="text-center">
                 <h2 className="text-2xl font-bold text-black mb-4">
-                  Тест бітті!
+                  {content.quiz.quizCompleted}
                 </h2>
                 <p className="text-lg text-black mb-4">
-                  Сіздің баллыңыз: {score} / {quizData.questions.length}
+                  {content.quiz.yourScore} {score} / {quizData.questions.length}
                 </p>
                 <Link href="/notes">
                   <Button className="bg-black text-white">
-                    Жазбаларға оралу
+                    {content.quiz.backToNotes}
                   </Button>
                 </Link>
               </div>

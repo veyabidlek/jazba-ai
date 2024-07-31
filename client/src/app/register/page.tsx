@@ -7,9 +7,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import "dotenv/config";
 import axios from "axios";
+import { getContent } from "../utils/languageUtils";
+import { useLanguage } from "../contexts/languageContext";
 const urleke = process.env.BACKEND_URL;
 
 export default function Register() {
+  const { language } = useLanguage();
+  const content = getContent(language);
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -56,61 +60,64 @@ export default function Register() {
               <span className="sr-only">Go back</span>
             </Link>
             <h1 className="text-3xl font-bold text-black ml-[-32px]">
-              Тіркелу
+              {content.signup.signup}
             </h1>
             <div />
           </div>
           <p className="text-muted-foreground">
-            Аккаунт бар ма?
+            {content.signup.prompt}
             <Link href="/login" className="ml-2 underline" prefetch={false}>
-              Кіру
+              {content.signup.signin}
             </Link>
           </p>
         </div>
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="name">Username</Label>
+              <Label htmlFor="name"> {content.signup.username}</Label>
               <Input
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 id="usernname"
-                placeholder="Лақап ат қойыңыз"
+                placeholder={content.signup.username}
                 required
               />
             </div>
           </div>
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email"> {content.signup.email}</Label>
             <Input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               id="email"
               type="email"
-              placeholder="Поштаны еңгізіңіз"
+              placeholder={content.signup.email}
               required
             />
           </div>
           <div className="relative space-y-2">
             <div className="flex items-center">
-              <Label htmlFor="password">Құпия сөз</Label>
+              <Label htmlFor="password"> {content.signup.password}</Label>
             </div>
             <Input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               id="password"
-              placeholder="Құпия сөзді еңгізіңіз"
+              placeholder={content.signup.password}
               required
             />
           </div>
           <div>
-            <Label htmlFor="confirm-password">Құпия сөзді растау</Label>
+            <Label htmlFor="confirm-password">
+              {" "}
+              {content.signup.confirmPassword}
+            </Label>
             <Input
               value={password2}
               onChange={(e) => setPassword2(e.target.value)}
               id="confirm-password"
               type="password"
-              placeholder="Құпия сөзді растау"
+              placeholder={content.signup.confirmPassword}
               required
             />
           </div>
@@ -118,7 +125,7 @@ export default function Register() {
             type="submit"
             className="w-full bg-black text-white hover:bg-white hover:text-black  hover:border hover:border-black focus:ring-blue-500"
           >
-            Тіркелу
+            {content.signup.signup}
           </Button>
           {/* <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -126,7 +133,7 @@ export default function Register() {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
+                {content.signup.continueWith}
               </span>
             </div>
           </div>
@@ -135,7 +142,7 @@ export default function Register() {
             className="flex w-full text-center items-center border-black text-black hover:bg-black hover:text-white focus:ring-blue-500"
           >
             <ChromeIcon className="mr-2 h-4 w-4" />
-            Continue with Google
+             {content.signup.google}
           </Button> */}
         </form>
       </div>

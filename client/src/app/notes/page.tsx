@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 
 import { NavBar } from "../components/navBar";
 import dynamic from "next/dynamic";
+import { getContent } from "../utils/languageUtils";
+import { useLanguage } from "../contexts/languageContext";
 
 const Editor = dynamic(() => import("../components/editor"), { ssr: false });
 
@@ -57,6 +59,8 @@ const getNotes = async (): Promise<Note[]> => {
 };
 
 export default function Notes() {
+  const { language } = useLanguage();
+  const content = getContent(language);
   const router = useRouter();
   const [notes, setNotes] = useState<Note[]>([]);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
@@ -143,7 +147,7 @@ export default function Notes() {
                     className="mt-4 sm:mt-0 rounded-md bg-black text-white font-bold hover:bg-white hover:text-black hover:border hover:border-black"
                     disabled={isQuizGenerating}
                   >
-                    <span className="text-md">Тест тапсыру</span>
+                    <span className="text-md">{content.note.takeQuiz}</span>
                   </Button>
                 </div>
                 <Editor content={selectedNote.content} />

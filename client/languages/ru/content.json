@@ -1,0 +1,53 @@
+{
+  "navBar": {
+    "leave": "Выйти",
+    "signIn": "Войти",
+    "signUp": "Регистрация"
+  },
+  "hero": {
+    "cta1": "Получайте красивые заметки",
+    "cta2": "за считанные секунды",
+    "start": "Поехали",
+    "stop": "Стоп",
+    "recordingPhrase": "Запись..."
+  },
+  "recentNotes": {
+    "recentNotes": "Последние заметки",
+    "allNotes": "Посмотреть все заметки",
+    "prompt": "Войдите, чтобы просматривать и сохранять заметки"
+  },
+  "login": {
+    "login": "Войти",
+    "prompt1": "Введите свой email и пароль для входа",
+    "prompt2": "Нет аккаунта?",
+    "signUp": "Регистрация",
+    "email": "Email",
+    "password": "Пароль",
+    "continueWith": "ИЛИ ПРОДОЛЖИТЕ С",
+    "google": "Войти с помощью Google"
+  },
+  "signup": {
+    "signup": "Регистрация",
+    "prompt": "Уже есть аккаунт?",
+    "signin": "Войти",
+    "username": "Имя пользователя",
+    "email": "Email",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "continueWith": "ИЛИ ПРОДОЛЖИТЕ С",
+    "google": "Регистрация с помощью Google"
+  },
+  "note": {
+    "takeQuiz": "Пройти тест"
+  },
+  "quiz": {
+    "question": "Вопрос",
+    "submitAnswer": "Отправить ответ",
+    "incorrect": "Неправильно. Правильный ответ: ",
+    "correct": "Правильно!",
+    "nextQuestion": "Следующий вопрос",
+    "quizCompleted": "Тест завершен!",
+    "yourScore": "Ваш результат: ",
+    "backToNotes": "Вернуться к заметкам"
+  }
+}

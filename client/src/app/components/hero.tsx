@@ -28,7 +28,11 @@ if (!urleke) {
   throw new Error("Backend does not exist.");
 }
 import { VscRecord } from "rocketicons/vsc";
+import { getContent } from "../utils/languageUtils";
+import { useLanguage } from "../contexts/languageContext";
 export function Hero() {
+  const { language } = useLanguage();
+  const content = getContent(language);
   const [, setVideoFile] = useAtom(videoFileAtom);
   const [, setUploadResult] = useAtom(uploadResultAtom);
   const [, setIsVisible] = useAtom(isVisibleAtom);
@@ -301,23 +305,24 @@ export function Hero() {
       {!isActive ? (
         <div className="flex flex-col items-center justify-center text-center mt-16 px-4">
           <h1 className="text-3xl sm:text-5xl font-bold text-white mb-4 text-stroke">
-            Санаулы секундта
+            {content.hero.cta1}
           </h1>
           <h1 className="text-3xl sm:text-5xl font-bold text-white mb-8 text-stroke">
-            Керемет жазбалар ал
+            {content.hero.cta2}
           </h1>
           <button
             onClick={startFunction}
             className="flex gap-2 items-center w-full justify-center text-center sm:w-[200px] px-8 py-6 bg-white text-black rounded-[999px] font-bold text-lg hover:bg-black hover:text-white border-[1px] border-black transition-all duration-300"
           >
             <VscRecord width="40px" height="40px" />
-            Бастау
+            {content.hero.start}
           </button>
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-2xl sm:text-5xl font-bold text-white mb-8 text-stroke">
-            Экран жазылуда...{""}
+            {content.hero.recordingPhrase}
+            {""}
           </h1>
           <div className="text-white text-8xl font-bold mb-8 text-stroke">
             {formatTime(time)}
@@ -332,7 +337,7 @@ export function Hero() {
             onClick={stopFunction}
             className="flex gap-2 items-center w-full justify-center text-center sm:w-[200px] px-8 py-6 bg-black text-white rounded-[999px] font-bold text-lg hover:bg-red-600 hover:text-white border-[1px] border-black transition-all duration-300"
           >
-            ⏹ Тоқтау
+            ⏹ {content.hero.stop}
           </button>
         </div>
       )}

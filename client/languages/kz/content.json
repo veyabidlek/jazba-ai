@@ -1,0 +1,59 @@
+{
+  "navBar": {
+    "leave": "Шығу",
+    "signIn": "Кіру",
+    "signUp": "Тіркелу"
+  },
+  "hero": {
+    "cta1": "Санаулы секундта",
+    "cta2": "Әдемі жазбалар ал",
+    "start": "Бастау",
+    "stop": "Тоқтау",
+    "recordingPhrase": "Экран жазылуда..."
+  },
+  "recentNotes": {
+    "recentNotes": "Соңғы жазбалар",
+    "allNotes": "Барлық жазбалар",
+    "prompt": "Жазбаларды көру және сақтау үшін жүйеге кіріңіз"
+  },
+  "login": {
+    "login": "Логин",
+    "prompt1": "Кіру үшін пошта мен құпия сөзді еңгізіңіз",
+    "prompt2": "Аккаунт жоқ па?",
+    "signUp": "Тіркелу",
+    "email": "Пошта",
+    "emailPlaceholder": "",
+    "password": "Құпия сөз",
+    "passwordPlaceholder": "",
+    "continueWith": "немесе",
+    "google": "Google арқылы кіру"
+  },
+  "signup": {
+    "signup": "Тіркелу",
+    "prompt": "Аккаунт бар ма?",
+    "signin": "Кіру",
+    "username": "Лақап ат",
+    "usernamePlaceholder": "Лақап атты еңгізіңіз",
+    "email": "Пошта",
+    "emailPlaceholder": "Поштаны еңгізу",
+    "password": "Құпия сөз",
+    "passwordPlaceholder": "Құпия сөзді еңгізіңіз",
+    "confirmPassword": "Құпия сөзді растау",
+    "confirmPasswordPlaceholder": "Құпия сөзді растаңыз",
+    "continueWith": "немесе",
+    "google": "Google арқылы тіркелу"
+  },
+  "note": {
+    "takeQuiz": "Тест тапсыру"
+  },
+  "quiz": {
+    "question": "Сұрақ",
+    "submitAnswer": "Жауап беру",
+    "incorrect": "Қате. Дұрыс жауап: ",
+    "correct": "Дұрыс!",
+    "nextQuestion": "Келесі сұрақ",
+    "quizCompleted": "Тест бітті!",
+    "yourScore": "Сіздің баллыңыз: ",
+    "backToNotes": "Жазбаларға оралу"
+  }
+}

@@ -3,6 +3,8 @@ import Link from "next/link";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { NoteCard } from "./noteCard";
+import { useLanguage } from "../contexts/languageContext";
+import { getContent } from "../utils/languageUtils";
 
 interface NoteProps {
   title: string;
@@ -13,6 +15,8 @@ interface NoteProps {
 const urleke = process.env.BACKEND_URL;
 
 export function RecentNotes() {
+  const { language } = useLanguage();
+  const content = getContent(language);
   const [notes, setNotes] = useState<NoteProps[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -59,14 +63,14 @@ export function RecentNotes() {
               {/* Empty div for spacing on larger screens */}
             </div>
             <h3 className="text-2xl font-bold text-white text-stroke mb-4 sm:mb-0 w-full sm:w-2/4 text-center">
-              Соңғы жазбалар
+              {content.recentNotes.recentNotes}{" "}
             </h3>
             <div className="w-full sm:w-1/4 hidden sm:flex justify-end">
               <Link
                 href="/notes"
                 className="px-4 py-2 bg-white text-black font-bold rounded-xl hover:bg-black hover:text-white border-[1px] border-black transition-all duration-300"
               >
-                Барлық жазбалар
+                {content.recentNotes.allNotes}
               </Link>
             </div>
           </div>
@@ -85,14 +89,14 @@ export function RecentNotes() {
               href="/notes"
               className="px-4 py-3 bg-white text-black font-bold rounded-xl hover:bg-black hover:text-white border-[1px] border-black transition-all duration-300"
             >
-              Барлық жазбалар
+              {content.recentNotes.allNotes}{" "}
             </Link>
           </div>
         </>
       ) : (
         <div className="flex flex-col items-center justify-center h-full">
           <h3 className="text-2xl font-bold text-white text-stroke mb-4 text-center">
-            Жазбаларды сақтау және көру үшін жүйеге кіріңіз
+            {content.recentNotes.prompt}{" "}
           </h3>
           <div className="h-[150px]"> </div>
         </div>
