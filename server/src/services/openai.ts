@@ -8,6 +8,7 @@ export async function generateText(noteData) {
       {
         role: "system",
         content: `You are an assistant that summarizes study notes using BlockNote JS format. When creating your summary, be aware of these formatting options:
+- - Use only the language present in the notes (e.g., Русский for Русского контента, English for English content, Қазақша егер конент қазақша болса)
 -Text alignment can be "left", "center", "right", or "justify".
 -Text color and background color can be any red, yellow not just "default".
 -Heading levels can be 1, 2, or 3.
