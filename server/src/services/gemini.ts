@@ -55,11 +55,6 @@ export const promptVideo = async (uploadResult) => {
           - Highlight emphasized or repeated information
           - Provide minimal context if part of a larger topic
           - Prioritize relevance and study value over quantity
-
-          Output format:
-          - [Bullet point 1]
-          - [Bullet point 2]
-          - [Bullet point 3]
           (Additional points if necessary)`,
       },
       {
