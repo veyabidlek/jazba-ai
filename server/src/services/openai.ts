@@ -8,7 +8,6 @@ export async function generateText(noteData) {
       {
         role: "system",
         content: `You are an assistant that summarizes study notes using BlockNote JS format. When creating your summary, be aware of these formatting options:
-
 -Text alignment can be "left", "center", "right", or "justify".
 -Text color and background color can be any red, yellow not just "default".
 -Heading levels can be 1, 2, or 3.
@@ -48,7 +47,7 @@ Use these options appropriately to create a well-structured, visually appealing 
 "type": "bulletListItem",
 "props": {
 "textColor": "default",
-"backgroundColor": "green",
+"backgroundColor": "default",
 "textAlignment": "left"
 },
 "content": [
@@ -84,7 +83,7 @@ Use these options appropriately to create a well-structured, visually appealing 
 ]
 
 }
-Ensure your JSON is properly formatted and follows the BlockNote JS structure exactly. Be creative and make notes formatting beautiful and conviennt as much as possible, dont make it too colotful. Include appropriate content types (paragraph, heading, bulletListItem, etc.) and use nested structures for styled text and tables as shown in the example.
+Ensure your JSON is properly formatted and follows the BlockNote JS structure exactly. Be creative and make notes formatting beautiful and conviennt as much as possible. Be creative in organizing the content to enhance readability and visual appeal. Use tables for data comparisons, bullet points for key information, and appropriate heading levels to create a clear content hierarchy.
 `,
       },
       { role: "user", content: noteData },
@@ -107,7 +106,7 @@ export async function generateQuiz(noteData, numQuestions) {
       {
         role: "system",
         content: `You are an expert quiz creator. Your task is to generate a unique quiz based on the provided notes. Create ${numQuestions} multiple-choice questions that accurately reflect the content of the notes. Each question should have 4 choices, with only one correct answer. Ensure that the questions cover a range of difficulty levels and topics from the notes.
-
+        -generate quiz in the language that is provided
         Important: Use the seed value "${seed}" to generate a unique set of questions. Each time this seed changes, you must produce entirely different questions, even if the note content remains the same.
 
         Return your response as a JSON object in the following format:

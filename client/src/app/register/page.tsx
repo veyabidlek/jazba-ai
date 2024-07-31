@@ -56,14 +56,14 @@ export default function Register() {
               <span className="sr-only">Go back</span>
             </Link>
             <h1 className="text-3xl font-bold text-black ml-[-32px]">
-              Sign Up
+              Тіркелу
             </h1>
             <div />
           </div>
           <p className="text-muted-foreground">
-            Already have an account?
+            Аккаунт бар ма?
             <Link href="/login" className="ml-2 underline" prefetch={false}>
-              Sign in
+              Кіру
             </Link>
           </p>
         </div>
@@ -75,7 +75,7 @@ export default function Register() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 id="usernname"
-                placeholder="Enter your username"
+                placeholder="Лақап ат қойыңыз"
                 required
               />
             </div>
@@ -87,30 +87,30 @@ export default function Register() {
               onChange={(e) => setEmail(e.target.value)}
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Поштаны еңгізіңіз"
               required
             />
           </div>
           <div className="relative space-y-2">
             <div className="flex items-center">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Құпия сөз</Label>
             </div>
             <Input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               id="password"
-              placeholder="Enter your password"
+              placeholder="Құпия сөзді еңгізіңіз"
               required
             />
           </div>
           <div>
-            <Label htmlFor="confirm-password">Confirm Password</Label>
+            <Label htmlFor="confirm-password">Құпия сөзді растау</Label>
             <Input
               value={password2}
               onChange={(e) => setPassword2(e.target.value)}
               id="confirm-password"
               type="password"
-              placeholder="Confirm your password"
+              placeholder="Құпия сөзді растау"
               required
             />
           </div>
@@ -118,9 +118,9 @@ export default function Register() {
             type="submit"
             className="w-full bg-black text-white hover:bg-white hover:text-black  hover:border hover:border-black focus:ring-blue-500"
           >
-            Sign Up
+            Тіркелу
           </Button>
-          <div className="relative">
+          {/* <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t border-muted" />
             </div>
@@ -136,7 +136,7 @@ export default function Register() {
           >
             <ChromeIcon className="mr-2 h-4 w-4" />
             Continue with Google
-          </Button>
+          </Button> */}
         </form>
       </div>
     </div>

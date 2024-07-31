@@ -108,7 +108,7 @@ export default function Notes() {
   };
 
   return (
-    <div className="flex min-h-[100dvh] px-12 flex-col custom-bg">
+    <div className="flex min-h-[100dvh]  flex-col custom-bg">
       <NavBar />
       {selectedNote ? (
         <div className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
@@ -143,7 +143,7 @@ export default function Notes() {
                     className="mt-4 sm:mt-0 rounded-md bg-black text-white font-bold hover:bg-white hover:text-black hover:border hover:border-black"
                     disabled={isQuizGenerating}
                   >
-                    <span className="text-md">Take Quiz</span>
+                    <span className="text-md">Тест тапсыру</span>
                   </Button>
                 </div>
                 <Editor content={selectedNote.content} />
@@ -171,7 +171,7 @@ export default function Notes() {
                     <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-[#F5F5F5] to-transparent"></div>
                   </div>
                   <div className="text-xs text-muted-foreground mt-auto">
-                    {new Intl.DateTimeFormat("en-GB", {
+                    {new Intl.DateTimeFormat("kk", {
                       day: "numeric",
                       month: "long",
                       year: "numeric",
