@@ -2,7 +2,6 @@
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { LanguageSwitcher } from "./languageSwitcher";
 import { useLanguage } from "../contexts/languageContext";
 import { getContent } from "../utils/languageUtils";
@@ -12,7 +11,6 @@ export function NavBar() {
   const content = getContent(language);
   const [user, setUser] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -20,10 +18,12 @@ export function NavBar() {
       try {
         const decoded = jwtDecode(token);
         const currentTime = Date.now() / 1000;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         if (decoded.exp < currentTime) {
           localStorage.removeItem("token");
         } else {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           setUser(decoded.username);
         }
@@ -38,7 +38,7 @@ export function NavBar() {
     if (confirm("Are you sure you want to log out?")) {
       setUser("");
       localStorage.removeItem("token");
-      router.push("/");
+      window.location.reload();
     }
   };
 
@@ -58,10 +58,16 @@ export function NavBar() {
         <div className="hidden md:flex items-center space-x-4">
           {!user ? (
             <>
-              <Link href="/login" className="text-white hover:underline">
+              <Link
+                href="/login"
+                className="text-white font-bold hover:text-black hover:underline"
+              >
                 {content.navBar.signIn}
               </Link>
-              <Link href="/register" className="text-white hover:underline">
+              <Link
+                href="/register"
+                className="bg-white text-black p-2 rounded-lg border-black border font-bold hover:bg-black hover:text-white"
+              >
                 {content.navBar.signUp}
               </Link>
             </>
