@@ -11,20 +11,20 @@ export function NavBar() {
   const { language } = useLanguage();
   const content = getContent(language);
   const [user, setUser] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        const currentTime = Date.now() / 1000; // in seconds
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
+        const currentTime = Date.now() / 1000;
+        // @ts-ignore
         if (decoded.exp < currentTime) {
           localStorage.removeItem("token");
         } else {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-ignore
+          // @ts-ignore
           setUser(decoded.username);
         }
       } catch (error) {
@@ -32,7 +32,7 @@ export function NavBar() {
         localStorage.removeItem("token");
       }
     }
-  }, []); // Add empty dependency array to run effect only once
+  }, []);
 
   const logOut = () => {
     if (confirm("Are you sure you want to log out?")) {
@@ -41,40 +41,66 @@ export function NavBar() {
       router.push("/");
     }
   };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <header className="flex justify-between items-center w-full p-4">
-      <Link
-        href="/"
-        className="text-white text-xl sm:text-2xl font-bold cursor-pointer"
-      >
-        jazba ai
-      </Link>
-      {!user ? (
-        <div>
-          <Link
-            href="/login"
-            className="mr-2 px-6 py-3 border border-white font-bold text-white rounded-lg hover:bg-white hover:text-black transition-all duration-300 hover:border-black"
-          >
-            {content.navBar.signIn}
-          </Link>
-          <Link
-            href="/register"
-            className="px-6 py-3 bg-white text-black font-bold rounded-lg border-black border-[1px] hover:bg-black hover:text-white transition-all duration-300"
-          >
-            {content.navBar.signUp}
-          </Link>
+    <header className="w-full p-4">
+      <div className="container mx-auto flex justify-between items-center">
+        <Link
+          href="/"
+          className="text-white text-xl sm:text-2xl font-bold cursor-pointer"
+        >
+          jazba ai
+        </Link>
+        <div className="hidden md:flex items-center space-x-4">
+          {!user ? (
+            <>
+              <Link href="/login" className="text-white hover:underline">
+                {content.navBar.signIn}
+              </Link>
+              <Link href="/register" className="text-white hover:underline">
+                {content.navBar.signUp}
+              </Link>
+            </>
+          ) : (
+            <>
+              <p className="text-white font-bold">{user}</p>
+              <button onClick={logOut} className="text-white hover:underline">
+                {content.navBar.leave}
+              </button>
+            </>
+          )}
           <LanguageSwitcher />
         </div>
-      ) : (
-        <div className="flex items-center space-x-4">
-          <p className="text-white text-md font-bold">{user}</p>
-          <button
-            onClick={logOut}
-            className="text-white hover:bg-black px-3 py-2 rounded-md text-md font-medium transition duration-300"
-          >
-            {content.navBar.leave}
-          </button>
-          <LanguageSwitcher />
+        <button onClick={toggleMenu} className="md:hidden text-white">
+          {isMenuOpen ? "X" : "☰"}
+        </button>
+      </div>
+      {isMenuOpen && (
+        <div className="md:hidden mt-4 bg-black bg-opacity-50 rounded-lg p-4">
+          <div className="flex flex-col space-y-4 items-start">
+            {user ? (
+              <>
+                <p className="text-white font-bold">{user}</p>
+                <button onClick={logOut} className="text-white hover:underline">
+                  {content.navBar.leave}
+                </button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" className="text-white hover:underline">
+                  {content.navBar.signIn}
+                </Link>
+                <Link href="/register" className="text-white hover:underline">
+                  {content.navBar.signUp}
+                </Link>
+              </>
+            )}
+            <LanguageSwitcher />
+          </div>
         </div>
       )}
     </header>
