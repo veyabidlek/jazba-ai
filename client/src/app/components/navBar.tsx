@@ -81,12 +81,12 @@ export function NavBar() {
           )}
           <LanguageSwitcher />
         </div>
-        <button onClick={toggleMenu} className="md:hidden text-white">
+        <button onClick={toggleMenu} className="md:hidden text-white text-xl">
           {isMenuOpen ? "X" : "☰"}
         </button>
       </div>
       {isMenuOpen && (
-        <div className="md:hidden mt-4 bg-black bg-opacity-50 rounded-lg p-4">
+        <div className="md:hidden bg-black bg-opacity-50 rounded-lg p-4 ">
           <div className="flex flex-col space-y-4 items-start">
             {user ? (
               <>
