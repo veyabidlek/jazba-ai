@@ -5,6 +5,9 @@ import {
   uploadResultAtom,
   isVisibleAtom,
   isLoadingAtom,
+  noteContentAtom,
+  noteDateAtom,
+  noteTitleAtom,
 } from "../atoms";
 import { useAtom } from "jotai";
 import { FileMetadataResponse } from "@google/generative-ai/files";
@@ -37,7 +40,9 @@ export function Hero() {
   const [, setUploadResult] = useAtom(uploadResultAtom);
   const [, setIsVisible] = useAtom(isVisibleAtom);
   const [, SetIsLoading] = useAtom(isLoadingAtom);
-
+  const [, setContent] = useAtom(noteContentAtom);
+  const [, setTitle] = useAtom(noteTitleAtom);
+  const [, setDate] = useAtom(noteDateAtom);
   const enum UploadState {
     Waiting = "",
     Recording = "Recording...",
@@ -227,8 +232,10 @@ export function Hero() {
       if (token) {
         postNote(newNote);
       }
-
       SetIsLoading(false);
+      setTitle(newNote.title);
+      setDate(newNote.date);
+      setContent(newNote.content);
       setIsVisible(true);
     } catch (err) {
       console.error("Error summarizing notes", err);
