@@ -291,10 +291,19 @@ export function Hero() {
   const handleStartPause = () => {
     setIsActive(!isActive);
   };
+  const isMobile = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+  };
 
   const startFunction = () => {
-    handleStartPause();
-    startRecording();
+    if (isMobile()) {
+      alert(content.hero.mobileError);
+    } else {
+      handleStartPause();
+      startRecording();
+    }
   };
 
   const handleReset = () => {
