@@ -1,15 +1,16 @@
 "use client";
 import { useAtom } from "jotai";
-import { isVisibleAtom } from "../atoms";
-import Editor from "./editor";
-import { noteContentAtom, noteTitleAtom, noteDateAtom } from "../atoms";
+import { isHIWVisibleAtom } from "../atoms";
+import { motion } from "framer-motion";
+import { FaDesktop, FaFileAlt } from "react-icons/fa";
+import { VscRecord } from "rocketicons/vsc";
+import { getContent } from "../utils/languageUtils";
+import { useLanguage } from "../contexts/languageContext";
 
-export function Note() {
-  const [isVisible, setIsVisible] = useAtom(isVisibleAtom);
-  const [noteTitle] = useAtom(noteTitleAtom);
-  const [noteDate] = useAtom(noteDateAtom);
-  const [noteContent] = useAtom(noteContentAtom);
-
+export function HIW() {
+  const { language } = useLanguage();
+  const content = getContent(language);
+  const [isVisible, setIsVisible] = useAtom(isHIWVisibleAtom);
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
@@ -17,27 +18,40 @@ export function Note() {
   if (!isVisible) {
     return null;
   }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore
-  const formatDate = (timestamp) => {
-    const date = new Date(parseInt(timestamp));
-    return date.toLocaleString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
+
+  const steps = [
+    {
+      title: content.howitworks.steps[0].title,
+      description: content.howitworks.steps[0].description,
+      icon: <VscRecord width="35px" height="35px" />,
+    },
+    {
+      title: content.howitworks.steps[1].title,
+      description: content.howitworks.steps[1].description,
+      icon: <FaDesktop className="text-3xl" />,
+    },
+    {
+      title: content.howitworks.steps[2].title,
+      description: content.howitworks.steps[2].description,
+      icon: <FaFileAlt className="text-3xl" />,
+    },
+  ];
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-      <div className="bg-white shadow-lg rounded-lg p-6 w-3/4 h-3/4 flex flex-col">
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-2xl font-bold">{noteTitle}</h2>
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+        className="p-8 rounded-lg max-w-2xl"
+      >
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl text-white  font-bold">
+            {content.howitworks.mainTitle}{" "}
+          </h2>
           <button
             onClick={toggleVisibility}
-            className="bg-yellow-500 text-white rounded-full p-2 shadow-md hover:bg-red-600 transition duration-300 ease-in-out focus:outline-none"
+            className="bg-yellow-500  text-black rounded-full p-2 shadow-md hover:bg-yellow-600 hover:text-white transition duration-300 ease-in-out focus:outline-none"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -55,15 +69,28 @@ export function Note() {
             </svg>
           </button>
         </div>
-
-        <p className="text-sm italic text-gray-500 mb-4">
-          {formatDate(noteDate)}
-        </p>
-
-        <div className="flex-grow overflow-auto">
-          <Editor content={noteContent} />
+        <div className="space-y-4">
+          {steps.map((step, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.2 }}
+              className="bg-white p-4 rounded-lg shadow flex items-center space-x-4"
+            >
+              <div className="bg-black text-white rounded-full p-5 flex items-center justify-center">
+                {step.icon}
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-1 text-black">
+                  {step.title}
+                </h3>
+                <p className="text-gray-700 text-sm">{step.description}</p>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

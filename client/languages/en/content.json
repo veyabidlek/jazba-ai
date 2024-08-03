@@ -12,6 +12,23 @@
     "recordingPhrase": "Recording...",
     "mobileError": "Sorry, but Jazba does not work on mobile or tablet devices. Use PC or laptop instead."
   },
+  "howitworks": {
+    "mainTitle": "How It Works? 🤔",
+    "steps": [
+      {
+        "title": "1. Start Screen Recording 🎥",
+        "description": "Click the start button and select the screen or tab you want to record. To enable audio recording, choose a tab."
+      },
+      {
+        "title": "2. Do Whatever You Want 👨‍💻",
+        "description": "Continue your computer activities as usual - study, watch videos, browse, play games, or anything else."
+      },
+      {
+        "title": "3. Get Your Notes 📝",
+        "description": "Click stop when finished. After a brief wait, receive your beautifully designed notes."
+      }
+    ]
+  },
   "recentNotes": {
     "recentNotes": "Recent notes",
     "allNotes": "See all notes",

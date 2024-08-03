@@ -6,6 +6,7 @@ export const uploadResultAtom = atom<FileMetadataResponse | null>(null);
 export const promptAtom = atom<string>("");
 export const isVisibleAtom = atom(false);
 export const isLoadingAtom = atom(false);
+export const isHIWVisibleAtom = atom(false);
 export const noteTitleAtom = atom("Title");
 export const noteDateAtom = atom("July 1");
 export const noteContentAtom = atom([
