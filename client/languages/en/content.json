@@ -9,7 +9,8 @@
     "cta2": "in mere seconds",
     "start": "Let's go",
     "stop": "Stop",
-    "recordingPhrase": "Recording..."
+    "recordingPhrase": "Recording...",
+    "mobileError": "Sorry, but Jazba does not work on mobile or tablet devices. Use PC or laptop instead."
   },
   "recentNotes": {
     "recentNotes": "Recent notes",
