@@ -8,7 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Jazba AI",
-  description: "qarağan närselerıñ boiynşy qolaily jazbalar al",
+  description:
+    "effortlessly record your screen activities and get beautifully designed notes for easy review and organization",
 };
 
 export default function RootLayout({
