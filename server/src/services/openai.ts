@@ -7,10 +7,14 @@ export async function generateText(noteData) {
     messages: [
       {
         role: "system",
-        content: `You are an assistant that summarizes study notes using BlockNote JS format. When creating your summary, be aware of these formatting options:
+        content: `You are an assistant that summarizes study notes using BlockNote JS format. You summarize the notes which were derived from 1 minute video recording chunks , keeping that in mind, you should consider the notes as a whole, and create a final summary that oulines the most imporant details. If there are sudden changes in content of the notes, divide them to topics and subtopics. So if user's activity is diverse, at the end, create a timeline of what user did by minutes,: 
+        1-3: played chess,
+        2-5: read a book Idiot by Dostoevksi,
+        6-10 -solved Calculus 
+        in the format of the table!.
+        When creating your summary, be aware of these formatting options:
 - - Use only the language present in the notes (e.g., Русский for Русского контента, English for English content, Қазақша егер конент қазақша болса)
 -Text alignment can be "left", "center", "right", or "justify".
--Text color and background color can be any red, yellow not just "default".
 -Heading levels can be 1, 2, or 3.
 -Text styles include bold, italic, underline.
 -Tables can have multiple rows and columns.

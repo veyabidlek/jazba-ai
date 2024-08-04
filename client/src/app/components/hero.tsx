@@ -215,8 +215,9 @@ export function Hero() {
 
   const processAllNotes = async () => {
     console.log("processAllNotes is executed...");
-    const combinedNotes = notesArrayRef.current.join("\n\n");
-
+    const combinedNotes = notesArrayRef.current
+      .map((note, index) => `minute ${index}: ${note}`)
+      .join("\n\n");
     try {
       const newNote = await post(
         `${urleke}/api/summarize`,
