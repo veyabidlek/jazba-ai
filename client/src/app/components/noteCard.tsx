@@ -15,7 +15,7 @@ export function NoteCard({ title, content, date }: NoteCardProps) {
       <p className="text-gray-600 text-sm mb-2 truncate">{date}</p>
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/* @ts-ignore */}
-      <p className="text-gray-800">{content[1].content[0].text}</p>
+      <p className="text-gray-800">{content[1].content[0]?.text}</p>
     </div>
   );
 }

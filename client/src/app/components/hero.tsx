@@ -60,7 +60,7 @@ export function Hero() {
   const notesArrayRef = useRef<string[]>([]);
   const pendingRequestsRef = useRef<number>(0);
   const chunkInterval = 60000; //1 minute
-
+  let uaqyt: Date;
   const startRecording = async () => {
     try {
       streamRef.current = await navigator.mediaDevices.getDisplayMedia({
@@ -97,10 +97,12 @@ export function Hero() {
       };
 
       mediaRecorderRef.current.start();
+      uaqyt = new Date();
       setState(UploadState.Recording);
 
       segmentIntervalRef.current = setInterval(() => {
         mediaRecorderRef.current?.stop();
+        uaqyt = new Date();
         mediaRecorderRef.current?.start();
       }, chunkInterval);
     } catch (err) {
@@ -187,7 +189,10 @@ export function Hero() {
         return;
       }
       const modelResponse = response.text;
-      notesArrayRef.current.push(modelResponse.trim());
+      notesArrayRef.current.push(
+        "Current time: " + uaqyt + modelResponse.trim()
+      );
+      console.log(notesArrayRef);
       console.log("Notes generated:", modelResponse.trim());
     } catch (err) {
       console.error("Error getting notes", err);
@@ -215,9 +220,8 @@ export function Hero() {
 
   const processAllNotes = async () => {
     console.log("processAllNotes is executed...");
-    const combinedNotes = notesArrayRef.current
-      .map((note, index) => `minute ${index}: ${note}`)
-      .join("\n\n");
+    const combinedNotes = notesArrayRef.current.join("\n\n");
+    console.log("Combined Notes: ", combinedNotes);
     try {
       const newNote = await post(
         `${urleke}/api/summarize`,
