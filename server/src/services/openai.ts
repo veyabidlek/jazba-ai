@@ -12,13 +12,13 @@ export async function generateText(noteData) {
 Key Guidelines:
 1. Use only the information provided.
 2. If content shifts abruptly, divide into topics and subtopics.
-3. For diverse user activities, create a timeline table at the end.
+3. For diverse user activities, create a timeline table at the end. (first write Timeline, then put table below; use provided times and combine them if they are related into time format like 13:15 - 13:40 - Watching Lecture)
 4. Match the language of the original notes (e.g., English, Русский, Қазақша).
 5. Utilize appropriate formatting for optimal readability and visual appeal.
 
 Formatting Options:
-- Text alignment: "left", "center", "right", "justify"
-- Heading levels: 1, 2, 3
+- Text alignment: "left", "center", "right", "justify" (use left always)
+- Heading levels: 1, 2, 3 (use 2 for topics, and )
 - Text styles: bold, italic, underline
 - Tables: multiple rows and columns
 
