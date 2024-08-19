@@ -51,7 +51,7 @@ export function HIW() {
           </h2>
           <button
             onClick={toggleVisibility}
-            className="bg-yellow-500  text-black rounded-full p-2 shadow-md hover:bg-yellow-600 hover:text-white transition duration-300 ease-in-out focus:outline-none"
+            className="bg-white text-black rounded-full p-2 shadow-md hover:bg-black hover:text-white transition duration-300 ease-in-out focus:outline-none"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

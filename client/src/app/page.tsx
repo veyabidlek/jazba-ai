@@ -16,7 +16,6 @@ const Home = () => {
         </Head>
         <NavBar />
         <Hero />
-
         <RecentNotes />
       </div>
       <QuestionButton />

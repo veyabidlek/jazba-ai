@@ -14,11 +14,23 @@ interface NoteProps {
 
 const urleke = process.env.BACKEND_URL;
 
+// Skeleton loader component adjusted for mobile
+function SkeletonNoteCard() {
+  return (
+    <div className="bg-gray-200 p-4 rounded-lg shadow-md w-full sm:w-64 h-[250px] border border-gray-300 animate-pulse flex flex-col justify-between">
+      <div className="w-full h-6 bg-gray-300 rounded-md mb-2"></div>
+      <div className="w-full h-4 bg-gray-300 rounded-md mb-2"></div>
+      <div className="flex-1 bg-gray-300 rounded-md"></div>
+    </div>
+  );
+}
+
 export function RecentNotes() {
   const { language } = useLanguage();
   const content = getContent(language);
   const [notes, setNotes] = useState<NoteProps[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const getNotes = async (): Promise<NoteProps[]> => {
     try {
@@ -43,6 +55,8 @@ export function RecentNotes() {
     } catch (err) {
       console.error("Error fetching notes", err);
       return [];
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -59,9 +73,7 @@ export function RecentNotes() {
       {isLoggedIn ? (
         <>
           <div className="flex flex-col sm:flex-row items-center justify-between mb-4 sm:mb-8">
-            <div className="w-full sm:w-1/4 hidden sm:block">
-              {/* Empty div for spacing on larger screens */}
-            </div>
+            <div className="w-full sm:w-1/4 hidden sm:block"></div>
             <h3 className="text-2xl font-bold text-white text-stroke mb-4 sm:mb-0 w-full sm:w-2/4 text-center">
               {content.recentNotes.recentNotes}{" "}
             </h3>
@@ -75,14 +87,18 @@ export function RecentNotes() {
             </div>
           </div>
           <div className="flex flex-wrap justify-center gap-4 mb-8">
-            {notes.map((note, index) => (
-              <NoteCard
-                key={index}
-                title={note.title}
-                content={note.content}
-                date={note.date}
-              />
-            ))}
+            {loading
+              ? Array(3)
+                  .fill(0)
+                  .map((_, index) => <SkeletonNoteCard key={index} />)
+              : notes.map((note, index) => (
+                  <NoteCard
+                    key={index}
+                    title={note.title}
+                    content={note.content}
+                    date={note.date}
+                  />
+                ))}
           </div>
           <div className="sm:hidden flex justify-center mt-6">
             <Link
@@ -98,7 +114,7 @@ export function RecentNotes() {
           <h3 className="text-2xl font-bold text-white text-stroke mb-4 text-center">
             {content.recentNotes.prompt}{" "}
           </h3>
-          <div className="h-[150px]"> </div>
+          <div className="h-[150px]"></div>
         </div>
       )}
     </div>
