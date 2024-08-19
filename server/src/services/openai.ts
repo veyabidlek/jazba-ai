@@ -78,7 +78,7 @@ Ensure your JSON is properly formatted and adheres to the BlockNote JS structure
 }
 
 export async function generateQuiz(noteData, numQuestions) {
-  const seed = Date.now().toString();
+  const seed = Date.no  w().toString();
 
   const completion = await openai.chat.completions.create({
     messages: [

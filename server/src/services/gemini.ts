@@ -45,7 +45,7 @@ export const promptVideo = async (uploadResult) => {
     const req = [
       {
         text: `Analyze this 1-minute screen recording segment and provide concise study notes:
-          - first outline the activity, Activity: The user is watching physics lecture (make it general, not specific, like write watching physics lecture, instead of watching termondynamics explanation)
+          - first outline the activity, Activity: The user is _____ e.g The user is watching physics lecture (make it general, not specific, like write watching physics lecture, instead of watching termondynamics explanation)
           - Use only the language present in the recording (e.g., Русский for Русского контента, English for English content, Қазақша егер конент қазақша болса)
           - Focus on key information visible for 10+ seconds
           - Ignore brief glimpses or rapidly changing content

@@ -14,7 +14,6 @@ interface NoteProps {
 
 const urleke = process.env.BACKEND_URL;
 
-// Skeleton loader component adjusted for mobile
 function SkeletonNoteCard() {
   return (
     <div className="bg-gray-200 p-4 rounded-lg shadow-md w-full sm:w-64 h-[250px] border border-gray-300 animate-pulse flex flex-col justify-between">
