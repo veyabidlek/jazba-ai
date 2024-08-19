@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 "use client";
 import { useEffect, useState } from "react";
 import { Button } from "@/vcomponents/ui/button";
@@ -65,12 +64,14 @@ export default function Notes() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [isQuizGenerating, setIsQuizGenerating] = useState(false);
+  const [loading, setLoading] = useState(true); // Loading state
   const [, setQuizData] = useState<QuizData | null>(null);
 
   useEffect(() => {
     const fetchNotes = async () => {
       const data = await getNotes();
       setNotes(data);
+      setLoading(false); // Set loading to false after data is fetched
     };
     fetchNotes();
   }, []);
@@ -157,34 +158,50 @@ export default function Notes() {
         </div>
       ) : (
         <main className="flex-1 px-6 py-6 sm:px-6 lg:px-8">
-          <div className="container mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {notes.map((note) => (
-              <div
-                key={note.id}
-                className="group relative rounded-lg bg-[#F5F5F5] p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer w-full aspect-square"
-                onClick={() => handleNoteClick(note)}
-              >
-                <div className="space-y-2 h-full flex flex-col">
-                  <h2 className="text-lg font-bold text-[#244855] mb-2">
-                    {note.title}
-                  </h2>
-                  <div className="prose text-[#244855] flex-1 relative overflow-hidden">
-                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                    {/* @ts-ignore */}
-                    {note.content[1].content[0].text}
-                    <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-[#F5F5F5] to-transparent"></div>
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-auto">
-                    {new Intl.DateTimeFormat("kk", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    }).format(note.date)}
+          {loading ? (
+            <div className="container mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {[...Array(8)].map((_, index) => (
+                <div
+                  key={index}
+                  className="animate-pulse rounded-lg bg-[#F5F5F5] p-4 shadow-lg w-full aspect-square"
+                >
+                  <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
+                  <div className="h-3 bg-gray-300 rounded w-1/2 mb-4"></div>
+                  <div className="h-16 bg-gray-200 rounded mb-4"></div>
+                  <div className="h-3 bg-gray-300 rounded w-1/4"></div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="container mx-auto grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {notes.map((note) => (
+                <div
+                  key={note.id}
+                  className="group relative rounded-lg bg-[#F5F5F5] p-4 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer w-full aspect-square"
+                  onClick={() => handleNoteClick(note)}
+                >
+                  <div className="space-y-2 h-full flex flex-col">
+                    <h2 className="text-lg font-bold text-[#244855] mb-2">
+                      {note.title}
+                    </h2>
+                    <div className="prose text-[#244855] flex-1 relative overflow-hidden">
+                      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                      {/* @ts-ignore */}
+                      {note.content[1].content[0].text}
+                      <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-[#F5F5F5] to-transparent"></div>
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-auto">
+                      {new Intl.DateTimeFormat("kk", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      }).format(note.date)}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </main>
       )}
     </div>
