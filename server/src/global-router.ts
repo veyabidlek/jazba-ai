@@ -1,13 +1,14 @@
 import { Router } from "express";
 import authRouter from "./auth/auth-router";
 import eventRouter from "./notes/note-router";
-// other routers can be imported here
+import geminiRouter from "./gemini/gemini-router";
+import gptRouter from "./gpt/gpt-router";
 
 const globalRouter = Router();
 
 globalRouter.use(authRouter);
 globalRouter.use(eventRouter);
-
-// other routers can be added here
+globalRouter.use(geminiRouter);
+globalRouter.use(gptRouter);
 
 export default globalRouter;
