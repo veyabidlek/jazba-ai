@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 body {
-  background-color: #dcb010;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 .text-stroke {
@@ -68,12 +67,12 @@ body {
 
 .custom-bg::before {
   content: "";
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("https://images.unsplash.com/photo-1472289065668-ce650ac443d2?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-image: url("https://images5.alphacoders.com/135/thumb-1920-1357320.jpeg");
   background-size: cover;
   background-position: center;
   filter: brightness(85%);

@@ -8,11 +8,11 @@ export function Loading() {
   if (!isLoading) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div role="status">
         <svg
           aria-hidden="true"
-          className="w-12 h-12 text-gray-200 animate-spin mb-[80px] dark:text-gray-600 fill-yellow-500"
+          className="w-12 h-12 text-black-200 animate-spin mb-[80px] dark:text-black fill-white"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

@@ -8,7 +8,7 @@ export const LanguageSwitcher: React.FC = () => {
     <select
       value={language}
       onChange={(e) => setLanguage(e.target.value as "en" | "kz" | "ru")}
-      className="bg-yellow-500 bg-opacity-50 text-white  p-1 rounded-lg"
+      className="bg-white bg-opacity-0 text-white  p-1 rounded-lg outline-none hover:cursor-pointer"
     >
       <option value="en">ENG</option>
       <option value="kz">ҚАЗ</option>
