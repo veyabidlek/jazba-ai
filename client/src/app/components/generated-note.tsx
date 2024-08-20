@@ -37,7 +37,7 @@ export function Note() {
           <h2 className="text-2xl font-bold">{noteTitle}</h2>
           <button
             onClick={toggleVisibility}
-            className="bg-yellow-500 text-white rounded-full p-2 shadow-md hover:bg-red-600 transition duration-300 ease-in-out focus:outline-none"
+            className="bg-white text-black rounded-full p-2 shadow-md hover:bg-black hover:text-white transition duration-300 ease-in-out focus:outline-none"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
