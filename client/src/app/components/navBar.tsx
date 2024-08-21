@@ -22,6 +22,7 @@ export function NavBar() {
         // @ts-ignore
         if (decoded.exp < currentTime) {
           localStorage.removeItem("token");
+          location.reload();
         } else {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore

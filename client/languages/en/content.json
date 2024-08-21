@@ -12,6 +12,10 @@
     "recordingPhrase": "Recording...",
     "mobileError": "Sorry, but Jazba does not work on mobile or tablet devices. Use PC or laptop instead."
   },
+  "settings": {
+    "mainTitle": "Themes",
+    "apply": "Apply Theme"
+  },
   "howitworks": {
     "mainTitle": "How It Works? 🤔",
     "steps": [

@@ -8,6 +8,7 @@ import { NavBar } from "../components/navBar";
 import dynamic from "next/dynamic";
 import { getContent } from "../utils/languageUtils";
 import { useLanguage } from "../contexts/languageContext";
+import { CustomBackground } from "../components/background";
 
 const Editor = dynamic(() => import("../components/editor"), { ssr: false });
 
@@ -114,6 +115,7 @@ export default function Notes() {
 
   return (
     <div className="flex min-h-[100dvh]  flex-col custom-bg">
+      <CustomBackground />
       <NavBar />
       {selectedNote ? (
         <div className="flex-1 px-4 py-6 sm:px-6 lg:px-8">
