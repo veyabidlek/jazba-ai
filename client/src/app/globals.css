@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  background-color: black;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 .text-stroke {
@@ -72,7 +73,6 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("https://images5.alphacoders.com/135/thumb-1920-1357320.jpeg");
   background-size: cover;
   background-position: center;
   filter: brightness(85%);

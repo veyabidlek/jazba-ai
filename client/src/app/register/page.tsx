@@ -9,6 +9,7 @@ import "dotenv/config";
 import axios from "axios";
 import { getContent } from "../utils/languageUtils";
 import { useLanguage } from "../contexts/languageContext";
+import { CustomBackground } from "../components/background";
 const urleke = process.env.BACKEND_URL;
 
 export default function Register() {
@@ -48,6 +49,7 @@ export default function Register() {
 
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center custom-bg px-4 py-12 sm:px-6 lg:px-8">
+      <CustomBackground />
       <div className="mx-auto max-w-md rounded-lg bg-white p-6 shadow-lg">
         <div className="space-y-4 text-center">
           <div className="flex justify-between items-center ">
@@ -79,6 +81,7 @@ export default function Register() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 id="usernname"
+                className="p-2"
                 placeholder={content.signup.username}
                 required
               />
@@ -91,6 +94,7 @@ export default function Register() {
               onChange={(e) => setEmail(e.target.value)}
               id="email"
               type="email"
+              className="p-2"
               placeholder={content.signup.email}
               required
             />
@@ -103,6 +107,7 @@ export default function Register() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               id="password"
+              className="p-2"
               placeholder={content.signup.password}
               required
             />
@@ -116,6 +121,7 @@ export default function Register() {
               value={password2}
               onChange={(e) => setPassword2(e.target.value)}
               id="confirm-password"
+              className="p-2"
               type="password"
               placeholder={content.signup.confirmPassword}
               required

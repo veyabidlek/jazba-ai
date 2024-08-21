@@ -10,6 +10,7 @@ import "dotenv/config";
 import axios from "axios";
 import { useLanguage } from "../contexts/languageContext";
 import { getContent } from "../utils/languageUtils";
+import { CustomBackground } from "../components/background";
 
 const urleke = process.env.BACKEND_URL;
 
@@ -34,14 +35,12 @@ export default function Login() {
         throw new Error("not logged in");
       }
       const user = jwtDecode(token);
-      if (!response) {
-        alert("Wrong email or password");
-      }
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
       alert(`Welcome ${user.username}`);
       router.push("/");
     } catch (err) {
+      alert("Wrong email or password");
       console.error("Error logging in the user: ", err);
     }
   };
@@ -52,6 +51,7 @@ export default function Login() {
 
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center custom-bg px-4 py-12 sm:px-6 lg:px-8">
+      <CustomBackground />
       <div className="mx-auto max-w-md rounded-lg bg-white p-16 shadow-lg">
         <div className="space-y-4 text-center">
           <div className="flex justify-between items-center">
@@ -83,6 +83,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               id="email"
+              className="p-2"
               type="email"
               placeholder={content.login.email}
               required
@@ -97,6 +98,7 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               id="password"
+              className="p-2"
               placeholder={content.login.password}
               required
             />

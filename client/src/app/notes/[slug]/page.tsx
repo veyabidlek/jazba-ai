@@ -6,6 +6,7 @@ import { Button } from "@/vcomponents/ui/button";
 import { NavBar } from "../../components/navBar";
 import { getContent } from "@/app/utils/languageUtils";
 import { useLanguage } from "@/app/contexts/languageContext";
+import { CustomBackground } from "@/app/components/background";
 
 interface QuizQuestion {
   id: number;
@@ -102,6 +103,7 @@ export default function QuizPage({}: { params: { slug: string } }) {
 
   return (
     <div className="flex min-h-[100dvh] px-12 flex-col custom-bg">
+      <CustomBackground />
       <NavBar />
 
       <main className="flex-1 px-6 py-6 sm:px-6 lg:px-8">
