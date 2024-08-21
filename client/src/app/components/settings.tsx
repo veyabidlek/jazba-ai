@@ -53,7 +53,7 @@ export function Settings() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 50 }}
-        className="bg-white p-4 rounded-lg max-w-full w-full sm:max-w-2xl"
+        className="bg-white p-4 rounded-lg max-w-full w-full sm:max-w-2xl max-h-full overflow-y-auto"
       >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl sm:text-3xl text-black font-bold">
