@@ -18,7 +18,7 @@ const Home = () => {
       localStorage.setItem("firstVisit", "true");
       localStorage.setItem(
         "wallpaper",
-        "https://images5.alphacoders.com/135/thumb-1920-1357320.jpeg"
+        "https://backiee.com/static/wallpapers/1000x563/340658.jpg"
       );
 
       console.log("This is the user's first visit");

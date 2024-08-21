@@ -48,15 +48,15 @@ export function Settings() {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 50 }}
-        className="bg-white p-8 rounded-lg max-w-2xl w-full"
+        className="bg-white p-4 rounded-lg max-w-full w-full sm:max-w-2xl"
       >
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl text-black font-bold">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl sm:text-3xl text-black font-bold">
             {content.settings.mainTitle}
           </h2>
           <button
@@ -65,7 +65,7 @@ export function Settings() {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-5 w-5 sm:h-6 sm:w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -79,11 +79,11 @@ export function Settings() {
             </svg>
           </button>
         </div>
-        <div className="text-center grid grid-cols-3 gap-4 mb-12">
+        <div className="text-center grid grid-cols-2 gap-4 mb-6 sm:grid-cols-3">
           {wallpapers.map((wp, index) => (
             <div
               key={index}
-              className={`cursor-pointer p-2 mt-2 rounded-lg h-32 w-48 ${
+              className={`cursor-pointer p-2 rounded-lg ${
                 tempWallpaper === wp.url ? "border-4 border-black" : ""
               }`}
               onClick={() => handleWallpaperChange(wp.url)}
@@ -91,9 +91,11 @@ export function Settings() {
               <img
                 src={`${wp.url}`}
                 alt={`Wallpaper ${index + 1}`}
-                className="rounded-lg object-cover h-full w-full"
+                className="rounded-lg object-cover w-full h-24 sm:h-32"
               />
-              <label className="font-bold text-md block mt-2">{wp.title}</label>
+              <label className="font-bold text-sm sm:text-md block mt-2">
+                {wp.title}
+              </label>
             </div>
           ))}
         </div>
