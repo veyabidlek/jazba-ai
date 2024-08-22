@@ -38,20 +38,20 @@ export function HIW() {
   ];
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 50 }}
-        className="p-8 rounded-lg max-w-2xl"
+        className="p-4 sm:p-8 rounded-lg max-w-full sm:max-w-2xl w-full bg-white shadow-lg max-h-[90vh] overflow-y-auto"
       >
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl text-white  font-bold">
-            {content.howitworks.mainTitle}{" "}
+          <h2 className="text-2xl sm:text-3xl text-black font-bold">
+            {content.howitworks.mainTitle}
           </h2>
           <button
             onClick={toggleVisibility}
-            className="bg-white text-black rounded-full p-2 shadow-md hover:bg-black hover:text-white transition duration-300 ease-in-out focus:outline-none"
+            className="bg-black text-white rounded-full p-2 shadow-md hover:bg-gray-800 transition duration-300 ease-in-out focus:outline-none"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -76,13 +76,13 @@ export function HIW() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.2 }}
-              className="bg-white p-4 rounded-lg shadow flex items-center space-x-4"
+              className="bg-gray-100 p-4 rounded-lg shadow flex items-center space-x-4"
             >
-              <div className="bg-black text-white rounded-full p-5 flex items-center justify-center">
+              <div className="bg-black text-white rounded-full p-4 flex items-center justify-center">
                 {step.icon}
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-1 text-black">
+                <h3 className="text-lg sm:text-xl font-semibold mb-1 text-black">
                   {step.title}
                 </h3>
                 <p className="text-gray-700 text-sm">{step.description}</p>
