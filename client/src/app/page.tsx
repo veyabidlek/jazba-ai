@@ -20,8 +20,7 @@ const Home = () => {
         "wallpaper",
         "https://backiee.com/static/wallpapers/1000x563/340658.jpg"
       );
-
-      console.log("This is the user's first visit");
+      location.reload();
     }
   }, []);
   return (
