@@ -21,7 +21,7 @@ export async function generateText(noteData) {
         13:14 - 13:20 - Reading a Book
         Formatting Options:
         - Text alignment: "left" (always use left)
-        - Heading levels: 1, 2, 3 (use 2 for topics, and 3 for subtopics)
+        - Heading levels: 3 (use 3 always)
         - Text styles: bold, italic, underline
         - Tables: multiple rows and columns
         Create a well-structured, visually appealing document using these BlockNote JS components:
