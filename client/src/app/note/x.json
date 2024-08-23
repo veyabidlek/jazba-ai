@@ -1,0 +1,447 @@
+[
+  {
+    "type": "heading",
+    "props": {
+      "level": 1,
+      "textAlignment": "center"
+    },
+    "content": "Pelé: Birth of a Legend"
+  },
+  {
+    "type": "paragraph",
+    "props": {
+      "textAlignment": "justify"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "Pelé: Birth of a Legend is a biographical film depicting the early life and rise of the Brazilian football legend, Pelé. The movie captures significant moments of his journey from a young boy with a dream to a global football icon."
+      }
+    ]
+  },
+  {
+    "type": "heading",
+    "props": {
+      "level": 2,
+      "textAlignment": "left"
+    },
+    "content": "1958 World Cup"
+  },
+  {
+    "type": "paragraph",
+    "props": {
+      "textAlignment": "justify"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "The film highlights the 1958 World Cup held in Gothenburg, Sweden, emphasizing its significance for Brazil. The Brazilian team faced numerous challenges, including several key injuries and a lack of confidence. A 17-year-old Pelé, a substitute player, is introduced as a potential key to Brazil's success."
+      }
+    ]
+  },
+  {
+    "type": "bulletListItem",
+    "props": {
+      "textAlignment": "left"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "Key Points:",
+        "styles": {
+          "bold": true
+        }
+      },
+      {
+        "type": "text",
+        "text": "- The game was held in Gothenburg, Sweden."
+      },
+      {
+        "type": "text",
+        "text": "- Several key players on the Brazilian team were injured."
+      },
+      {
+        "type": "text",
+        "text": "- The team lacked experience and confidence."
+      },
+      {
+        "type": "text",
+        "text": "- Pelé, a 17-year-old substitute, was seen as a significant player."
+      }
+    ]
+  },
+  {
+    "type": "heading",
+    "props": {
+      "level": 2,
+      "textAlignment": "left"
+    },
+    "content": "Early Life in Bauru, Brazil"
+  },
+  {
+    "type": "paragraph",
+    "props": {
+      "textAlignment": "justify"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "The film transitions eight years back to Pelé's childhood in Bauru, Brazil. It depicts his humble beginnings, showing him shining shoes and selling peanuts on the street."
+      }
+    ]
+  },
+  {
+    "type": "bulletListItem",
+    "props": {
+      "textAlignment": "left"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "Key Points:",
+        "styles": {
+          "bold": true
+        }
+      },
+      {
+        "type": "text",
+        "text": "- The scene shows young boys playing football in a poor neighborhood with a makeshift ball."
+      },
+      {
+        "type": "text",
+        "text": "- Pelé is depicted as particularly talented, skillfully juggling the ball."
+      },
+      {
+        "type": "text",
+        "text": "- The scene emphasizes the importance and excitement of football in their lives."
+      }
+    ]
+  },
+  {
+    "type": "heading",
+    "props": {
+      "level": 2,
+      "textAlignment": "left"
+    },
+    "content": "Pelé's Early Football Skills"
+  },
+  {
+    "type": "paragraph",
+    "props": {
+      "textAlignment": "justify"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "The film showcases Pelé's remarkable football skills at a young age, displaying his agility, ball control, and creativity in improvised settings. The scene portrays the vibrant street football culture in the favela, where young boys play passionately and creatively, using whatever is available as their playing field."
+      }
+    ]
+  },
+  {
+    "type": "bulletListItem",
+    "props": {
+      "textAlignment": "left"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "Key Points:",
+        "styles": {
+          "bold": true
+        }
+      },
+      {
+        "type": "text",
+        "text": "- Pelé juggles the ball on the roof and uses a wooden box to practice kicks."
+      },
+      {
+        "type": "text",
+        "text": "- The scene highlights the challenging conditions in which Pelé grew up, with limited resources and a lack of proper equipment."
+      },
+      {
+        "type": "text",
+        "text": "- The dialogue and actions emphasize Pelé's passion and dedication to the game."
+      }
+    ]
+  },
+  {
+    "type": "heading",
+    "props": {
+      "level": 2,
+      "textAlignment": "left"
+    },
+    "content": "Family and Personal Challenges"
+  },
+  {
+    "type": "paragraph",
+    "props": {
+      "textAlignment": "justify"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "The film depicts various family and personal challenges faced by Pelé. His mother discourages him from pursuing football, comparing it to the plague and emphasizing the dangers and lack of security in the sport."
+      }
+    ]
+  },
+  {
+    "type": "bulletListItem",
+    "props": {
+      "textAlignment": "left"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "Key Points:",
+        "styles": {
+          "bold": true
+        }
+      },
+      {
+        "type": "text",
+        "text": "- Pelé's mother advises him to focus on his studies and chores."
+      },
+      {
+        "type": "text",
+        "text": "- She highlights the harsh realities of football, mentioning that his father was not compensated after an injury."
+      },
+      {
+        "type": "text",
+        "text": "- Despite his mother's discouraging words, Pelé remains determined to pursue his dream."
+      }
+    ]
+  },
+  {
+    "type": "heading",
+    "props": {
+      "level": 2,
+      "textAlignment": "left"
+    },
+    "content": "Dreams and Determination"
+  },
+  {
+    "type": "paragraph",
+    "props": {
+      "textAlignment": "justify"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "A significant scene shows young Pelé making a heartfelt promise to his father, stating that he will win the World Cup for Brazil. Despite his father's skepticism, Pelé's strong desire and ambition to achieve greatness in football are evident."
+      }
+    ]
+  },
+  {
+    "type": "bulletListItem",
+    "props": {
+      "textAlignment": "left"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "Key Points:",
+        "styles": {
+          "bold": true
+        }
+      },
+      {
+        "type": "text",
+        "text": "- Young Pelé promises his father that he will win the World Cup for Brazil."
+      },
+      {
+        "type": "text",
+        "text": "- His father responds with doubt, indicating skepticism towards Pelé's dream."
+      },
+      {
+        "type": "text",
+        "text": "- This exchange highlights Pelé's determination and inner strength."
+      }
+    ]
+  },
+  {
+    "type": "heading",
+    "props": {
+      "level": 2,
+      "textAlignment": "left"
+    },
+    "content": "1950 World Cup Final"
+  },
+  {
+    "type": "paragraph",
+    "props": {
+      "textAlignment": "justify"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "The film recreates the 1950 World Cup Final match between Brazil and Uruguay, focusing on the intense anticipation and excitement surrounding the game. It highlights the disappointment and sadness following Brazil's loss, emphasizing the emotional impact on the Brazilian people."
+      }
+    ]
+  },
+  {
+    "type": "bulletListItem",
+    "props": {
+      "textAlignment": "left"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "Key Points:",
+        "styles": {
+          "bold": true
+        }
+      },
+      {
+        "type": "text",
+        "text": "- The score of the game was 2-1 in favor of Uruguay."
+      },
+      {
+        "type": "text",
+        "text": "- Over 200,000 fans attended the match, creating an electric atmosphere."
+      },
+      {
+        "type": "text",
+        "text": "- The final minutes of the match were tense and suspenseful."
+      },
+      {
+        "type": "text",
+        "text": "- The scene portrays the heartbreak of the Brazilian fans after the loss."
+      }
+    ]
+  },
+  {
+    "type": "heading",
+    "props": {
+      "level": 2,
+      "textAlignment": "left"
+    },
+    "content": "Youth Tournament and Scouting"
+  },
+  {
+    "type": "paragraph",
+    "props": {
+      "textAlignment": "justify"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "The film depicts a youth tournament where Pelé and his friends hope to impress a scout from Santos, a renowned Brazilian football club. Despite their excitement, their mother scolds them for getting too hopeful, reminding them that the scout may not visit."
+      }
+    ]
+  },
+  {
+    "type": "bulletListItem",
+    "props": {
+      "textAlignment": "left"
+    },
+    "content": [
+      {
+        "type": "text",
+        "text": "Key Points:",
+        "styles": {
+          "bold": true
+        }
+      },
+      {
+        "type": "text",
+        "text": "- Pelé and his friends play football in their kitchen, dreaming of being scouted by a professional team."
+      },
+      {
+        "type": "text",
+        "text": "- They hope to impress a scout from Santos during a local tournament."
+      },
+      {
+        "type": "text",
+        "text": "- Their mother intervenes, reminding them that the scout may not visit."
+      }
+    ]
+  },
+  {
+    "type": "heading",
+    "props": {
+      "level": 1,
+      "textAlignment": "center"
+    },
+    "content": "Timeline"
+  },
+  {
+    "type": "table",
+    "props": {
+      "textAlignment": "left"
+    },
+    "content": {
+      "type": "tableContent",
+      "rows": [
+        {
+          "cells": ["Time", "Summary"]
+        },
+        {
+          "cells": [
+            "12:56:04",
+            "Discussion of the 1958 World Cup in Sweden, Pelé introduced as a key player."
+          ]
+        },
+        {
+          "cells": [
+            "12:57:04",
+            "Flashback to Pelé's childhood in Bauru, Brazil, showing his humble beginnings."
+          ]
+        },
+        {
+          "cells": [
+            "12:58:04",
+            "Young boys playing football with makeshift equipment, Pelé's early skills highlighted."
+          ]
+        },
+        {
+          "cells": [
+            "12:59:04",
+            "Pelé's remarkable football skills and street football culture in the favela."
+          ]
+        },
+        {
+          "cells": [
+            "13:00:04",
+            "Discussion of family dynamics, Pelé's mother discourages football."
+          ]
+        },
+        {
+          "cells": [
+            "13:01:04",
+            "1950 World Cup Final between Brazil and Uruguay, intense anticipation and disappointment."
+          ]
+        },
+        {
+          "cells": [
+            "13:02:04",
+            "Young boys listening to the World Cup final on the radio, Brazil loses to Uruguay."
+          ]
+        },
+        {
+          "cells": [
+            "13:03:04",
+            "Pelé's promise to win the World Cup for Brazil, despite his father's skepticism."
+          ]
+        },
+        {
+          "cells": [
+            "13:04:04",
+            "Conversation between Pelé and his mother about the dangers of football."
+          ]
+        },
+        {
+          "cells": [
+            "13:05:04",
+            "Pelé and friends' excitement about a scout from Santos visiting their local tournament."
+          ]
+        },
+        {
+          "cells": [
+            "13:06:04",
+            "Youth tournament preparation, strict game discipline emphasized."
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -45,11 +45,11 @@ export const promptVideo = async (uploadResult) => {
     const req = [
       {
         text: `Analyze this 1-minute screen recording segment and provide concise study notes:
+          - first outline the activity, Activity: The user is _______ (Choose one: watching a lecture, playing chess, reading a book, coding, browsing the web, studying notes, participating in a virtual meeting, watching a tutorial, analyzing data, designing graphics) 
           - Use only the language present in the recording (e.g., Русский for Русского контента, English for English content, Қазақша егер контент қазақша болса)
           - Focus on key information visible for 10+ seconds
           - Ignore brief glimpses or rapidly changing content
           - Capture main ideas, definitions, and critical details
-          - Use 3-5 concise bullet points (more only if content is extremely dense)
           - Include formulas, equations, or code snippets if present
           - Briefly describe key elements of any diagrams or visual aids
           - Highlight emphasized or repeated information
