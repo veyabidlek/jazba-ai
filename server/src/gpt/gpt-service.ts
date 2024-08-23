@@ -38,8 +38,8 @@ export async function generateText(noteData) {
         "content": [
           {
             "type": "heading",
-            "props": { "level": 1, "textAlignment": "center" },
-            "content": "Main Topic"
+            "props": { "level": 3, "textAlignment": "left" },
+            "content": "Topic"
           },
           {
             "type": "paragraph",
@@ -51,6 +51,7 @@ export async function generateText(noteData) {
             "props": { "textAlignment": "left" },
             "content": [{ "type": "text", "text": "Key point", "styles": { "bold": true } }]
           },
+   
           {
             type: "paragraph",
             content: [
